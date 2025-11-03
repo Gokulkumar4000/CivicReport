@@ -3,178 +3,271 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>New Post</title>
+    <title>Report Incident - CIVINET</title>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#1193d4",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101c22",
-            },
-            fontFamily: {
-              display: ["Public Sans"],
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              full: "9999px",
-            },
-          },
-        },
-      };
-    </script>
+    <link href="styles.css" rel="stylesheet" />
+    <script src="app.js"></script>
     <style>
-      body {
-        min-height: max(884px, 100dvh);
+      .report-header {
+        background: linear-gradient(135deg, var(--primary) 0%, #0f6dc7 100%);
+        color: white;
+        padding: 1.5rem 1rem;
+        box-shadow: 0 4px 12px rgba(19, 127, 236, 0.2);
       }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
+      
+      .report-form-section {
+        background: white;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin: 1rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
+      
+      .section-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary-light);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      
+      .image-upload-area {
+        background: linear-gradient(135deg, #f6f7f8 0%, #e3e8ee 100%);
+        border: 2px dashed var(--border-light);
+        border-radius: 1rem;
+        padding: 3rem 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .image-upload-area:hover {
+        border-color: var(--primary);
+        background: linear-gradient(135deg, #f0f7ff 0%, #e3f2ff 100%);
+      }
+      
+      .image-upload-area .material-symbols-outlined {
+        font-size: 4rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+      
+      .submit-btn {
+        width: 100%;
+        height: 3.5rem;
+        background: linear-gradient(135deg, var(--primary) 0%, #0f6dc7 100%);
+        color: white;
+        font-weight: 700;
+        font-size: 1.125rem;
+        border-radius: 0.75rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(19, 127, 236, 0.3);
+        margin-top: 1rem;
+      }
+      
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(19, 127, 236, 0.4);
+      }
+      
+      .submit-btn:active {
+        transform: translateY(0);
+      }
+      
+      .tag-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        padding: 0.5rem 1rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+      
+      .tag-btn-primary {
+        background-color: rgba(19, 127, 236, 0.1);
+        color: var(--primary);
+      }
+      
+      .tag-btn-primary:hover {
+        background-color: rgba(19, 127, 236, 0.2);
+      }
+      
+      .tag-btn-add {
+        background-color: white;
+        border: 2px solid var(--border-light);
+        color: var(--text-secondary-light);
+      }
+      
+      .tag-btn-add:hover {
+        border-color: var(--primary);
+        color: var(--primary);
       }
     </style>
   </head>
-  <body class="bg-background-light dark:bg-background-dark font-display">
-    <div class="flex flex-col h-screen justify-between">
+  <body>
+    <div class="flex flex-col justify-between has-bottom-nav" style="min-height: 100vh;">
       <div class="flex-grow overflow-y-auto">
-        <header
-          class="sticky top-0 bg-background-light dark:bg-background-dark z-10 px-4 py-3 flex items-center justify-between"
-        >
-          <button class="text-black dark:text-white">
-            <span class="material-symbols-outlined">close</span>
-          </button>
-          <div class="flex items-center gap-2">
-            <span
-              class="material-symbols-outlined text-black dark:text-white text-base"
-              >location_on</span
-            >
-            <span class="text-sm text-black dark:text-white">New York, NY</span>
+        <header class="report-header">
+          <div class="flex items-center justify-between">
+            <button onclick="window.location.href='./feedPage.html'" style="background: rgba(255,255,255,0.2); border: none; cursor: pointer; padding: 0.5rem; border-radius: 0.5rem;">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-base">location_on</span>
+              <span class="text-sm location-display">San Francisco</span>
+            </div>
+            <div style="width: 2.5rem;"></div>
           </div>
-          <a href="./ReportIncidentSucess.html"
-            class="bg-primary text-white text-sm font-bold py-2 px-4 rounded-full"
-          >
-            Submit Post
-          </a>
+          <div class="text-center mt-4">
+            <h1 class="text-2xl font-bold">Report Incident</h1>
+            <p class="text-sm" style="opacity: 0.9; margin-top: 0.25rem;">Help make your community safer</p>
+          </div>
         </header>
-        <main class="p-4 space-y-6">
-          <div>
+        
+        <main style="padding-bottom: 2rem;">
+          <div class="report-form-section">
+            <div class="section-title">
+              <span class="material-symbols-outlined text-primary">description</span>
+              Incident Description
+            </div>
             <textarea
-              class="form-textarea w-full h-32 resize-none bg-white dark:bg-background-dark border-0 rounded-lg p-4 text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-0"
-              placeholder="Describe the incident"
+              class="form-textarea w-full"
+              id="incident-description"
+              placeholder="Describe what happened in detail..."
+              rows="5"
             ></textarea>
           </div>
-          <div>
-            <h3 class="text-lg font-bold text-black dark:text-white mb-2">
-              Add an image
-            </h3>
-            <div
-              class="bg-white dark:bg-background-dark rounded-lg flex items-center justify-center aspect-video border-2 border-dashed border-gray-300 dark:border-gray-600"
-            >
-              <div class="text-center">
-                <span
-                  class="material-symbols-outlined text-4xl text-gray-400 dark:text-gray-500"
-                  >add_photo_alternate</span
-                >
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  Tap to add an image
-                </p>
+          
+          <div class="report-form-section">
+            <div class="section-title">
+              <span class="material-symbols-outlined text-primary">add_location</span>
+              Location
+            </div>
+            <div class="form-input-container">
+              <input
+                class="form-input"
+                id="report-location"
+                placeholder="Enter location or use current location"
+                type="text"
+              />
+              <div class="validation-icon">
+                <button onclick="detectLocation()" style="background: none; border: none; cursor: pointer; color: var(--primary);">
+                  <span class="material-symbols-outlined">my_location</span>
+                </button>
               </div>
             </div>
           </div>
-          <div>
-            <h3 class="text-lg font-bold text-black dark:text-white mb-2">
-              Suggested tags
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <button
-                class="flex items-center bg-primary/10 dark:bg-primary/20 text-primary py-1.5 px-3 rounded-full text-sm"
-              >
-                Road Hazard
-                <span class="material-symbols-outlined text-base ml-1"
-                  >close</span
-                >
-              </button>
-              <button
-                class="flex items-center bg-primary/10 dark:bg-primary/20 text-primary py-1.5 px-3 rounded-full text-sm"
-              >
-                Traffic Accident
-                <span class="material-symbols-outlined text-base ml-1"
-                  >close</span
-                >
-              </button>
-              <button
-                class="flex items-center bg-white dark:bg-background-dark border border-gray-300 dark:border-gray-600 text-black dark:text-white py-1.5 px-3 rounded-full text-sm"
-              >
-                Add Tag
-                <span class="material-symbols-outlined text-base ml-1"
-                  >add</span
-                >
+          
+          <div class="report-form-section">
+            <div class="section-title">
+              <span class="material-symbols-outlined text-primary">image</span>
+              Add Photo
+            </div>
+            <div class="image-upload-area" onclick="document.getElementById('image-input').click()">
+              <input type="file" id="image-input" accept="image/*" style="display: none;" onchange="handleImageUpload(this)">
+              <span class="material-symbols-outlined">add_photo_alternate</span>
+              <p style="color: var(--text-secondary-light); font-size: 0.875rem;">
+                <span class="font-medium">Tap to add photo</span><br>
+                <span style="font-size: 0.75rem;">Supports JPG, PNG (max 5MB)</span>
+              </p>
+            </div>
+            <div id="image-preview" style="margin-top: 1rem; display: none;">
+              <img id="preview-img" style="width: 100%; border-radius: 0.75rem; max-height: 300px; object-fit: cover;">
+              <button onclick="removeImage()" style="margin-top: 0.5rem; color: #ef4444; background: none; border: none; cursor: pointer; font-size: 0.875rem;">
+                <span class="material-symbols-outlined text-base">delete</span> Remove photo
               </button>
             </div>
           </div>
+          
+          <div class="report-form-section">
+            <div class="section-title">
+              <span class="material-symbols-outlined text-primary">label</span>
+              Tags
+            </div>
+            <div class="flex flex-wrap gap-2" id="tags-container">
+              <button class="tag-btn tag-btn-primary">
+                Road Hazard
+                <span class="material-symbols-outlined text-base" onclick="event.stopPropagation(); this.parentElement.remove()">close</span>
+              </button>
+              <button class="tag-btn tag-btn-primary">
+                Safety Issue
+                <span class="material-symbols-outlined text-base" onclick="event.stopPropagation(); this.parentElement.remove()">close</span>
+              </button>
+              <button class="tag-btn tag-btn-add" onclick="addTag()">
+                <span class="material-symbols-outlined text-base">add</span>
+                Add Tag
+              </button>
+            </div>
+          </div>
+          
+          <div style="padding: 0 1rem; margin-bottom: 2rem;">
+            <button class="submit-btn" onclick="submitIncident()">
+              <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                <span class="material-symbols-outlined">send</span>
+                Submit Report
+              </span>
+            </button>
+          </div>
+          
+          <!-- Spacer for bottom navigation -->
+          <div style="height: 5rem;"></div>
         </main>
       </div>
-      <footer
-        class="sticky bottom-0 bg-surface-light dark:bg-surface-dark/80 backdrop-blur-sm border-t border-background-light dark:border-background-dark"
-      >
-        <nav class="flex justify-around items-center h-16">
-          <a 
-            class="flex flex-col items-center justify-center w-full h-full text-primary"
-            href="./feedPage.html"
-          >
-            <span
-              class="material-symbols-outlined !text-2xl"
-              style="font-variation-settings: 'FILL' 1"
-              >home</span
-            >
-            <span class="text-xs font-bold">Home</span>
+      
+      <footer class="nav-footer">
+        <nav class="nav-container">
+          <a class="nav-link" href="./feedPage.html">
+            <span class="material-symbols-outlined">home</span>
+            <span class="text-xs font-medium">Home</span>
           </a>
-          <a 
-            class="flex flex-col items-center justify-center w-full h-full text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
-            href="./ReportIncident.html"
-          >
-            <span class="material-symbols-outlined !text-2xl"
-              >photo_camera</span
-            >
-            <span class="text-xs font-medium">Camera</span>
+          <a class="nav-link active" href="./ReportIncident.html">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">photo_camera</span>
+            <span class="text-xs font-bold">Report</span>
           </a>
-          <a 
-            class="flex flex-col items-center justify-center w-full h-full text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
-            href="./showALLReport.html"
-          >
-            <span class="material-symbols-outlined !text-2xl"
-              >edit_document</span
-            >
-            <span class="text-xs font-medium">Report</span>
+          <a class="nav-link" href="./showALLReport.html">
+            <span class="material-symbols-outlined">edit_document</span>
+            <span class="text-xs font-medium">My Reports</span>
           </a>
-          <a
-            class="flex flex-col items-center justify-center w-full h-full text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
-            href="./profile.html"
-          >
-            <span class="material-symbols-outlined !text-2xl">person</span>
+          <a class="nav-link" href="./profile.html">
+            <span class="material-symbols-outlined">person</span>
             <span class="text-xs font-medium">Profile</span>
           </a>
         </nav>
       </footer>
     </div>
+    
+    <script>
+      function handleImageUpload(input) {
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            document.getElementById('preview-img').src = e.target.result;
+            document.getElementById('image-preview').style.display = 'block';
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+      
+      function removeImage() {
+        document.getElementById('image-input').value = '';
+        document.getElementById('image-preview').style.display = 'none';
+      }
+    </script>
   </body>
 </html>

@@ -6,81 +6,27 @@
     <title>CIVINET Login</title>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#137fec",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101922",
-              "foreground-light": "#111418",
-              "foreground-dark": "#f6f7f8",
-              "input-light": "#ffffff",
-              "input-dark": "#1b2837",
-              "input-placeholder-light": "#617589",
-              "input-placeholder-dark": "#a0b3c6",
-              "border-light": "#e3e8ee",
-              "border-dark": "#364a5f",
-              error: "#ef4444",
-            },
-            fontFamily: {
-              display: ["Public Sans"],
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              full: "9999px",
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-      .otp-section {
-        display: none;
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-    </style>
+    <link href="styles.css" rel="stylesheet" />
   </head>
-  <body class="font-display bg-background-light dark:bg-background-dark">
+  <body>
     <div class="flex flex-col min-h-screen justify-between">
       <div class="px-4 py-8 flex-grow">
-        <header class="text-center mb-8">
-          <h1
-            class="text-2xl font-bold text-foreground-light dark:text-foreground-dark tracking-tight"
-          >
-            CIVINET
-          </h1>
+        <header>
+          <h1 class="text-2xl font-bold tracking-tight">CIVINET</h1>
         </header>
         <main class="space-y-6" id="login-form">
           <div class="space-y-4">
             <div>
               <label class="sr-only" for="email-phone">Email / Phone</label>
               <input
-                class="w-full h-14 px-4 rounded-lg bg-input-light dark:bg-input-dark border border-border-light dark:border-border-dark text-foreground-light dark:text-foreground-dark placeholder-input-placeholder-light dark:placeholder-input-placeholder-dark focus:ring-primary focus:border-primary"
+                class="form-input"
                 id="email-phone"
                 placeholder="Email / Phone"
                 type="text"
@@ -88,43 +34,36 @@
             </div>
             <div class="space-y-4 pt-2">
               <button
-                class="w-full h-12 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-base tracking-wide"
+                class="btn-primary"
                 id="send-otp-btn"
                 onclick="showOtpSection()"
               >
                 Send OTP
               </button>
             </div>
-            <div class="otp-section space-y-4" id="otp-section">
+            <div class="otp-section space-y-4" id="otp-section" style="display: none;">
               <div>
                 <label class="sr-only" for="otp">Enter OTP</label>
                 <input
-                  class="w-full h-14 px-4 rounded-lg bg-input-light dark:bg-input-dark border border-border-light dark:border-border-dark text-foreground-light dark:text-foreground-dark placeholder-input-placeholder-light dark:placeholder-input-placeholder-dark focus:ring-primary focus:border-primary"
+                  class="form-input"
                   id="otp"
                   placeholder="Enter OTP"
                   type="text"
                 />
               </div>
-              <a href="./otpVerifiedWrong.html"
-                class="w-full h-12 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-base tracking-wide"
-              >
+              <a href="./feedPage.html" class="btn-primary">
                 Verify OTP
               </a>
             </div>
           </div>
-          <a href="./createAccount.html"
-            class="w-full h-12 flex items-center justify-center rounded-lg border border-primary text-primary font-bold text-base tracking-wide bg-transparent"
-          >
+          <a href="./createAccount.html" class="btn-secondary">
             Create Account
           </a>
         </main>
       </div>
-      <footer class="px-4 pb-8 pt-4">
-        <p
-          class="text-xs text-center text-input-placeholder-light dark:text-input-placeholder-dark"
-        >
-          Secured by Govt. Standards | Data protected under Digital India
-          compliance.
+      <footer>
+        <p class="footer-text">
+          Secured by Govt. Standards | Data protected under Digital India compliance.
         </p>
       </footer>
     </div>

@@ -3,159 +3,55 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>CIVINET - Create Account</title>
+    <title>CIVINET - Account Created</title>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="styles.css" rel="stylesheet" />
     <style>
-      :root {
-        --primary-color: #137fec;
-        --background-light: #f6f7f8;
-        --background-dark: #101922;
-        --foreground-light: #111418;
-        --foreground-dark: #f6f7f8;
-        --input-light: #ffffff;
-        --input-dark: #1b2837;
-        --input-placeholder-light: #617589;
-        --input-placeholder-dark: #a0b3c6;
-        --border-light: #e3e8ee;
-        --border-dark: #364a5f;
-        --error-color: #ef4444;
-        --success-color: #22c55e;
-      }
-    </style>
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "var(--primary-color)",
-              "background-light": "var(--background-light)",
-              "background-dark": "var(--background-dark)",
-              "foreground-light": "var(--foreground-light)",
-              "foreground-dark": "var(--foreground-dark)",
-              "input-light": "var(--input-light)",
-              "input-dark": "var(--input-dark)",
-              "input-placeholder-light": "var(--input-placeholder-light)",
-              "input-placeholder-dark": "var(--input-placeholder-dark)",
-              "border-light": "var(--border-light)",
-              "border-dark": "var(--border-dark)",
-              error: "var(--error-color)",
-              success: "var(--success-color)",
-            },
-            fontFamily: {
-              display: ["Noto Sans", "sans-serif"],
-            },
-            borderRadius: {
-              DEFAULT: "0.5rem",
-              lg: "0.75rem",
-              xl: "1rem",
-              full: "9999px",
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
-      }
-      body {
-        min-height: max(884px, 100dvh);
-        font-size: 16px;
-      }
-      .form-input-container {
-        position: relative;
-      }
-      .form-input {
-        width: 100%;
-        height: 3.5rem;
-        padding-left: 1rem;
-        padding-right: 3rem;
-        border-radius: 0.5rem;
-        background-color: var(--input-light);
-        border: 1px solid var(--border-light);
-        color: var(--foreground-light);
-      }
-      .dark .form-input {
-        background-color: var(--input-dark);
-        border-color: var(--border-dark);
-        color: var(--foreground-dark);
-      }
-      .form-input::placeholder {
-        color: var(--input-placeholder-light);
-      }
-      .dark .form-input::placeholder {
-        color: var(--input-placeholder-dark);
-      }
-      .form-input:focus {
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        --tw-ring-color: var(--primary-color);
-        box-shadow: 0 0 0 2px var(--tw-ring-color);
-      }
-      .validation-icon {
-        position: absolute;
+      .success-screen {
+        position: fixed;
         top: 0;
-        bottom: 0;
         right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        padding-right: 1rem;
+        justify-content: center;
+        background-color: var(--background-light);
+        padding: 1.5rem;
+        text-align: center;
       }
-      .error-message {
-        color: var(--error-color);
-        font-size: 0.875rem;
-        margin-top: 0.25rem;
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
-      }
-    </style>
-    <style>
-      body {
-        min-height: max(884px, 100dvh);
+      .success-icon {
+        font-size: 5rem;
+        font-variation-settings: 'FILL' 1;
+        color: var(--success);
+        margin-bottom: 1.5rem;
       }
     </style>
   </head>
-  <body
-    class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark"
-  >
+  <body>
     <div class="flex flex-col min-h-screen justify-between">
-      <div
-        class="fixed inset-0 z-10 flex flex-col items-center justify-center bg-background-light dark:bg-background-dark p-6 text-center"
-      >
-        <div class="w-full max-w-sm">
+      <div class="success-screen">
+        <div style="width: 100%; max-width: 28rem;">
           <div class="mb-6">
-            <span
-              class="material-symbols-outlined text-success"
-              style="font-size: 80px"
-              >check_circle</span
-            >
+            <span class="material-symbols-outlined success-icon">check_circle</span>
           </div>
-          <h2
-            class="text-3xl font-bold text-foreground-light dark:text-foreground-dark mb-4"
-          >
+          <h2 class="text-3xl font-bold mb-4">
             Account Created Successfully!
           </h2>
-          <p
-            class="text-lg text-input-placeholder-light dark:text-input-placeholder-dark mb-8"
-          >
+          <p class="text-lg text-secondary mb-8">
             Welcome to CIVINET, Ananya!
           </p>
-          <a href="./feedPage.html"
-            class="w-full h-14 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-base tracking-wide"
-          >
+          <a href="./feedPage.html" class="btn-primary" style="height: 3.5rem;">
             Proceed to Dashboard
           </a>
         </div>
