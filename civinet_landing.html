@@ -6,6 +6,8 @@
   <title>CIVINET - Bridging Citizens & Government</title>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link href="components.css" rel="stylesheet">
+  <script src="components.js" defer></script>
   <style>
     * {
       margin: 0;
@@ -581,7 +583,7 @@
     .leader-item {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
       padding: 1.5rem;
       border-radius: 12px;
       margin-bottom: 1rem;
@@ -598,7 +600,8 @@
       font-size: 1.5rem;
       font-weight: 900;
       color: var(--primary);
-      min-width: 40px;
+      min-width: 50px;
+      text-align: center;
     }
 
     .leader-avatar {
@@ -606,24 +609,33 @@
       height: 50px;
       border-radius: 50%;
       object-fit: cover;
+      flex-shrink: 0;
     }
 
     .leader-info {
       flex: 1;
+      min-width: 0;
     }
 
     .leader-name {
       font-weight: 700;
       margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .leader-points {
       color: var(--text-gray);
       font-size: 0.875rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .leader-badge {
       font-size: 2rem;
+      flex-shrink: 0;
     }
 
     /* CTA Section */
@@ -865,10 +877,11 @@
         <li><a href="#leaderboard">Leaderboard</a></li>
       </ul>
       <div style="display: flex; gap: 1rem; align-items: center;">
+        <div id="landing-lang-switcher"></div>
         <a href="createAccount.html" class="btn-secondary" style="padding: 0.6rem 1.2rem;">Sign Up</a>
         <a href="index.html" class="cta-btn">Sign In</a>
       </div>
-      <button class="mobile-menu-btn">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
         <span class="material-symbols-outlined">menu</span>
       </button>
     </div>
@@ -1171,6 +1184,17 @@
   </footer>
 
   <script>
+    // Initialize language switcher
+    document.addEventListener('DOMContentLoaded', () => {
+      const langContainer = document.getElementById('landing-lang-switcher');
+      if (langContainer) {
+        langContainer.appendChild(createLanguageSwitcher('lang-switch-landing'));
+      }
+      
+      // Initialize mobile menu
+      initMobileMenu();
+    });
+
     // Custom Cursor
     const cursor = document.getElementById('cursor');
     const cursorFollower = document.getElementById('cursor-follower');
@@ -1200,21 +1224,6 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
-    // Counter Animation
-    function animateCounter(element, target) {
-      let current = 0;
-      const increment = target / 100;
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          element.textContent = target.toLocaleString();
-          clearInterval(timer);
-        } else {
-          element.textContent = Math.floor(current).toLocaleString();
-        }
-      }, 20);
-    }
-
     // Intersection Observer for animations
     const observerOptions = {
       threshold: 0.2,
@@ -1227,12 +1236,12 @@
           entry.target.style.opacity = '1';
           entry.target.style.transform = 'translateY(0)';
           
-          // Animate counters
+          // Animate counters (using global animateCounter from components.js - runs once)
           if (entry.target.classList.contains('stat-item')) {
             const counter = entry.target.querySelector('.stat-number');
             const target = parseInt(counter.getAttribute('data-count'));
-            if (target) {
-              animateCounter(counter, target);
+            if (target && typeof animateCounter === 'function') {
+              animateCounter(counter, target, 2000);
             }
           }
           
@@ -1240,6 +1249,9 @@
           if (entry.target.classList.contains('step')) {
             entry.target.classList.add('visible');
           }
+          
+          // Unobserve after animation to prevent re-triggering
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
