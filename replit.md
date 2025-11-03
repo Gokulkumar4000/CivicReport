@@ -50,6 +50,12 @@ The site is served using a Python HTTP server on port 5000 with cache control he
   - **Fixed navigation**: Made bottom navigation fixed and properly positioned
   - **Added mock data**: 8 sample incidents with different statuses for demonstration
   - **Interactive features**: All forms and buttons are now fully functional
+  - **Landing Page Implementation**: Set civinet_landing.html as the main landing page
+    - Added Sign Up and Sign In buttons to navigation
+    - Configured server to route root URL (/) to landing page
+    - Updated button redirects: Sign In → index.html (login), Sign Up → createAccount.html
+    - Implemented responsive navigation for mobile devices
+    - Server configured with address reuse for smooth restarts
 
 ## User Preferences
 None set yet.
