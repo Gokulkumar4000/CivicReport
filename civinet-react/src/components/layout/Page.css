@@ -1,0 +1,9 @@
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.has-bottom-nav {
+  padding-bottom: 80px;
+}
