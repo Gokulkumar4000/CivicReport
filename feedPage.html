@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CIVINET Incident Feed</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a2530",
+              "text-primary-light": "#111418",
+              "text-primary-dark": "#f0f2f4",
+              "text-secondary-light": "#617589",
+              "text-secondary-dark": "#a0b3c6",
+            },
+            fontFamily: {
+              display: ["Public Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+            boxShadow: {
+              card: "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-text-primary-light dark:text-text-primary-dark"
+  >
+    <div class="max-w-md mx-auto min-h-screen flex flex-col">
+      <header
+        class="sticky top-0 bg-surface-light dark:bg-surface-dark/80 backdrop-blur-sm z-10 border-b border-background-light dark:border-background-dark"
+      >
+        <div class="p-4 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary text-2xl"
+                >location_on</span
+              >
+              <h1 class="text-lg font-bold">San Francisco</h1>
+            </div>
+            <div class="flex items-center gap-2">
+              <a href="./LeaderBord.html" class="p-2">
+                <span
+                  class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark text-2xl"
+                  >leaderboard</span
+                >
+              </a>
+              <button class="relative p-2">
+                <span
+                  class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark text-2xl"
+                  >notifications</span
+                >
+                <span class="absolute top-1 right-1 flex h-2 w-2">
+                  <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"
+                  ></span>
+                  <span
+                    class="relative inline-flex rounded-full h-2 w-2 bg-primary"
+                  ></span>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="relative">
+            <label class="sr-only" for="search-incidents"
+              >Search incidents</label
+            >
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <span
+                class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark"
+                >search</span
+              >
+            </span>
+            <input
+              class="w-full pl-10 pr-4 py-2.5 bg-background-light dark:bg-surface-dark border border-transparent rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-text-primary-light dark:text-text-primary-dark placeholder-text-secondary-light dark:placeholder-text-secondary-dark"
+              id="search-incidents"
+              placeholder="Search incidents..."
+              type="search"
+            />
+          </div>
+        </div>
+      </header>
+      <main class="flex-grow p-4 space-y-6">
+        <div
+          class="bg-surface-light dark:bg-surface-dark rounded-lg shadow-card overflow-hidden"
+        >
+          <div class="flex items-start justify-between p-3 gap-3">
+            <div class="flex items-center gap-3">
+              <img
+                alt="Alex Chen's profile picture"
+                class="w-10 h-10 rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVnoYtKuGcnCgC8PXylAc-GOBGYWg2lzL4ZFIZv0QVtRWOnSOFFi_tpoiT4OjCN1Vrmgb4Q3J3JPzwbzitmAGtd60KjlLoMii-_aCHLfx3Dy8Rx1BEsv7NI8Z9C77t50SF8cEK50yyuNhGsukyZS3XbuQN6MpPltPB9oBXbWkEPTDuD617zGWHJ1VhvsofUSuTCcIpOMG8UaoFAIo9AD4pzn_VXsBoT7_9Bxfonzzjdfhnlhh8hwQ1KsDyfsAC8g4LE_t1wbbzJQ"
+              />
+              <div>
+                <p class="font-bold text-sm">Alex Chen</p>
+                <p
+                  class="text-xs text-text-secondary-light dark:text-text-secondary-dark"
+                >
+                  2 days ago
+                </p>
+              </div>
+            </div>
+            <button
+              class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-background-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-red-500/10 hover:text-red-500 dark:hover:text-red-500 transition-colors"
+            >
+              <span class="material-symbols-outlined text-base">flag</span>
+              Report
+            </button>
+          </div>
+          <img
+            alt="A large pothole on a residential street."
+            class="w-full h-64 object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5WL8lkWbdhhOiS8GhmLv02f2bpXbFyjNUeGJ0wKlAya3_icRxru-HzUWT_aoss73vO3-PDlYCQlfQL0iiX6gES_UXnpwopMF3UeLYgT4M-hkBBH-XNzCpYS5hcMkBIF0pA_6H7Fmc657fetluCMezqRfQMFqa6mO1cSCOr3ETyo13CIc637_R6JrerFBpoFhnNnGwML5iqThD-km0GL4jtqFtSo2FQF3XYvr6dgsu-jETb2wVtoy3BKiHy-WFKHZRZ8vhyURaHg"
+          />
+          <div class="p-4">
+            <h2 class="text-lg font-bold mb-1">Pothole on Main Street</h2>
+            <p
+              class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3"
+            >
+              A large and dangerous pothole has formed on Main Street near the
+              intersection with Oak Avenue.
+            </p>
+            <div
+              class="flex items-center text-sm text-text-secondary-light dark:text-text-secondary-dark"
+            >
+              <span class="material-symbols-outlined text-base mr-1"
+                >location_pin</span
+              >
+              <span>Main Street, San Francisco</span>
+            </div>
+          </div>
+          <div
+            class="flex justify-around border-t border-background-light dark:border-surface-dark py-1"
+          >
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/10 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">thumb_up</span>
+              <span class="text-sm font-medium">12</span>
+            </button>
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/10 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">share</span>
+              <span class="text-sm font-medium">Share</span>
+            </button>
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/10 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">bookmark</span>
+              <span class="text-sm font-medium">Save</span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="bg-surface-light dark:bg-surface-dark rounded-lg shadow-card overflow-hidden"
+        >
+          <div class="flex items-start justify-between p-3 gap-3">
+            <div class="flex items-center gap-3">
+              <img
+                alt="Maya Patel's profile picture"
+                class="w-10 h-10 rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuADV79WTopKmM0LiAeDLNGXzKB-VK-6Zx3pI8gxfY23bDDfurLu2bF5jLc4-TFMZYe9vBCsc7lrc2lT1O8dyVKSvO1eSX59wMNcq06wgNClJdaumDw8ACyFhbuB6UJSnqgpP82cMau66KT3lwDPwkg7hE5Tg5CuXANwkOE-aoXn5-dbxjbeV2SUkpdOKswuLhB50myF3RDHjFLtMRHyYqN-q5uzJYjyAjiHcvgLtysWj1qkPBsd_UW31O6mWIt0yAmvt3x9ZseE4A"
+              />
+              <div>
+                <p class="font-bold text-sm">Maya Patel</p>
+                <p
+                  class="text-xs text-text-secondary-light dark:text-text-secondary-dark"
+                >
+                  1 day ago
+                </p>
+              </div>
+            </div>
+            <button
+              class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-background-light dark:bg-surface-dark text-text-secondary-light dark:text-text-secondary-dark hover:bg-red-500/10 hover:text-red-500 dark:hover:text-red-500 transition-colors"
+            >
+              <span class="material-symbols-outlined text-base">flag</span>
+              Report
+            </button>
+          </div>
+          <img
+            alt="Graffiti on a brick building wall."
+            class="w-full h-64 object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfvvYT6h115b_smaVpnZNVsOx4YqH02D_ymlmvNZMVX6c02u5eY80Qc6DcvQaKtms7lyYGFAwUSzdNV0RXpg82R_yNOA8NsTfx_8C9EzxWIN5UMlBvhj74XysMfeaJhv86RhWJbg45801IVPj3ivfCoioC3XfQQqVNScMuKOokJrLaDaSxbySZqPgseziWbuJz0C-99JiHpP1AjThcRzqRkM1fG8TvL4vqshTLTY7wPS7SPuYF7wThpqWlhUN4gFWN-N8w97-y8Q"
+          />
+          <div class="p-4">
+            <h2 class="text-lg font-bold mb-1">Graffiti on Building</h2>
+            <p
+              class="text-sm text-text-secondary-light dark:text-text-secondary-dark mb-3"
+            >
+              Extensive graffiti covering the side of the public library
+              building.
+            </p>
+            <div
+              class="flex items-center text-sm text-text-secondary-light dark:text-text-secondary-dark"
+            >
+              <span class="material-symbols-outlined text-base mr-1"
+                >location_pin</span
+              >
+              <span>Civic Center Plaza</span>
+            </div>
+          </div>
+          <div
+            class="flex justify-around border-t border-background-light dark:border-surface-dark py-1"
+          >
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/10 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">thumb_up</span>
+              <span class="text-sm font-medium">8</span>
+            </button>
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/10 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">share</span>
+              <span class="text-sm font-medium">Share</span>
+            </button>
+            <button
+              class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-primary/10 text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-xl">bookmark</span>
+              <span class="text-sm font-medium">Save</span>
+            </button>
+          </div>
+        </div>
+      </main>
+      <footer
+        class="sticky bottom-0 bg-surface-light dark:bg-surface-dark/80 backdrop-blur-sm border-t border-background-light dark:border-background-dark"
+      >
+        <nav class="flex justify-around items-center h-16">
+          <a 
+            class="flex flex-col items-center justify-center w-full h-full text-primary"
+            href="#"
+          >
+            <span
+              class="material-symbols-outlined !text-2xl"
+              style="font-variation-settings: 'FILL' 1"
+              >home</span
+            >
+            <span class="text-xs font-bold">Home</span>
+          </a>
+          <a 
+            class="flex flex-col items-center justify-center w-full h-full text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            href="./ReportIncident.html"
+          >
+            <span class="material-symbols-outlined !text-2xl"
+              >photo_camera</span
+            >
+            <span class="text-xs font-medium">Camera</span>
+          </a>
+          <a 
+            class="flex flex-col items-center justify-center w-full h-full text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            href="./showALLReport.html"
+          >
+            <span class="material-symbols-outlined !text-2xl"
+              >edit_document</span
+            >
+            <span class="text-xs font-medium">Report</span>
+          </a>
+          <a
+            class="flex flex-col items-center justify-center w-full h-full text-text-secondary-light dark:text-text-secondary-dark hover:text-primary transition-colors"
+            href="./profile.html"
+          >
+            <span class="material-symbols-outlined !text-2xl">person</span>
+            <span class="text-xs font-medium">Profile</span>
+          </a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

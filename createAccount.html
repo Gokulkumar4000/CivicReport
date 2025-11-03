@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CIVINET - Create Account</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      :root {
+        --primary-color: #137fec;
+        --background-light: #f6f7f8;
+        --background-dark: #101922;
+        --foreground-light: #111418;
+        --foreground-dark: #f6f7f8;
+        --input-light: #ffffff;
+        --input-dark: #1b2837;
+        --input-placeholder-light: #617589;
+        --input-placeholder-dark: #a0b3c6;
+        --border-light: #e3e8ee;
+        --border-dark: #364a5f;
+        --error-color: #ef4444;
+        --success-color: #22c55e;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "var(--primary-color)",
+              "background-light": "var(--background-light)",
+              "background-dark": "var(--background-dark)",
+              "foreground-light": "var(--foreground-light)",
+              "foreground-dark": "var(--foreground-dark)",
+              "input-light": "var(--input-light)",
+              "input-dark": "var(--input-dark)",
+              "input-placeholder-light": "var(--input-placeholder-light)",
+              "input-placeholder-dark": "var(--input-placeholder-dark)",
+              "border-light": "var(--border-light)",
+              "border-dark": "var(--border-dark)",
+              error: "var(--error-color)",
+              success: "var(--success-color)",
+            },
+            fontFamily: {
+              display: ["Noto Sans", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              lg: "0.75rem",
+              xl: "1rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      body {
+        min-height: max(884px, 100dvh);
+        font-size: 16px;
+      }
+      .form-input-container {
+        position: relative;
+      }
+      .form-input {
+        width: 100%;
+        height: 3.5rem;
+        padding-left: 1rem;
+        padding-right: 3rem;
+        border-radius: 0.5rem;
+        background-color: var(--input-light);
+        border: 1px solid var(--border-light);
+        color: var(--foreground-light);
+      }
+      .dark .form-input {
+        background-color: var(--input-dark);
+        border-color: var(--border-dark);
+        color: var(--foreground-dark);
+      }
+      .form-input::placeholder {
+        color: var(--input-placeholder-light);
+      }
+      .dark .form-input::placeholder {
+        color: var(--input-placeholder-dark);
+      }
+      .form-input:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        --tw-ring-color: var(--primary-color);
+        box-shadow: 0 0 0 2px var(--tw-ring-color);
+      }
+      .validation-icon {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        padding-right: 1rem;
+      }
+      .error-message {
+        color: var(--error-color);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="font-display bg-background-light dark:bg-background-dark text-foreground-light dark:text-foreground-dark"
+  >
+    <div class="flex flex-col min-h-screen justify-between">
+      <div class="px-4 py-8 flex-grow">
+        <header class="text-center mb-8">
+          <div class="inline-flex items-center gap-2">
+            <svg
+              class="w-8 h-8 text-primary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              ></path>
+            </svg>
+            <h1 class="text-3xl font-bold tracking-tight">CIVINET</h1>
+          </div>
+        </header>
+        <main class="space-y-6">
+          <div class="space-y-4">
+            <div class="form-input-container">
+              <label class="sr-only" for="full-name">Full Name</label>
+              <input
+                aria-describedby="full-name-error"
+                aria-invalid="true"
+                class="form-input"
+                id="full-name"
+                placeholder="Full Name"
+                type="text"
+                value="Ananya Sharma"
+              />
+              <div class="validation-icon">
+                <span class="material-symbols-outlined text-success"
+                  >check_circle</span
+                >
+              </div>
+            </div>
+            <div class="form-input-container">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                aria-describedby="email-error"
+                aria-invalid="true"
+                class="form-input border-error focus:ring-error"
+                id="email"
+                placeholder="Email"
+                type="email"
+                value="ananya.sharma@example"
+              />
+              <div class="validation-icon">
+                <span class="material-symbols-outlined text-error">error</span>
+              </div>
+            </div>
+            <p class="error-message" id="email-error" role="alert">
+              Please enter a valid email address.
+            </p>
+            <div class="form-input-container">
+              <label class="sr-only" for="phone-number">Phone Number</label>
+              <input
+                class="form-input"
+                id="phone-number"
+                placeholder="Phone Number"
+                type="tel"
+              />
+              <div class="validation-icon"></div>
+            </div>
+            <div class="form-input-container">
+              <label class="sr-only" for="password">Password</label>
+              <input
+                class="form-input"
+                id="password"
+                placeholder="Password"
+                type="password"
+              />
+              <button
+                aria-label="Toggle password visibility"
+                class="validation-icon text-input-placeholder-light dark:text-input-placeholder-dark"
+              >
+                <span class="material-symbols-outlined">visibility_off</span>
+              </button>
+            </div>
+            <div class="form-input-container">
+              <label class="sr-only" for="confirm-password"
+                >Confirm Password</label
+              >
+              <input
+                class="form-input"
+                id="confirm-password"
+                placeholder="Confirm Password"
+                type="password"
+              />
+              <button
+                aria-label="Toggle password visibility"
+                class="validation-icon text-input-placeholder-light dark:text-input-placeholder-dark"
+              >
+                <span class="material-symbols-outlined">visibility_off</span>
+              </button>
+            </div>
+            <div class="form-input-container">
+              <label class="sr-only" for="aadhaar">Aadhaar (Optional)</label>
+              <input
+                class="form-input"
+                id="aadhaar"
+                placeholder="Aadhaar (Optional, will be masked)"
+                type="text"
+              />
+            </div>
+          </div>
+          <div class="flex items-start py-2">
+            <div class="flex items-center h-5">
+              <input
+                aria-describedby="terms-conditions-description"
+                class="h-4 w-4 rounded border-border-light text-primary focus:ring-primary"
+                id="terms-conditions"
+                type="checkbox"
+              />
+            </div>
+            <div class="ml-3 text-sm">
+              <label
+                class="font-medium text-foreground-light dark:text-foreground-dark"
+                for="terms-conditions"
+                >I agree to the
+                <a class="text-primary hover:underline" href="#"
+                  >Terms &amp; Conditions</a
+                ></label
+              >
+            </div>
+          </div>
+          <div class="space-y-4 pt-2">
+            <a href="./index.html"
+              class="w-full h-14 flex items-center justify-center rounded-lg bg-primary text-white font-bold text-base tracking-wide"
+            >
+              Create Account
+            </a>
+          </div>
+          <div class="relative flex py-4 items-center">
+            <div
+              class="flex-grow border-t border-border-light dark:border-border-dark"
+            ></div>
+            <span
+              class="flex-shrink mx-4 text-sm text-input-placeholder-light dark:text-input-placeholder-dark"
+              >Or</span
+            >
+            <div
+              class="flex-grow border-t border-border-light dark:border-border-dark"
+            ></div>
+          </div>
+          <div>
+            <button
+              class="w-full h-12 flex items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-base tracking-wide"
+            >
+              <img
+                alt="MeriPehchaan logo"
+                class="w-6 h-6 mr-3"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6XY9MSswz7GvCKbRtqTz4SDuIFtwwQhpzT5Hor1eFcw_9Wd5IlasgFDCXadlz6kPFguiHosv4qtBa3NAE7T8Zj2vNW0oNQBZHa8lbZD4tFaJQF7SH1jcZpI0K55upLW8QmKPbjvSm65gUbXm_JTF9ko-BOvVKaCZcYCjOHDc49eLR2LuIuKgnQwxSSh0-9C0ilAgCIzAOmoE1Mz3o_HplxpgUbCOyzKns1uNOinYsc-6qWu9qDR8C1GkfxmIrMN0msgF2MtmiQA"
+              />
+              Login with MeriPehchaan
+            </button>
+          </div>
+        </main>
+      </div>
+      <footer class="px-4 pb-8 pt-4">
+        <p
+          class="text-xs text-center text-input-placeholder-light dark:text-input-placeholder-dark"
+        >
+          Secured by Govt. Standards | Data protected under Digital India
+          compliance.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

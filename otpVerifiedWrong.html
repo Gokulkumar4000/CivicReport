@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>OTP Verification Error</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+              "danger-light": "#d92d20",
+              "danger-dark": "#f04438",
+            },
+            fontFamily: {
+              display: ["Public Sans"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200"
+  >
+    <div class="flex flex-col h-screen">
+      <header class="flex-shrink-0 p-4">
+        <div class="flex items-center justify-center relative">
+          <h1 class="text-lg font-bold text-gray-900 dark:text-white">
+            Verification
+          </h1>
+        </div>
+      </header>
+      <main
+        class="flex-grow flex flex-col items-center justify-center text-center px-6"
+      >
+        <div class="mb-6">
+          <div
+            class="w-16 h-16 rounded-full bg-danger-light/20 dark:bg-danger-dark/20 flex items-center justify-center mx-auto"
+          >
+            <span
+              class="material-symbols-outlined text-4xl text-danger-light dark:text-danger-dark"
+            >
+              error
+            </span>
+          </div>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          Invalid OTP
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">
+          The code you entered is incorrect. Please try again or resend a new
+          one.
+        </p>
+        <div class="flex justify-center space-x-2 mb-6">
+          <input
+            class="w-12 h-14 text-center text-2xl font-bold rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary text-gray-900 dark:text-white"
+            maxlength="1"
+            type="number"
+          />
+          <input
+            class="w-12 h-14 text-center text-2xl font-bold rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary text-gray-900 dark:text-white"
+            maxlength="1"
+            type="number"
+          />
+          <input
+            class="w-12 h-14 text-center text-2xl font-bold rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary text-gray-900 dark:text-white"
+            maxlength="1"
+            type="number"
+          />
+          <input
+            class="w-12 h-14 text-center text-2xl font-bold rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary text-gray-900 dark:text-white"
+            maxlength="1"
+            type="number"
+          />
+          <input
+            class="w-12 h-14 text-center text-2xl font-bold rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary text-gray-900 dark:text-white"
+            maxlength="1"
+            type="number"
+          />
+          <input
+            class="w-12 h-14 text-center text-2xl font-bold rounded-lg bg-gray-100 dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 focus:border-primary focus:ring-primary text-gray-900 dark:text-white"
+            maxlength="1"
+            type="number"
+          />
+        </div>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Didn't receive the code?
+          <button class="font-semibold text-primary">Resend OTP</button>
+          <span class="text-gray-400 dark:text-gray-500">(0:59)</span>
+        </p>
+      </main>
+      <footer class="flex-shrink-0 p-4 space-y-4">
+        <a href="./sucessCreated.html"
+          class="w-full h-12 px-5 rounded-lg bg-primary text-white font-bold text-base flex items-center justify-center"
+        >
+          Try Again
+        </a>
+        <button
+          class="w-full h-12 px-5 rounded-lg bg-background-light dark:bg-background-dark border border-gray-300 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-bold text-base flex items-center justify-center"
+        >
+          Contact Support
+        </button>
+      </footer>
+    </div>
+  </body>
+</html>

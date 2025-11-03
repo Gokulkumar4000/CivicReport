@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CIVINET Leaderboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              "background-light": "#f7f7f7",
+              "background-dark": "#191919",
+            },
+            fontFamily: { display: "Public Sans" },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+          },
+        },
+      };
+    </script>
+    
+    <style>
+      body {
+        min-height: max(884px, 100dvh);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200"
+  >
+    <div class="flex h-screen flex-col">
+      <header
+        class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-gray-800"
+      >
+        <a href="./feedPage.html" class="text-gray-600 dark:text-gray-400">
+          <span class="material-symbols-outlined"> arrow_back_ios_new </span>
+        </a>
+        <h1 class="text-lg font-bold text-gray-900 dark:text-white">
+          Leaderboard
+        </h1>
+        <div class="w-8"></div>
+      </header>
+      <div class="border-b border-gray-200 dark:border-gray-800">
+        <nav class="flex justify-around px-4">
+          <a
+            class="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            href="#"
+            >Daily</a
+          >
+          <a
+            class="border-b-2 border-primary px-4 py-3 text-sm font-bold text-primary"
+            href="#"
+            >Weekly</a
+          >
+          <a
+            class="border-b-2 border-transparent px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            href="#"
+            >All Time</a
+          >
+        </nav>
+      </div>
+      <main class="flex-1 overflow-y-auto">
+        <ul class="divide-y divide-gray-200 dark:divide-gray-800">
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-sm font-bold text-gray-900 dark:text-white"
+              >1</span
+            >
+            <img
+              alt="Alex's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz-oHk-UiSmtVqGyVbo_g_cZS8gxZ1IMlEBhB30_a0iJyOuuOEwcGsK9PLoILwEzxy4zAv0vBuJccNBM_AvR55Y3z_eXucx3AjeTl_FLOGRy-kz5uypogflwLuNg-_Mg_9d3R_PYd7u30Be4FaCQxoXVR1UjqkWFLOFw1DXn-nJFP6R-01eY4wh-kOAlKe4DylsCevPKxPqSmJK6CdulbX1VmxwG_OY95xsrbSlVoktvfK-d8S_pj6j66nEX0hsAM5l7bH5Frd-w"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Alex</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                1250 points
+              </p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >2</span
+            >
+            <img
+              alt="Maya's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3AhXIqMaurgE-Bk5qs6Z1X-2FTLS4Yxs_d9oDtgGue0GuYkdEp6PuDL_SIAa1kj_wIdHwaQ_7KgrdjRHT5o2yPe1Lz07JA71fcvQxA4Sin2eMzqkfo3KP2QO09EEoUMWNFMSlXamKaS061nOyMAxoxJ_KWNv4ju0jES-q5XSMLxpemIWVcdXm3WzwfRM_lw4Ntynzhds6p2IGliyj1sv99fTMY6FdORbTe58k3bRXbzzWMO51OtZ838cgt_R321aeWgIr7E_QKA"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Maya</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                1180 points
+              </p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >3</span
+            >
+            <img
+              alt="Ethan's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO7HHTnm4VGB1_t8PakodprP6pTtq76HXajhZdl18QjBbQVJXeIUdrVsgCGN9ngSblGe-o3qZv3OxIRJg-K83p1tEpxvtVFgIg-NB8VZf0oKr7Tvw3TeD4ZDB07r6btulp8kaqZvXMxLMbTpixsJBfS4BkrVjLnXOBrZCZzAj9XLkC861dKKnHxHPkDLkXcZbBn2I1K-s4GbiiK5F6qEQ1Ga6KlqoKuf_33KNCQecj5bJbTkMUO0ZVhUbhQalBASBNl7JL9sWXjA"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Ethan</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                1120 points
+              </p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >4</span
+            >
+            <img
+              alt="Olivia's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi831cawecsa5JGiicDTLSBUtiYo125f6Y6qe9R7MHPuO9qQwcZeJ9gSgtOtx8Y-fcZOoPGmpAUwJHVJLSxty_Z89ah79PTMI47aBhHew7ZrjyH5dNszWP5ejBQc4C1kZq2Y5PbnnF_1Re6yFVIO_fRNWt-JO6CCwCE7uNFjc07MjIpqfMKazcOhMDMCIypJ2YeRDTRu7sS52fhre1B7VSn9_LF_FZX7v1G8LlUjBat_ThFRb7ZNyi3k30lzvQ_oI443uoHC1oIA"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Olivia</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">
+                1050 points
+              </p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >5</span
+            >
+            <img
+              alt="Noah's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZTHSTmGGdT_eOGl_C72hEzP6ZnKldzxI4ZyCIWwaN_oP_VP9Zf-RR8V9NAoWZkhfw4YBYVGeUAnHYMLfSaZKs1DsTsbCcdnT4z_WjmNNstZu5us4BnIrngzss3vAoVwCEhavmCadXfdcUlx1pC0JlOyAvR4u3Qx_4WOh9MGa0IGtPNoCwXiXPV_epUSGXy2DqJkhgI3KOta4hi4TQyjS12ABapiyonLYpohC5D-H2f9TrdLzBq-OFRrI3uPf9CH-P_Gtfj5KqKA"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Noah</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">980 points</p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >6</span
+            >
+            <img
+              alt="Sophia's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8Y3VmutfP_OpLZDT2otrPaN6uwO4n4YJEoF7ApIYjnZxI8aSkGj3ehazKB1YkGO_y9XLHInd43kVopXoZiA81Dohl3YktAHHp2uMadUZFTgRctznp-kut8HzsHlz73j1-ByOe-pumXFLlYm7yJ0AmtJV14e-m5wqB5IwzJhDt7498cMRca8tHX6WJKyqs0xkLBWQuBxbjc3czRratQqOSXUZS-iQ5ukZHx-nsIQwVuVJwGV_Hvh51Oc1Rmkse6pVMJ5fubf6qQg"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Sophia</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">920 points</p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >7</span
+            >
+            <img
+              alt="Liam's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpi60m3WXbGEz4ExMYM2sJJNyxOpVZcpedUHy5Dmx_82SAuP-mT267iLD1pXxddT0mhA3sMSr_lq_KXYW38k6Np4IWEJ-HywtBwT5Y-30aHNoaa-ZbxkeERw3tQ6sVZhoEjEJmMoqsdZzcnEeJgq-uvgz9j2BQsMajfX2pjN4GYZN8Jkt0T__EUAWeLLaH55-hFbXDAbf29Zr5aFi8QMBW-dJZlXpe7szuIr7neFQH1-OWBye1awmb7zJrK503xIaH5u7zw50_PA"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">Liam</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">850 points</p>
+            </div>
+          </li>
+          <li class="flex items-center gap-4 p-4">
+            <span
+              class="w-6 text-center text-lg font-bold text-gray-900 dark:text-white"
+              >8</span
+            >
+            <img
+              alt="Isabella's profile picture"
+              class="h-12 w-12 rounded-full object-cover"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkHgoPtDSoOkkMi8J4oODLroHkuupsk7cPg2kerDAbpjq-JQGRF73HS8mS0_cuekM2O_zLbHwJaZA_hfPTFcJ9WyxUoXWQFNk_wKTc7OD-NoVrrZvn_rWTCJPzKCtztsy9BjbEExHvxRb7k-J6MDw2OzB0NrUVEys7TexELK_c5uX155MkdNjWgAbiSnNrqYHCoROwJuHAClYqwoWF3tUMaTt0zyv7crbznmi60lhvtHTb2fceuRV7J-tLRjmRxQ3R0NkUD_xxAw"
+            />
+            <div class="flex-1">
+              <p class="font-semibold text-gray-900 dark:text-white">
+                Isabella
+              </p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">780 points</p>
+            </div>
+          </li>
+        </ul>
+      </main>
+    </div>
+  </body>
+</html>
