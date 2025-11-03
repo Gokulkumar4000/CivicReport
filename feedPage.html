@@ -53,11 +53,30 @@
       }
       
       .action-btn.liked {
+        color: var(--primary);
+        font-weight: 700;
+      }
+      
+      .action-btn.liked .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1;
+      }
+      
+      .action-btn.disliked {
         color: #ef4444;
+        font-weight: 700;
+      }
+      
+      .action-btn.disliked .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1;
       }
       
       .action-btn.saved {
-        color: var(--primary);
+        color: #22c55e;
+        font-weight: 700;
+      }
+      
+      .action-btn.saved .material-symbols-outlined {
+        font-variation-settings: 'FILL' 1;
       }
       
       @keyframes fadeInUp {
@@ -164,15 +183,19 @@
             </div>
           </div>
           <div class="flex justify-around border-t border-light py-1">
-            <button class="action-btn">
+            <button class="action-btn like-btn" data-likes="12">
               <span class="material-symbols-outlined text-xl">thumb_up</span>
-              <span class="text-sm font-medium">12</span>
+              <span class="text-sm font-medium like-count">12</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn dislike-btn" data-dislikes="2">
+              <span class="material-symbols-outlined text-xl">thumb_down</span>
+              <span class="text-sm font-medium dislike-count">2</span>
+            </button>
+            <button class="action-btn share-btn">
               <span class="material-symbols-outlined text-xl">share</span>
               <span class="text-sm font-medium">Share</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn save-btn">
               <span class="material-symbols-outlined text-xl">bookmark</span>
               <span class="text-sm font-medium">Save</span>
             </button>
@@ -213,15 +236,19 @@
             </div>
           </div>
           <div class="flex justify-around border-t border-light py-1">
-            <button class="action-btn">
+            <button class="action-btn like-btn" data-likes="8">
               <span class="material-symbols-outlined text-xl">thumb_up</span>
-              <span class="text-sm font-medium">8</span>
+              <span class="text-sm font-medium like-count">8</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn dislike-btn" data-dislikes="1">
+              <span class="material-symbols-outlined text-xl">thumb_down</span>
+              <span class="text-sm font-medium dislike-count">1</span>
+            </button>
+            <button class="action-btn share-btn">
               <span class="material-symbols-outlined text-xl">share</span>
               <span class="text-sm font-medium">Share</span>
             </button>
-            <button class="action-btn">
+            <button class="action-btn save-btn">
               <span class="material-symbols-outlined text-xl">bookmark</span>
               <span class="text-sm font-medium">Save</span>
             </button>
@@ -252,50 +279,112 @@
     </div>
     
     <script>
-      // Instagram-like interactions
+      // Enhanced Like/Dislike interactions
       document.addEventListener('DOMContentLoaded', () => {
-        // Like button interactions
-        document.querySelectorAll('.action-btn').forEach(btn => {
-          const icon = btn.querySelector('.material-symbols-outlined');
-          const iconName = icon ? icon.textContent : '';
-          
-          if (iconName === 'thumb_up') {
-            btn.addEventListener('click', function() {
-              const countSpan = this.querySelector('.text-sm');
-              let count = parseInt(countSpan.textContent);
+        // Initialize location on page load
+        if (typeof userLocation !== 'undefined' && userLocation.city) {
+          document.querySelectorAll('.location-display').forEach(el => {
+            el.textContent = userLocation.city;
+          });
+        } else {
+          // Auto-detect location
+          detectLocation((location) => {
+            document.querySelectorAll('.location-display').forEach(el => {
+              el.textContent = location.city;
+            });
+          }, (error) => {
+            console.log('Location detection failed:', error);
+          });
+        }
+        
+        // Like button functionality
+        document.querySelectorAll('.like-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const card = this.closest('.card');
+            const dislikeBtn = card.querySelector('.dislike-btn');
+            const likeCount = this.querySelector('.like-count');
+            const dislikeCount = dislikeBtn.querySelector('.dislike-count');
+            const icon = this.querySelector('.material-symbols-outlined');
+            
+            let likes = parseInt(likeCount.textContent);
+            let dislikes = parseInt(dislikeCount.textContent);
+            
+            // If already liked, remove like
+            if (this.classList.contains('liked')) {
+              this.classList.remove('liked');
+              likeCount.textContent = likes - 1;
+              showNotification('Like removed', 'info');
+            } else {
+              // If disliked, remove dislike first
+              if (dislikeBtn.classList.contains('disliked')) {
+                dislikeBtn.classList.remove('disliked');
+                dislikeCount.textContent = dislikes - 1;
+              }
               
-              if (this.classList.contains('liked')) {
-                this.classList.remove('liked');
-                countSpan.textContent = count - 1;
-              } else {
-                this.classList.add('liked');
-                icon.classList.add('heart-animation');
-                countSpan.textContent = count + 1;
-                
-                setTimeout(() => icon.classList.remove('heart-animation'), 600);
+              // Add like
+              this.classList.add('liked');
+              likeCount.textContent = likes + 1;
+              icon.classList.add('heart-animation');
+              showNotification('Post liked!', 'success');
+              
+              setTimeout(() => icon.classList.remove('heart-animation'), 600);
+            }
+          });
+        });
+        
+        // Dislike button functionality
+        document.querySelectorAll('.dislike-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const card = this.closest('.card');
+            const likeBtn = card.querySelector('.like-btn');
+            const dislikeCount = this.querySelector('.dislike-count');
+            const likeCount = likeBtn.querySelector('.like-count');
+            const icon = this.querySelector('.material-symbols-outlined');
+            
+            let dislikes = parseInt(dislikeCount.textContent);
+            let likes = parseInt(likeCount.textContent);
+            
+            // If already disliked, remove dislike
+            if (this.classList.contains('disliked')) {
+              this.classList.remove('disliked');
+              dislikeCount.textContent = dislikes - 1;
+              showNotification('Dislike removed', 'info');
+            } else {
+              // If liked, remove like first
+              if (likeBtn.classList.contains('liked')) {
+                likeBtn.classList.remove('liked');
+                likeCount.textContent = likes - 1;
               }
-            });
-          }
-          
-          if (iconName === 'bookmark') {
-            btn.addEventListener('click', function() {
-              if (this.classList.contains('saved')) {
-                this.classList.remove('saved');
-                this.querySelector('.text-sm').textContent = 'Save';
-                showNotification('Removed from saved', 'info');
-              } else {
-                this.classList.add('saved');
-                this.querySelector('.text-sm').textContent = 'Saved';
-                showNotification('Added to saved posts', 'success');
-              }
-            });
-          }
-          
-          if (iconName === 'share') {
-            btn.addEventListener('click', function() {
-              showNotification('Share feature coming soon!', 'info');
-            });
-          }
+              
+              // Add dislike
+              this.classList.add('disliked');
+              dislikeCount.textContent = dislikes + 1;
+              icon.classList.add('heart-animation');
+              showNotification('Post disliked', 'info');
+              
+              setTimeout(() => icon.classList.remove('heart-animation'), 600);
+            }
+          });
+        });
+        
+        // Save button functionality
+        document.querySelectorAll('.save-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            if (this.classList.contains('saved')) {
+              this.classList.remove('saved');
+              showNotification('Removed from saved', 'info');
+            } else {
+              this.classList.add('saved');
+              showNotification('Post saved!', 'success');
+            }
+          });
+        });
+        
+        // Share button functionality
+        document.querySelectorAll('.share-btn').forEach(btn => {
+          btn.addEventListener('click', function() {
+            showNotification('Share feature coming soon!', 'info');
+          });
         });
         
         // Double-tap to like (mobile)
@@ -309,15 +398,15 @@
             if (tapGap < 300 && tapGap > 0) {
               // Double tap detected
               const card = this.closest('.card');
-              const likeBtn = card.querySelector('.action-btn');
+              const likeBtn = card.querySelector('.like-btn');
               
               if (!likeBtn.classList.contains('liked')) {
                 likeBtn.click();
                 
                 // Show heart animation overlay
                 const heart = document.createElement('div');
-                heart.innerHTML = '<span class="material-symbols-outlined" style="font-size: 5rem; color: white;">favorite</span>';
-                heart.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; animation: heartBeat 0.6s ease; pointer-events: none;';
+                heart.innerHTML = '<span class="material-symbols-outlined" style="font-size: 5rem; color: var(--primary);">thumb_up</span>';
+                heart.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; animation: heartBeat 0.6s ease; pointer-events: none; opacity: 0.9;';
                 
                 this.parentElement.style.position = 'relative';
                 this.parentElement.appendChild(heart);
