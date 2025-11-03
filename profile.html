@@ -15,7 +15,9 @@
       rel="stylesheet"
     />
     <link href="styles.css" rel="stylesheet" />
-    <script src="app.js"></script>
+    <link href="components.css" rel="stylesheet" />
+    <script src="app.js" defer></script>
+    <script src="components.js" defer></script>
     <style>
       .toggle-switch {
         position: relative;
@@ -100,7 +102,7 @@
             </svg>
           </a>
           <h1 class="text-lg font-bold">Profile</h1>
-          <div style="width: 2.5rem;"></div>
+          <div id="profile-lang-switcher"></div>
         </header>
         <main class="p-4" style="padding-bottom: 6rem;">
           <section class="mb-8 flex flex-col items-center gap-4">
@@ -159,6 +161,12 @@
               </div>
             </div>
             <div class="rounded-lg bg-white p-4">
+              <h3 class="mb-4 text-lg font-bold">Location Settings</h3>
+              <p class="text-sm text-secondary mb-3">Set your default location for reporting incidents</p>
+              <div id="profile-location-container"></div>
+              <p class="text-xs text-secondary mt-2">Note: You'll still need to detect location each time you report an incident for accuracy.</p>
+            </div>
+            <div class="rounded-lg bg-white p-4">
               <h3 class="mb-4 text-lg font-bold">Saved posts</h3>
               <div class="flex items-center gap-4">
                 <div class="flex-1 space-y-1">
@@ -193,5 +201,34 @@
         </nav>
       </footer>
     </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize language switcher
+        const langContainer = document.getElementById('profile-lang-switcher');
+        if (langContainer) {
+          langContainer.appendChild(createLanguageSwitcher('lang-switch-profile'));
+        }
+        
+        // Initialize location button
+        const locationContainer = document.getElementById('profile-location-container');
+        if (locationContainer) {
+          const locationBtn = createLocationButton((location) => {
+            // Update app-wide location
+            if (typeof userLocation !== 'undefined') {
+              userLocation.city = location.city;
+              userLocation.lat = location.lat;
+              userLocation.lng = location.lng;
+              
+              // Update all location displays
+              updateLocationDisplay(location.city);
+              
+              showNotification('Default location updated successfully!', 'success');
+            }
+          });
+          locationContainer.appendChild(locationBtn);
+        }
+      });
+    </script>
   </body>
 </html>

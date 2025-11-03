@@ -10,11 +10,13 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols_Outlined"
       rel="stylesheet"
     />
     <link href="styles.css" rel="stylesheet" />
-    <script src="app.js"></script>
+    <link href="components.css" rel="stylesheet" />
+    <script src="app.js" defer></script>
+    <script src="components.js" defer></script>
     <style>
       .report-header {
         background: linear-gradient(135deg, var(--primary) 0%, #0f6dc7 100%);
@@ -29,6 +31,7 @@
         padding: 1.5rem;
         margin: 1rem;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        animation: fadeInUp 0.4s ease;
       }
       
       .section-title {
@@ -54,6 +57,7 @@
       .image-upload-area:hover {
         border-color: var(--primary);
         background: linear-gradient(135deg, #f0f7ff 0%, #e3f2ff 100%);
+        transform: translateY(-2px);
       }
       
       .image-upload-area .material-symbols-outlined {
@@ -75,48 +79,58 @@
         transition: all 0.3s ease;
         box-shadow: 0 4px 12px rgba(19, 127, 236, 0.3);
         margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
       }
       
-      .submit-btn:hover {
+      .submit-btn:hover:not(:disabled) {
         transform: translateY(-2px);
         box-shadow: 0 6px 16px rgba(19, 127, 236, 0.4);
       }
       
-      .submit-btn:active {
+      .submit-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: #9ca3af;
+      }
+      
+      .submit-btn:active:not(:disabled) {
         transform: translateY(0);
       }
       
-      .tag-btn {
-        display: inline-flex;
+      .location-field-container {
+        position: relative;
+      }
+      
+      .location-lock-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
         align-items: center;
-        gap: 0.375rem;
-        padding: 0.5rem 1rem;
-        border-radius: 9999px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        border: none;
-        cursor: pointer;
-        transition: all 0.2s ease;
+        justify-content: center;
+        border-radius: 0.5rem;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s;
       }
       
-      .tag-btn-primary {
-        background-color: rgba(19, 127, 236, 0.1);
-        color: var(--primary);
+      .location-lock-overlay.active {
+        opacity: 1;
+        pointer-events: all;
       }
       
-      .tag-btn-primary:hover {
-        background-color: rgba(19, 127, 236, 0.2);
-      }
-      
-      .tag-btn-add {
-        background-color: white;
-        border: 2px solid var(--border-light);
-        color: var(--text-secondary-light);
-      }
-      
-      .tag-btn-add:hover {
-        border-color: var(--primary);
-        color: var(--primary);
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     </style>
   </head>
@@ -130,7 +144,7 @@
             </button>
             <div class="flex items-center gap-2">
               <span class="material-symbols-outlined text-base">location_on</span>
-              <span class="text-sm location-display">San Francisco</span>
+              <span class="text-sm location-display">Detecting...</span>
             </div>
             <div style="width: 2.5rem;"></div>
           </div>
@@ -157,21 +171,25 @@
           <div class="report-form-section">
             <div class="section-title">
               <span class="material-symbols-outlined text-primary">add_location</span>
-              Location
+              Location (Required)
             </div>
-            <div class="form-input-container">
+            <div class="location-field-container">
               <input
                 class="form-input"
                 id="report-location"
-                placeholder="Enter location or use current location"
+                placeholder="Location will be auto-detected"
                 type="text"
+                readonly
+                style="cursor: not-allowed; background: #f9fafb;"
               />
-              <div class="validation-icon">
-                <button onclick="detectLocation()" style="background: none; border: none; cursor: pointer; color: var(--primary);">
-                  <span class="material-symbols-outlined">my_location</span>
-                </button>
+              <div class="location-lock-overlay active" id="location-overlay">
+                <p style="color: #6b7280; font-size: 0.875rem; text-align: center;">
+                  <span class="material-symbols-outlined" style="display: block; font-size: 2rem;">lock</span>
+                  Click "Detect Location" below
+                </p>
               </div>
             </div>
+            <div style="margin-top: 1rem;" id="location-btn-container"></div>
           </div>
           
           <div class="report-form-section">
@@ -201,31 +219,20 @@
               Tags
             </div>
             <div class="flex flex-wrap gap-2" id="tags-container">
-              <button class="tag-btn tag-btn-primary">
-                Road Hazard
-                <span class="material-symbols-outlined text-base" onclick="event.stopPropagation(); this.parentElement.remove()">close</span>
-              </button>
-              <button class="tag-btn tag-btn-primary">
-                Safety Issue
-                <span class="material-symbols-outlined text-base" onclick="event.stopPropagation(); this.parentElement.remove()">close</span>
-              </button>
-              <button class="tag-btn tag-btn-add" onclick="addTag()">
-                <span class="material-symbols-outlined text-base">add</span>
-                Add Tag
-              </button>
+              <!-- Tags will be rendered here by components.js -->
             </div>
           </div>
           
           <div style="padding: 0 1rem; margin-bottom: 2rem;">
-            <button class="submit-btn" onclick="submitIncident()">
-              <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                <span class="material-symbols-outlined">send</span>
-                Submit Report
-              </span>
+            <button class="submit-btn" id="submit-btn" disabled>
+              <span class="material-symbols-outlined">send</span>
+              <span>Submit Report</span>
             </button>
+            <p id="submit-hint" style="text-align: center; margin-top: 0.5rem; font-size: 0.875rem; color: #9ca3af;">
+              Please detect your location to enable submit
+            </p>
           </div>
           
-          <!-- Spacer for bottom navigation -->
           <div style="height: 5rem;"></div>
         </main>
       </div>
@@ -253,6 +260,87 @@
     </div>
     
     <script>
+      let locationDetected = false;
+      let tagManager;
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize tag input component
+        const tagsContainer = document.getElementById('tags-container');
+        tagManager = createTagInput(tagsContainer, ['Road Hazard', 'Safety Issue']);
+        
+        // Initialize location button
+        const locationBtnContainer = document.getElementById('location-btn-container');
+        const locationBtn = createLocationButton((location) => {
+          locationDetected = true;
+          
+          // Update location display
+          document.getElementById('report-location').value = location.address;
+          document.querySelectorAll('.location-display').forEach(el => {
+            el.textContent = location.city;
+          });
+          
+          // Remove overlay
+          document.getElementById('location-overlay').classList.remove('active');
+          document.getElementById('report-location').style.cursor = 'text';
+          document.getElementById('report-location').style.background = 'white';
+          
+          // Enable submit button
+          updateSubmitButton();
+        });
+        locationBtnContainer.appendChild(locationBtn);
+        
+        // Trigger auto-detection on page load
+        setTimeout(() => {
+          locationBtn.click();
+        }, 500);
+      });
+      
+      function updateSubmitButton() {
+        const submitBtn = document.getElementById('submit-btn');
+        const submitHint = document.getElementById('submit-hint');
+        const description = document.getElementById('incident-description').value;
+        
+        if (locationDetected && description.trim()) {
+          submitBtn.disabled = false;
+          submitHint.textContent = 'Ready to submit';
+          submitHint.style.color = '#22c55e';
+        } else if (locationDetected) {
+          submitBtn.disabled = true;
+          submitHint.textContent = 'Please add incident description';
+          submitHint.style.color = '#f59e0b';
+        } else {
+          submitBtn.disabled = true;
+          submitHint.textContent = 'Please detect your location to enable submit';
+          submitHint.style.color = '#9ca3af';
+        }
+      }
+      
+      // Listen for description changes
+      document.getElementById('incident-description').addEventListener('input', updateSubmitButton);
+      
+      // Submit handler
+      document.getElementById('submit-btn').addEventListener('click', () => {
+        const description = document.getElementById('incident-description').value;
+        const location = document.getElementById('report-location').value;
+        const tags = tagManager.getTags();
+        
+        if (!locationDetected) {
+          showNotification('Please detect your location first', 'error');
+          return;
+        }
+        
+        if (!description.trim()) {
+          showNotification('Please describe the incident', 'error');
+          return;
+        }
+        
+        // Success - redirect
+        showNotification('Report submitted successfully!', 'success');
+        setTimeout(() => {
+          window.location.href = './ReportIncidentSucess.html';
+        }, 1000);
+      });
+      
       function handleImageUpload(input) {
         if (input.files && input.files[0]) {
           const reader = new FileReader();
