@@ -770,6 +770,20 @@
         display: block;
       }
 
+      .nav-container > div[style*="display: flex"] {
+        gap: 0.5rem;
+      }
+
+      .nav-container > div[style*="display: flex"] .btn-secondary {
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.875rem;
+      }
+
+      .nav-container > div[style*="display: flex"] .cta-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.875rem;
+      }
+
       .hero-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -781,6 +795,13 @@
 
       .hero-buttons {
         justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero-buttons .cta-btn,
+      .hero-buttons .btn-secondary {
+        font-size: 0.9rem;
+        padding: 0.65rem 1.2rem;
       }
 
       .step {
@@ -798,6 +819,18 @@
 
       .cta-content h2 {
         font-size: 2rem;
+      }
+
+      nav {
+        padding: 0.75rem 1rem;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+      }
+
+      .logo .material-symbols-outlined {
+        font-size: 1.5rem !important;
       }
     }
 
@@ -831,7 +864,10 @@
         <li><a href="#success">Success Stories</a></li>
         <li><a href="#leaderboard">Leaderboard</a></li>
       </ul>
-      <a href="index.html" class="cta-btn">Get Started</a>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="createAccount.html" class="btn-secondary" style="padding: 0.6rem 1.2rem;">Sign Up</a>
+        <a href="index.html" class="cta-btn">Sign In</a>
+      </div>
       <button class="mobile-menu-btn">
         <span class="material-symbols-outlined">menu</span>
       </button>
@@ -844,7 +880,7 @@
         <h1>Bridge the Gap Between <span class="highlight">Citizens & Government</span></h1>
         <p>Report civic issues instantly and get rapid responses from local authorities. Your voice matters, and we make sure it's heard.</p>
         <div class="hero-buttons">
-          <a href="index.html" class="cta-btn">Report an Issue</a>
+          <a href="index.html" class="cta-btn">Sign In to Report</a>
           <a href="#how-it-works" class="btn-secondary">Learn More</a>
         </div>
       </div>

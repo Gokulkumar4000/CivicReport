@@ -10,6 +10,12 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
     
+    def do_GET(self):
+        # Redirect root to landing page
+        if self.path == '/':
+            self.path = '/civinet_landing.html'
+        return super().do_GET()
+    
     def end_headers(self):
         # Disable caching to ensure changes are visible immediately
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
@@ -24,6 +30,7 @@ class MyHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
 if __name__ == '__main__':
     Handler = MyHTTPRequestHandler
     
+    socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("0.0.0.0", PORT), Handler) as httpd:
         print(f"Server running at http://0.0.0.0:{PORT}/")
         print(f"Serving files from: {os.path.abspath(DIRECTORY)}")
