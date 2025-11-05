@@ -5,7 +5,9 @@ import './Landing.css';
 
 const Landing = () => {
   const statsRef = useRef(null);
+  const storiesRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [currentStory, setCurrentStory] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,6 +49,14 @@ const Landing = () => {
       }, 16);
     });
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentStory((prev) => (prev + 1) % 3);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="landing-page">
@@ -164,7 +174,7 @@ const Landing = () => {
           <p>Real impact from real citizens in communities across the nation</p>
         </div>
         <div className="slider-container">
-          <div className="slider">
+          <div className="slider" style={{ transform: `translateX(-${currentStory * 100}%)` }}>
             <div className="story-card">
               <div className="story-header">
                 <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="User" className="story-avatar" />
@@ -206,6 +216,23 @@ const Landing = () => {
               <p>Community park transformed after waste management report</p>
               <span className="story-status">Resolved</span>
             </div>
+          </div>
+          <div className="slider-dots">
+            <button 
+              className={`slider-dot ${currentStory === 0 ? 'active' : ''}`}
+              onClick={() => setCurrentStory(0)}
+              aria-label="Story 1"
+            />
+            <button 
+              className={`slider-dot ${currentStory === 1 ? 'active' : ''}`}
+              onClick={() => setCurrentStory(1)}
+              aria-label="Story 2"
+            />
+            <button 
+              className={`slider-dot ${currentStory === 2 ? 'active' : ''}`}
+              onClick={() => setCurrentStory(2)}
+              aria-label="Story 3"
+            />
           </div>
         </div>
       </section>
