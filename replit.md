@@ -36,11 +36,28 @@ This is a React-based web application:
 The app runs on Vite dev server on port 5000 with hot module replacement enabled.
 
 ## Recent Changes
-- **2025-11-05**: Major UX improvements and feature enhancements
+- **2025-11-05**: Major UX improvements and feature enhancements (Latest Update)
+  - **Mobile Optimizations**: Added mobile-optimizations.css for better mobile experience
+    - Reduced font sizes (14px base on mobile)
+    - Compact padding/margins for all components
+    - Smaller buttons, cards, and form elements
+    - Better content fitting on small screens
+  - **Language Selector**: Added to Profile page
+    - 10 Indian languages supported (English, Hindi, Telugu, Tamil, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi)
+    - Saves preference to localStorage
+    - Toast notification on language change
+  - **Zero Alert/Prompt Dialogs**: Completely removed all browser dialogs
+    - Tag input: Inline form with check/cross buttons
+    - Delete confirmation: Inline check/cross buttons with toast feedback
+    - All notifications use custom toast system
+  - **Sidebar Always Shows CIVINET**: Fixed visibility issue
+    - Displays "CIVINET" text in both expanded and collapsed states
+    - Vertical text when collapsed for better branding
   - **Custom Notification System**: Replaced all alert boxes with animated popup notifications
     - Types: success, error, warning, info
     - Auto-dismiss with manual close option
     - Smooth slide-in animations
+    - Implemented across all pages (Feed, Report, Profile, AllReports)
   - **Reverse Geocoding Integration**: Location detection now shows city/district names
     - Profile page: Saves location globally (localStorage)
     - Report page: Shows detailed address (local only, doesn't persist)
@@ -49,10 +66,6 @@ The app runs on Vite dev server on port 5000 with hot module replacement enabled
     - Changed from white circular to blue rounded square
     - Removed excessive scale animations
     - Smooth hover lift effect
-  - **Sidebar Improvements**: Dynamic CIVINET text display
-    - Shows "C" when collapsed
-    - Shows full "CIVINET" + tagline when expanded
-    - Smooth transitions between states
   - **Feed Page Enhancements**:
     - Added Leaderboard and My Reports preview cards
     - Clickable cards navigate to respective pages
