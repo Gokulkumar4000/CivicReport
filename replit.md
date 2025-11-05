@@ -4,67 +4,95 @@
 CIVINET is a civic engagement platform that allows citizens to report and track local incidents such as potholes, graffiti, and other community issues. The platform features user authentication, incident reporting with image upload, a social feed, leaderboards, and user profiles.
 
 ## Project Structure
-This is a static HTML website using:
-- **Frontend**: Pure HTML with Tailwind CSS (CDN)
-- **Styling**: Tailwind CSS with custom theme configuration
+This is a React-based web application:
+- **Frontend**: React with Vite
+- **Styling**: Custom CSS with CSS variables
 - **Icons**: Google Material Symbols
 - **Fonts**: Public Sans (Google Fonts)
+- **State Management**: React Context API (SidebarContext)
+- **Routing**: React Router DOM
 
-## Pages
-- `index.html` - Login page with OTP verification
-- `createAccount.html` - Account creation page
-- `feedPage.html` - Main feed showing reported incidents
-- `ReportIncident.html` - Form to report new incidents
-- `ReportIncidentSucess.html` - Success confirmation page
-- `showALLReport.html` - View all reports
-- `LeaderBord.html` - User leaderboard
-- `profile.html` - User profile page
-- `otpVerifiedWrong.html` - OTP verification error page
-- `sucessCreated.html` - Account creation success page
+## Pages/Routes
+- `/login` - Login page with OTP verification and welcome stats
+- `/create-account` - Account creation with feature highlights
+- `/account-created` - Success confirmation page
+- `/feed` - Main feed with leaderboard/reports preview and recent incidents
+- `/report` - Incident reporting form with location detection
+- `/report-success` - Report submission success page
+- `/all-reports` - View all submitted reports with filtering
+- `/leaderboard` - User leaderboard with weekly rankings
+- `/profile` - User profile with location settings and editing
 
 ## Technology Stack
-- HTML5
-- Tailwind CSS (via CDN)
-- JavaScript (vanilla)
+- React 18.3
+- React Router DOM 6.28
+- Vite 7.1
+- Custom CSS with CSS Variables
 - Google Material Symbols icons
 - Google Fonts (Public Sans)
+- OpenStreetMap Nominatim API (reverse geocoding)
 
 ## Development
-The site is served using a Python HTTP server on port 5000 with cache control headers disabled for development.
+The app runs on Vite dev server on port 5000 with hot module replacement enabled.
 
 ## Recent Changes
-- **2025-11-03**: Complete redesign and feature implementation
-  - **Converted from Tailwind CSS to Custom CSS**: All pages now use custom CSS for better control and performance
-  - **Made fully responsive**: Added media queries and responsive design for mobile and desktop
-  - **Added JavaScript functionality**: Implemented dynamic features including:
-    - Automatic geolocation detection
-    - Profile editing (phone and email)
-    - Profile visibility toggle
-    - Incident reporting with form validation
-    - Dynamic filtering for reports (All, Pending, In Progress, Solved)
-    - Statistics calculation and display
-    - Tag management
-    - Image upload preview
-    - Notification system
-  - **Redesigned Report Incident page**: Modern gradient design with better UX
-  - **Fixed navigation**: Made bottom navigation fixed and properly positioned
-  - **Added mock data**: 8 sample incidents with different statuses for demonstration
-  - **Interactive features**: All forms and buttons are now fully functional
-  - **Landing Page Implementation**: Set civinet_landing.html as the main landing page
-    - Added Sign Up and Sign In buttons to navigation
-    - Configured server to route root URL (/) to landing page
-    - Updated button redirects: Sign In → index.html (login), Sign Up → createAccount.html
-    - Implemented responsive navigation for mobile devices
-    - Server configured with address reuse for smooth restarts
+- **2025-11-05**: Major UX improvements and feature enhancements
+  - **Custom Notification System**: Replaced all alert boxes with animated popup notifications
+    - Types: success, error, warning, info
+    - Auto-dismiss with manual close option
+    - Smooth slide-in animations
+  - **Reverse Geocoding Integration**: Location detection now shows city/district names
+    - Profile page: Saves location globally (localStorage)
+    - Report page: Shows detailed address (local only, doesn't persist)
+    - Uses OpenStreetMap Nominatim API
+  - **Menu Button Redesign**: Blue rounded button with better animations
+    - Changed from white circular to blue rounded square
+    - Removed excessive scale animations
+    - Smooth hover lift effect
+  - **Sidebar Improvements**: Dynamic CIVINET text display
+    - Shows "C" when collapsed
+    - Shows full "CIVINET" + tagline when expanded
+    - Smooth transitions between states
+  - **Feed Page Enhancements**:
+    - Added Leaderboard and My Reports preview cards
+    - Clickable cards navigate to respective pages
+    - Changed profile icon to notification bell
+    - "Recent Reports" section heading
+  - **Profile Editing UI**: Replaced Save/Cancel buttons with tick/cross icons
+    - Green check icon for save
+    - Red close icon for cancel
+    - Compact and modern design
+
+- **2025-11-03**: React migration and professional UX implementation
+  - **Migrated from static HTML to React**: Complete rebuild with 100% visual parity
+  - **Collapsible Sidebar Navigation**: Desktop-only with hamburger menu (260px ↔ 72px)
+  - **Responsive Navigation**: Sidebar on desktop, bottom nav on mobile (≤768px)
+  - **Professional Animations**: fadeIn, slideUp, scaleIn, card hover effects
+  - **Enhanced Auth Pages**: Welcome content, stats, and feature highlights
+  - **Inspirational Messaging**: Leaderboard banner and civic engagement themes
 
 ## User Preferences
 None set yet.
 
 ## Project Architecture
-This is a static website with client-side navigation. All pages are standalone HTML files with embedded JavaScript for basic interactivity. The site uses a mobile-first design approach with responsive layouts.
+React single-page application with component-based architecture:
+- **Components**: Reusable UI components (Sidebar, MenuButton, BottomNav, Notification)
+- **Pages**: Route-based page components
+- **Contexts**: Global state management (SidebarContext)
+- **Hooks**: Custom hooks (useIncidents, useNotification)
+- **Utilities**: Shared utilities and data
 
 ### Key Design Decisions
-- Static HTML approach for simplicity and ease of deployment
-- Tailwind CSS via CDN for rapid styling without build step
-- Dark mode support with class-based theming
-- Mobile-optimized interface with bottom navigation
+- React for component reusability and state management
+- Context API for global sidebar state
+- Custom CSS with CSS variables for theming
+- Responsive breakpoint at 768px (desktop vs mobile)
+- localStorage for persistent user location
+- OpenStreetMap API for free reverse geocoding
+- Mobile-first design with desktop enhancements
+
+### Navigation Pattern
+- Desktop (>768px): Collapsible sidebar (260px expanded, 72px collapsed)
+- Mobile (≤768px): Fixed bottom navigation bar
+- Menu button visible on desktop only
+- Smooth transitions between states (0.3s cubic-bezier)
