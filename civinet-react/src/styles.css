@@ -1363,11 +1363,6 @@ html {
   transform: scale(0.98);
 }
 
-/* Leaderboard widget max height for scrolling */
-.widget:first-child .widget-content {
-  max-height: 400px;
-  overflow-y: auto;
-}
 
 /* Hide mobile quick access buttons on desktop */
 @media (min-width: 1024px) {

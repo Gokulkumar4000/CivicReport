@@ -180,10 +180,9 @@ const Feed = () => {
                 <span className="material-symbols-outlined">leaderboard</span>
                 Daily Leaderboard
               </h3>
-              <Link to="/leaderboard" className="widget-link">View All</Link>
             </div>
             <div className="widget-content">
-              {leaderboardData.slice(0, 5).map((user) => (
+              {leaderboardData.map((user) => (
                 <div key={user.rank} className="leaderboard-mini-item">
                   <div className="rank-badge">{user.rank}</div>
                   <img src={user.avatar} alt={user.name} className="mini-avatar" />
@@ -233,10 +232,9 @@ const Feed = () => {
                 <span className="material-symbols-outlined">history</span>
                 Recent Reports
               </h3>
-              <Link to="/all-reports" className="widget-link">View All</Link>
             </div>
             <div className="widget-content">
-              {reports.slice(0, 3).map((report) => (
+              {reports.map((report) => (
                 <div 
                   key={report.id} 
                   className="activity-item" 

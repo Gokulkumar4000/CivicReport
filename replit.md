@@ -80,9 +80,15 @@ The app runs on Vite dev server on port 5000 with hot module replacement enabled
     - 10 Indian languages supported (English, Hindi, Telugu, Tamil, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi)
     - Saves preference to localStorage
     - Toast notification on language change
+  - **Enhanced Delete Confirmation System**: Professional modal for deleting reports
+    - 6 preset reason options (Resolved, Duplicate, Spam, Wrong Location, Mistake, Other)
+    - Optional text area for additional details
+    - File Complaint feature for users being threatened or pressured
+    - Dedicated complaint form with threat description
+    - Security notice about identity protection
+    - Human-readable success notifications
   - **Zero Alert/Prompt Dialogs**: Completely removed all browser dialogs
     - Tag input: Inline form with check/cross buttons
-    - Delete confirmation: Inline check/cross buttons with toast feedback
     - All notifications use custom toast system
   - **Sidebar Always Shows CIVINET**: Fixed visibility issue
     - Displays "CIVINET" text in both expanded and collapsed states
@@ -123,7 +129,7 @@ None set yet.
 
 ## Project Architecture
 React single-page application with component-based architecture:
-- **Components**: Reusable UI components (Sidebar, MenuButton, BottomNav, Notification)
+- **Components**: Reusable UI components (Sidebar, BottomNav, Notification, DeleteConfirmationModal)
 - **Pages**: Route-based page components
 - **Contexts**: Global state management (SidebarContext)
 - **Hooks**: Custom hooks (useIncidents, useNotification)
