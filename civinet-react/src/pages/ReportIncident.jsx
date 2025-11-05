@@ -4,11 +4,14 @@ import { Button, Input, Tag } from '../components/ui';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
 import MenuButton from '../components/MenuButton';
+import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
+import { useNotification } from '../hooks/useNotification';
 
 const ReportIncident = () => {
   const navigate = useNavigate();
   const { isOpen } = useSidebar();
+  const { notifications, showNotification, removeNotification } = useNotification();
   const [formData, setFormData] = useState({
     description: '',
     location: '',
@@ -34,29 +37,52 @@ const ReportIncident = () => {
     setTags(tags.filter((_, i) => i !== index));
   };
 
+  const reverseGeocode = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=16`
+      );
+      const data = await response.json();
+      const road = data.address.road || '';
+      const suburb = data.address.suburb || data.address.neighbourhood || '';
+      const city = data.address.city || data.address.town || data.address.village;
+      
+      let locationText = '';
+      if (road && suburb) {
+        locationText = `${road}, ${suburb}, ${city}`;
+      } else if (road) {
+        locationText = `${road}, ${city}`;
+      } else if (suburb) {
+        locationText = `${suburb}, ${city}`;
+      } else {
+        locationText = city;
+      }
+      
+      return locationText;
+    } catch (error) {
+      return `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
+    }
+  };
+
   const detectLocation = () => {
     setDetecting(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
-          // Format coordinates correctly based on sign
-          const latDir = latitude >= 0 ? 'N' : 'S';
-          const lonDir = longitude >= 0 ? 'E' : 'W';
-          const location = `${Math.abs(latitude).toFixed(4)}°${latDir}, ${Math.abs(longitude).toFixed(4)}°${lonDir}`;
-          setFormData(prev => ({...prev, location}));
+          const locationText = await reverseGeocode(latitude, longitude);
+          setFormData(prev => ({...prev, location: locationText}));
           setLocationDetected(true);
           setDetecting(false);
+          showNotification('Location detected successfully', 'success');
         },
         (error) => {
-          console.error('Geolocation error:', error);
-          // Don't set locationDetected on error so user can retry
+          showNotification('Failed to detect location. Please enable location services.', 'error');
           setDetecting(false);
         }
       );
     } else {
-      // Browser doesn't support geolocation
-      console.error('Geolocation not supported');
+      showNotification('Geolocation is not supported by your browser', 'error');
       setDetecting(false);
     }
   };
@@ -185,6 +211,15 @@ const ReportIncident = () => {
       
       <BottomNav />
       </div>
+      
+      {notifications.map(notification => (
+        <Notification
+          key={notification.id}
+          message={notification.message}
+          type={notification.type}
+          onClose={() => removeNotification(notification.id)}
+        />
+      ))}
     </>
   );
 };

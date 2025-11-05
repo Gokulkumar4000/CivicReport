@@ -4,31 +4,31 @@
   left: 1rem;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
-  background: white;
-  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  background: var(--primary);
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 101;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+  box-shadow: 0 2px 12px rgba(19, 127, 236, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .menu-button:hover {
-  background: var(--background-light);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transform: scale(1.05);
+  background: #0f6fd8;
+  box-shadow: 0 4px 16px rgba(19, 127, 236, 0.4);
+  transform: translateY(-2px);
 }
 
 .menu-button:active {
-  transform: scale(0.95);
+  transform: translateY(0);
 }
 
 .menu-button .material-symbols-outlined {
   font-size: 24px;
-  color: var(--text-primary-light);
+  color: white;
 }
 
 @media (max-width: 768px) {

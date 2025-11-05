@@ -53,11 +53,21 @@
   font-weight: 800;
   color: var(--primary);
   margin-bottom: 0.25rem;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-logo-collapsed {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-align: center;
+  transition: opacity 0.2s ease;
 }
 
 .sidebar-tagline {
   font-size: 0.75rem;
   color: var(--text-secondary-light);
+  transition: opacity 0.2s ease;
 }
 
 .sidebar-nav {

@@ -2,10 +2,13 @@ import { useState } from 'react';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
 import MenuButton from '../components/MenuButton';
+import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
+import { useNotification } from '../hooks/useNotification';
 
 const Profile = () => {
   const { isOpen } = useSidebar();
+  const { notifications, showNotification, removeNotification } = useNotification();
   const [profileData, setProfileData] = useState({
     name: 'Dravid',
     phone: '+91 9876543210',
@@ -13,7 +16,7 @@ const Profile = () => {
     aadhar: 'XXXX XXX 123',
     joinedYear: '2021',
     profileVisible: true,
-    defaultLocation: 'San Francisco, CA',
+    defaultLocation: localStorage.getItem('userCity') || 'San Francisco, CA',
     avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA7bWPSjarPI3FB4VGma7TBRV0CmPhPYkJViKaGEAy6ik8biv5IWfi_Hj7tQvDNGnhXS6s3JX-NlpG4EUFmwrRPOaK931I-NA3BOU6fIyOkOAOfVT9caBNGCubQkFPePFobJOjJw2_RSGbcyTO9KgpEsNBrfM70Pou6Va281zpG2QSAFUcoH7b6vFEg9m27hNYFH-dMFdRQbfhRPCusCt2l2kpaGCBLam9owDV_vozZiUy5FqDA8-vZDlYmIA-I1o4V62wmCeMo8OFJ'
   });
   const [editingField, setEditingField] = useState(null);
@@ -42,26 +45,41 @@ const Profile = () => {
     setEditValue('');
   };
 
+  const reverseGeocode = async (lat, lon) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=10`
+      );
+      const data = await response.json();
+      const city = data.address.city || data.address.town || data.address.village || data.address.county;
+      const district = data.address.suburb || data.address.neighbourhood || '';
+      const locationText = district ? `${city}, ${district}` : city;
+      return locationText;
+    } catch (error) {
+      showNotification('Could not fetch location name', 'error');
+      return `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
+    }
+  };
+
   const getLocation = () => {
     setIsGettingLocation(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
-          // Format coordinates correctly based on sign
-          const latDir = latitude >= 0 ? 'N' : 'S';
-          const lonDir = longitude >= 0 ? 'E' : 'W';
-          const location = `${Math.abs(latitude).toFixed(4)}°${latDir}, ${Math.abs(longitude).toFixed(4)}°${lonDir}`;
-          setProfileData(prev => ({...prev, defaultLocation: location}));
+          const locationText = await reverseGeocode(latitude, longitude);
+          setProfileData(prev => ({...prev, defaultLocation: locationText}));
+          localStorage.setItem('userCity', locationText);
+          showNotification('Location updated successfully', 'success');
           setIsGettingLocation(false);
         },
         (error) => {
-          console.error('Geolocation error:', error);
+          showNotification('Failed to detect location. Please enable location services.', 'error');
           setIsGettingLocation(false);
         }
       );
     } else {
-      console.error('Geolocation not supported');
+      showNotification('Geolocation is not supported by your browser', 'error');
       setIsGettingLocation(false);
     }
   };
@@ -131,11 +149,21 @@ const Profile = () => {
                         style={{padding: '0.5rem', fontSize: '0.875rem'}}
                         autoFocus
                       />
-                      <button onClick={() => saveEdit('phone')} className="btn-primary" style={{padding: '0.5rem 1rem', fontSize: '0.875rem'}}>
-                        Save
+                      <button 
+                        onClick={() => saveEdit('phone')} 
+                        className="p-2 rounded-lg hover:bg-green-50 transition-colors"
+                        style={{color: '#22c55e'}}
+                        title="Save"
+                      >
+                        <span className="material-symbols-outlined">check</span>
                       </button>
-                      <button onClick={cancelEdit} className="btn-secondary" style={{padding: '0.5rem 1rem', fontSize: '0.875rem'}}>
-                        Cancel
+                      <button 
+                        onClick={cancelEdit} 
+                        className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        style={{color: '#ef4444'}}
+                        title="Cancel"
+                      >
+                        <span className="material-symbols-outlined">close</span>
                       </button>
                     </div>
                   ) : (
@@ -163,11 +191,21 @@ const Profile = () => {
                         style={{padding: '0.5rem', fontSize: '0.875rem'}}
                         autoFocus
                       />
-                      <button onClick={() => saveEdit('email')} className="btn-primary" style={{padding: '0.5rem 1rem', fontSize: '0.875rem'}}>
-                        Save
+                      <button 
+                        onClick={() => saveEdit('email')} 
+                        className="p-2 rounded-lg hover:bg-green-50 transition-colors"
+                        style={{color: '#22c55e'}}
+                        title="Save"
+                      >
+                        <span className="material-symbols-outlined">check</span>
                       </button>
-                      <button onClick={cancelEdit} className="btn-secondary" style={{padding: '0.5rem 1rem', fontSize: '0.875rem'}}>
-                        Cancel
+                      <button 
+                        onClick={cancelEdit} 
+                        className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        style={{color: '#ef4444'}}
+                        title="Cancel"
+                      >
+                        <span className="material-symbols-outlined">close</span>
                       </button>
                     </div>
                   ) : (
@@ -241,6 +279,15 @@ const Profile = () => {
 
       <BottomNav />
       </div>
+      
+      {notifications.map(notification => (
+        <Notification
+          key={notification.id}
+          message={notification.message}
+          type={notification.type}
+          onClose={() => removeNotification(notification.id)}
+        />
+      ))}
     </>
   );
 };
