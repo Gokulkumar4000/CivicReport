@@ -1402,9 +1402,3 @@ html {
   font-variation-settings: 'FILL' 1;
 }
 
-/* Fix Feed header spacing for menu button on desktop */
-@media (min-width: 769px) {
-  .feed-container .header-sticky {
-    padding-left: 5rem !important;
-  }
-}

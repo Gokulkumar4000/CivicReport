@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
-import MenuButton from '../components/MenuButton';
 import { useSidebar } from '../contexts/SidebarContext';
 
 const Leaderboard = () => {
@@ -14,7 +13,6 @@ const Leaderboard = () => {
   return (
     <>
       <Sidebar />
-      <MenuButton />
       <div className={`flex flex-col has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
       <header className="flex flex-col p-4 border-b border-gray">
         <h1 className="text-lg font-bold text-center">Leaderboard</h1>

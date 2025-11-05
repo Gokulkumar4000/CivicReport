@@ -3,18 +3,23 @@ import { useSidebar } from '../contexts/SidebarContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const { isOpen } = useSidebar();
+  const { isOpen, toggle } = useSidebar();
   
   return (
     <aside className={`sidebar ${isOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       <div className="sidebar-header">
-        {isOpen ? (
+        <button 
+          className="menu-button-inside" 
+          onClick={toggle} 
+          aria-label="Toggle menu"
+        >
+          <span className="material-symbols-outlined">menu</span>
+        </button>
+        {isOpen && (
           <>
             <h1 className="sidebar-logo">CIVINET</h1>
             <p className="sidebar-tagline">Civic Reporting Platform</p>
           </>
-        ) : (
-          <h1 className="sidebar-logo-collapsed">C</h1>
         )}
       </div>
       

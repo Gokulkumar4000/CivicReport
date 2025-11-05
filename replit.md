@@ -37,19 +37,25 @@ The app runs on Vite dev server on port 5000 with hot module replacement enabled
 
 ## Recent Changes
 - **2025-11-05**: Major UX improvements and feature enhancements (Latest Update)
+  - **Like/Dislike Feature**: Interactive engagement on all feed posts
+    - Like and dislike buttons with state management
+    - Mutual exclusivity (can't like and dislike same post)
+    - Visual feedback with filled icons and colored backgrounds
+    - Toast notifications for user actions
   - **Enhanced Mobile Optimizations**: Significantly improved mobile experience
     - Reduced base font size to 13px for better content fit
     - Ultra-compact padding (0.5rem) and margins throughout
     - Smaller icons (20px), buttons, and form elements
     - Optimized avatar sizes and card dimensions
     - Improved readability with proper text hierarchy
-  - **Desktop 2-Column Feed Layout**: Professional dashboard layout (1200px+)
+  - **Desktop 2-Column Feed Layout**: Professional dashboard layout (1024px+)
     - Left column: Main feed content (max 700px)
     - Right sidebar: Fixed widgets with scroll
       - Daily Leaderboard (top 5 users with avatars and points)
       - Community Stats (total reports, resolved, pending, success rate)
       - Recent Reports (clickable items with thumbnails and status badges)
     - Mobile view shows quick-access buttons instead
+    - Fixed overlapping media queries (desktop ≥1024px, mobile ≤1023px)
   - **Menu Button Improvements**: Smooth positioning that follows sidebar
     - Moves from left: 272px to 84px when sidebar collapses
     - Smooth cubic-bezier transition

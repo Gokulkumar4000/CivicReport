@@ -3,7 +3,6 @@ import { useIncidents } from '../hooks/useIncidents';
 import { useNotification } from '../hooks/useNotification';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
-import MenuButton from '../components/MenuButton';
 import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
 
@@ -53,7 +52,6 @@ const AllReports = () => {
   return (
     <>
       <Sidebar />
-      <MenuButton />
       {notifications.map(notification => (
         <Notification
           key={notification.id}

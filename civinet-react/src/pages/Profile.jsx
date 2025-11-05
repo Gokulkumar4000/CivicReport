@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
-import MenuButton from '../components/MenuButton';
 import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
 import { useNotification } from '../hooks/useNotification';
@@ -88,7 +87,6 @@ const Profile = () => {
   return (
     <>
       <Sidebar />
-      <MenuButton />
       <div className={`flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`}>
       <header className="header-sticky flex items-center justify-center px-4 py-3">
         <h1 className="text-lg font-bold">Profile</h1>

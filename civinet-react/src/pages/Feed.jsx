@@ -4,7 +4,6 @@ import { useIncidents } from '../hooks/useIncidents';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
-import MenuButton from '../components/MenuButton';
 import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
 import { useNotification } from '../hooks/useNotification';
@@ -70,7 +69,6 @@ const Feed = () => {
   return (
     <>
       <Sidebar />
-      <MenuButton />
       <div className={`feed-container has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`}>
         <div className="feed-main-content">
           <header className="header-sticky">

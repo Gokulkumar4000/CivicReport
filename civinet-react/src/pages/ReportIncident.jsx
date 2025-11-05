@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input, Tag } from '../components/ui';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
-import MenuButton from '../components/MenuButton';
 import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
 import { useNotification } from '../hooks/useNotification';
@@ -150,7 +149,6 @@ const ReportIncident = () => {
   return (
     <>
       <Sidebar />
-      <MenuButton />
       <div className={`flex flex-col justify-between has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
       <div className="flex-grow overflow-y-auto">
         <header className="report-header">
