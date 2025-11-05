@@ -1,0 +1,150 @@
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  /* Reduce base font size for mobile */
+  body {
+    font-size: 14px;
+  }
+
+  /* Compact headers */
+  .header-sticky {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .header-sticky h1 {
+    font-size: 1.125rem !important;
+  }
+
+  /* Compact cards */
+  .card {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .card-header {
+    padding: 0.75rem !important;
+  }
+
+  .card-body {
+    padding: 0.75rem !important;
+  }
+
+  .card-image {
+    height: 12rem !important;
+  }
+
+  /* Smaller buttons */
+  .btn-primary, .btn-secondary {
+    padding: 0.625rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  /* Compact forms */
+  .form-input, .form-textarea {
+    padding: 0.625rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .form-group {
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Report page */
+  .report-header {
+    padding: 0.75rem 1rem !important;
+  }
+
+  .report-header h1 {
+    font-size: 1.25rem !important;
+  }
+
+  .report-form-section {
+    padding: 0.75rem 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  .section-title {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Profile page */
+  .profile-avatar {
+    width: 5rem !important;
+    height: 5rem !important;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem !important;
+  }
+
+  .text-lg {
+    font-size: 1rem !important;
+  }
+
+  .text-xl {
+    font-size: 1.125rem !important;
+  }
+
+  /* Compact spacing */
+  .p-4 {
+    padding: 0.75rem !important;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 0.75rem !important;
+  }
+
+  .space-y-6 > * + * {
+    margin-top: 1rem !important;
+  }
+
+  .gap-4 {
+    gap: 0.75rem !important;
+  }
+
+  /* Leaderboard */
+  .leaderboard-item {
+    padding: 0.75rem !important;
+  }
+
+  /* Feed preview cards */
+  .grid-cols-2 > div {
+    padding: 0.75rem !important;
+  }
+
+  /* Inspirational banner */
+  .inspirational-banner {
+    padding: 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .inspirational-banner h3 {
+    font-size: 1rem !important;
+  }
+
+  /* Stats */
+  .auth-stats {
+    padding: 1rem !important;
+  }
+
+  .stat-number {
+    font-size: 1.25rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.7rem !important;
+  }
+
+  /* Feature highlights */
+  .feature-highlights {
+    padding: 0.75rem !important;
+  }
+
+  .feature-item .material-symbols-outlined {
+    font-size: 1.5rem !important;
+    padding: 0.5rem !important;
+  }
+
+  .feature-item {
+    font-size: 0.7rem !important;
+  }
+}

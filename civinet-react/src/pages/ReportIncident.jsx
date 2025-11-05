@@ -20,6 +20,8 @@ const ReportIncident = () => {
   const [tags, setTags] = useState(['Pothole', 'Urgent']);
   const [locationDetected, setLocationDetected] = useState(false);
   const [detecting, setDetecting] = useState(false);
+  const [addingTag, setAddingTag] = useState(false);
+  const [newTagValue, setNewTagValue] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,10 +29,21 @@ const ReportIncident = () => {
   };
 
   const addTag = () => {
-    const newTag = prompt('Enter tag name:');
-    if (newTag && newTag.trim()) {
-      setTags([...tags, newTag.trim()]);
+    setAddingTag(true);
+  };
+
+  const saveNewTag = () => {
+    if (newTagValue.trim()) {
+      setTags([...tags, newTagValue.trim()]);
+      setNewTagValue('');
+      setAddingTag(false);
+      showNotification('Tag added successfully', 'success');
     }
+  };
+
+  const cancelNewTag = () => {
+    setNewTagValue('');
+    setAddingTag(false);
   };
 
   const removeTag = (index) => {
@@ -179,13 +192,44 @@ const ReportIncident = () => {
               {tags.map((tag, index) => (
                 <Tag key={index} onRemove={() => removeTag(index)}>{tag}</Tag>
               ))}
-              <button 
-                type="button"
-                onClick={addTag}
-                className="tag-add-btn"
-              >
-                + Add Tag
-              </button>
+              {addingTag ? (
+                <div className="flex items-center gap-2" style={{width: '100%', marginTop: '0.5rem'}}>
+                  <input
+                    type="text"
+                    value={newTagValue}
+                    onChange={(e) => setNewTagValue(e.target.value)}
+                    placeholder="Enter tag name"
+                    className="form-input flex-1"
+                    style={{padding: '0.5rem', fontSize: '0.875rem'}}
+                    autoFocus
+                    onKeyPress={(e) => e.key === 'Enter' && saveNewTag()}
+                  />
+                  <button 
+                    type="button"
+                    onClick={saveNewTag}
+                    className="p-2 rounded-lg hover:bg-green-50 transition-colors"
+                    style={{color: '#22c55e'}}
+                  >
+                    <span className="material-symbols-outlined">check</span>
+                  </button>
+                  <button 
+                    type="button"
+                    onClick={cancelNewTag}
+                    className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                    style={{color: '#ef4444'}}
+                  >
+                    <span className="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+              ) : (
+                <button 
+                  type="button"
+                  onClick={addTag}
+                  className="tag-add-btn"
+                >
+                  + Add Tag
+                </button>
+              )}
             </div>
           </div>
 

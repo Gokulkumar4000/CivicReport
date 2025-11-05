@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './styles/tokens.css';
 import './styles.css';
 import './components.css';
+import './mobile-optimizations.css';
 
 // Components
 import Cursor from './components/Cursor';

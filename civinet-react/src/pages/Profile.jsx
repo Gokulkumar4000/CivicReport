@@ -22,6 +22,7 @@ const Profile = () => {
   const [editingField, setEditingField] = useState(null);
   const [editValue, setEditValue] = useState('');
   const [isGettingLocation, setIsGettingLocation] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState(localStorage.getItem('appLanguage') || 'English');
 
   const toggleVisibility = (e) => {
     setProfileData({...profileData, profileVisible: e.target.checked});
@@ -258,6 +259,41 @@ const Profile = () => {
               {isGettingLocation ? 'Getting Location...' : 'Get Location'}
             </button>
             <p className="text-xs text-secondary mt-2">Note: You'll still need to detect location each time you report an incident for accuracy.</p>
+          </div>
+
+          <div className="rounded-lg bg-white p-4">
+            <h3 className="mb-4 text-lg font-bold">Language Settings</h3>
+            <p className="text-sm text-secondary mb-3">Choose your preferred language</p>
+            <select 
+              value={selectedLanguage}
+              onChange={(e) => {
+                setSelectedLanguage(e.target.value);
+                localStorage.setItem('appLanguage', e.target.value);
+                showNotification(`Language changed to ${e.target.value}`, 'success');
+              }}
+              className="form-input"
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                borderRadius: '0.5rem',
+                border: '1px solid var(--border-light)',
+                background: 'white',
+                fontSize: '1rem',
+                cursor: 'pointer'
+              }}
+            >
+              <option value="English">English</option>
+              <option value="हिंदी">हिंदी (Hindi)</option>
+              <option value="తెలుగు">తెలుగు (Telugu)</option>
+              <option value="தமிழ்">தமிழ் (Tamil)</option>
+              <option value="বাংলা">বাংলা (Bengali)</option>
+              <option value="मराठी">मराठी (Marathi)</option>
+              <option value="ગુજરાતી">ગુજરાતી (Gujarati)</option>
+              <option value="ಕನ್ನಡ">ಕನ್ನಡ (Kannada)</option>
+              <option value="മലയാളം">മലയാളം (Malayalam)</option>
+              <option value="ਪੰਜਾਬੀ">ਪੰਜਾਬੀ (Punjabi)</option>
+            </select>
+            <p className="text-xs text-secondary mt-2">Language preference will be saved across sessions</p>
           </div>
 
           <div className="rounded-lg bg-white p-4">

@@ -8,15 +8,8 @@ const Sidebar = () => {
   return (
     <aside className={`sidebar ${isOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       <div className="sidebar-header">
-        {isOpen && (
-          <>
-            <h1 className="sidebar-logo">CIVINET</h1>
-            <p className="sidebar-tagline">Civic Reporting Platform</p>
-          </>
-        )}
-        {!isOpen && (
-          <h1 className="sidebar-logo-collapsed">C</h1>
-        )}
+        <h1 className="sidebar-logo">CIVINET</h1>
+        <p className="sidebar-tagline">Civic Reporting Platform</p>
       </div>
       
       <nav className="sidebar-nav">
