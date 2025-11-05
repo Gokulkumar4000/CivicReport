@@ -37,11 +37,38 @@ The app runs on Vite dev server on port 5000 with hot module replacement enabled
 
 ## Recent Changes
 - **2025-11-05**: Major UX improvements and feature enhancements (Latest Update)
-  - **Mobile Optimizations**: Added mobile-optimizations.css for better mobile experience
-    - Reduced font sizes (14px base on mobile)
-    - Compact padding/margins for all components
-    - Smaller buttons, cards, and form elements
-    - Better content fitting on small screens
+  - **Enhanced Mobile Optimizations**: Significantly improved mobile experience
+    - Reduced base font size to 13px for better content fit
+    - Ultra-compact padding (0.5rem) and margins throughout
+    - Smaller icons (20px), buttons, and form elements
+    - Optimized avatar sizes and card dimensions
+    - Improved readability with proper text hierarchy
+  - **Desktop 2-Column Feed Layout**: Professional dashboard layout (1200px+)
+    - Left column: Main feed content (max 700px)
+    - Right sidebar: Fixed widgets with scroll
+      - Daily Leaderboard (top 5 users with avatars and points)
+      - Community Stats (total reports, resolved, pending, success rate)
+      - Recent Reports (clickable items with thumbnails and status badges)
+    - Mobile view shows quick-access buttons instead
+  - **Menu Button Improvements**: Smooth positioning that follows sidebar
+    - Moves from left: 272px to 84px when sidebar collapses
+    - Smooth cubic-bezier transition
+    - Never hides CIVINET name
+  - **Sidebar Logo Enhancement**: Clean collapsed state
+    - Shows "CIVINET" when expanded
+    - Shows single "C" when collapsed (no rotation)
+    - Straight, readable branding at all times
+  - **Cursor UX Fix**: Native cursor now visible
+    - Removed cursor: none from body
+    - Animated blue ring cursor still present
+    - Best of both worlds for user comfort
+  - **Advanced Location Detection**: High-accuracy GPS with detailed addresses
+    - Street name and house number when available
+    - Neighborhood/suburb/district information
+    - City, state, and country details
+    - Proper error handling with coordinate fallback
+    - enableHighAccuracy: true for precise positioning
+    - 10-second timeout with retry options
   - **Language Selector**: Added to Profile page
     - 10 Indian languages supported (English, Hindi, Telugu, Tamil, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi)
     - Saves preference to localStorage

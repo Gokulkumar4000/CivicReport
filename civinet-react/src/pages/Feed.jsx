@@ -18,6 +18,8 @@ const Feed = () => {
   const [userLocation, setUserLocation] = useState(() => {
     return localStorage.getItem('userCity') || 'San Francisco';
   });
+  const [likedPosts, setLikedPosts] = useState(new Set());
+  const [dislikedPosts, setDislikedPosts] = useState(new Set());
 
   const leaderboardData = getLeaderboard('daily');
   const stats = getStats();
@@ -28,6 +30,42 @@ const Feed = () => {
       setUserLocation(savedLocation);
     }
   }, []);
+
+  const handleLike = (reportId) => {
+    setLikedPosts(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(reportId)) {
+        newSet.delete(reportId);
+      } else {
+        newSet.add(reportId);
+        // Remove from disliked if it was disliked
+        setDislikedPosts(prevDisliked => {
+          const newDisliked = new Set(prevDisliked);
+          newDisliked.delete(reportId);
+          return newDisliked;
+        });
+      }
+      return newSet;
+    });
+  };
+
+  const handleDislike = (reportId) => {
+    setDislikedPosts(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(reportId)) {
+        newSet.delete(reportId);
+      } else {
+        newSet.add(reportId);
+        // Remove from liked if it was liked
+        setLikedPosts(prevLiked => {
+          const newLiked = new Set(prevLiked);
+          newLiked.delete(reportId);
+          return newLiked;
+        });
+      }
+      return newSet;
+    });
+  };
 
   return (
     <>
@@ -104,9 +142,19 @@ const Feed = () => {
                   <p className="text-sm">{report.description}</p>
                   <div className="flex items-center justify-between mt-3">
                     <div className="flex items-center gap-4">
-                      <button className="action-btn flex items-center gap-1">
-                        <span className="material-symbols-outlined">thumb_up</span>
+                      <button 
+                        className={`action-btn flex items-center gap-1 ${likedPosts.has(report.id) ? 'active-like' : ''}`}
+                        onClick={() => handleLike(report.id)}
+                      >
+                        <span className="material-symbols-outlined">{likedPosts.has(report.id) ? 'thumb_up' : 'thumb_up'}</span>
                         <span>Like</span>
+                      </button>
+                      <button 
+                        className={`action-btn flex items-center gap-1 ${dislikedPosts.has(report.id) ? 'active-dislike' : ''}`}
+                        onClick={() => handleDislike(report.id)}
+                      >
+                        <span className="material-symbols-outlined">{dislikedPosts.has(report.id) ? 'thumb_down' : 'thumb_down'}</span>
+                        <span>Dislike</span>
                       </button>
                       <button className="action-btn flex items-center gap-1">
                         <span className="material-symbols-outlined">comment</span>

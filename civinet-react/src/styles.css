@@ -1128,7 +1128,7 @@ html {
   display: none;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   .feed-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -1335,7 +1335,7 @@ html {
 }
 
 /* Additional Feed Layout Fixes */
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   .feed-right-sidebar::-webkit-scrollbar {
     width: 6px;
   }
@@ -1370,15 +1370,41 @@ html {
 }
 
 /* Hide mobile quick access buttons on desktop */
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   .mobile-only {
     display: none !important;
   }
 }
 
 /* Ensure mobile shows the buttons */
-@media (max-width: 1199px) {
+@media (max-width: 1023px) {
   .mobile-only {
     display: grid !important;
+  }
+}
+
+/* Like/Dislike Active States */
+.action-btn.active-like {
+  color: var(--primary);
+  background: rgba(19, 127, 236, 0.1);
+}
+
+.action-btn.active-like .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+.action-btn.active-dislike {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.action-btn.active-dislike .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+/* Fix Feed header spacing for menu button on desktop */
+@media (min-width: 769px) {
+  .feed-container .header-sticky {
+    padding-left: 5rem !important;
   }
 }
