@@ -56,14 +56,15 @@ The app runs on Vite dev server on port 5000 with hot module replacement enabled
       - Recent Reports (clickable items with thumbnails and status badges)
     - Mobile view shows quick-access buttons instead
     - Fixed overlapping media queries (desktop ≥1024px, mobile ≤1023px)
-  - **Menu Button Improvements**: Smooth positioning that follows sidebar
-    - Moves from left: 272px to 84px when sidebar collapses
-    - Smooth cubic-bezier transition
-    - Never hides CIVINET name
-  - **Sidebar Logo Enhancement**: Clean collapsed state
-    - Shows "CIVINET" when expanded
-    - Shows single "C" when collapsed (no rotation)
-    - Straight, readable branding at all times
+  - **Menu Button Inside Sidebar**: Integrated menu toggle within sidebar (desktop only)
+    - Menu button now part of sidebar header
+    - No more glitchy icon movement during expansion
+    - Clean blue rounded button with hover effects
+    - Mobile uses BottomNav only (no sidebar/menu button)
+  - **Sidebar Logo Enhancement**: Conditional rendering based on state
+    - Shows "CIVINET" and tagline only when expanded
+    - No logo/text when collapsed (clean minimalist design)
+    - Smooth transitions without affecting navigation icons
   - **Cursor UX Fix**: Native cursor now visible
     - Removed cursor: none from body
     - Animated blue ring cursor still present
