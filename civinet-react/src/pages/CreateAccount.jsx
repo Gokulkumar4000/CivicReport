@@ -19,7 +19,7 @@ const CreateAccount = () => {
   };
 
   const handleSubmit = () => {
-    navigate('/feed');
+    navigate('/account-created');
   };
 
   return (

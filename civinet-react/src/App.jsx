@@ -15,6 +15,9 @@ import ReportIncident from './pages/ReportIncident';
 import Profile from './pages/Profile';
 import Leaderboard from './pages/Leaderboard';
 import AllReports from './pages/AllReports';
+import ReportSuccess from './pages/ReportSuccess';
+import AccountCreated from './pages/AccountCreated';
+import OTPError from './pages/OTPError';
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/all-reports" element={<AllReports />} />
+        <Route path="/report-success" element={<ReportSuccess />} />
+        <Route path="/account-created" element={<AccountCreated />} />
+        <Route path="/otp-error" element={<OTPError />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

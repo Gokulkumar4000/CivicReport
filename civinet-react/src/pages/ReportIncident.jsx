@@ -13,9 +13,7 @@ const ReportIncident = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Submit report logic here
-    alert('Report submitted successfully!');
-    navigate('/feed');
+    navigate('/report-success');
   };
 
   const addTag = () => {
