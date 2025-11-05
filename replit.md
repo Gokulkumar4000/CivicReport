@@ -51,9 +51,10 @@ The app runs on Vite dev server on port 5000 with hot module replacement enabled
   - **Desktop 2-Column Feed Layout**: Professional dashboard layout (1024px+)
     - Left column: Main feed content (max 700px)
     - Right sidebar: Fixed widgets with scroll
-      - Daily Leaderboard (top 5 users with avatars and points)
+      - Complete Daily Leaderboard (all users with avatars and points)
       - Community Stats (total reports, resolved, pending, success rate)
-      - Recent Reports (clickable items with thumbnails and status badges)
+      - All Recent Reports (with thumbnails and status badges)
+    - Sidebar scrolls to show all content
     - Mobile view shows quick-access buttons instead
     - Fixed overlapping media queries (desktop ≥1024px, mobile ≤1023px)
   - **Menu Button Inside Sidebar**: Integrated menu toggle within sidebar (desktop only)

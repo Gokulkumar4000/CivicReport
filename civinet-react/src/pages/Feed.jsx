@@ -19,6 +19,8 @@ const Feed = () => {
   });
   const [likedPosts, setLikedPosts] = useState(new Set());
   const [dislikedPosts, setDislikedPosts] = useState(new Set());
+  const [likeCounts, setLikeCounts] = useState({});
+  const [dislikeCounts, setDislikeCounts] = useState({});
 
   const leaderboardData = getLeaderboard('daily');
   const stats = getStats();
@@ -30,37 +32,100 @@ const Feed = () => {
     }
   }, []);
 
+  // Initialize like/dislike counts for new reports
+  useEffect(() => {
+    if (reports.length > 0) {
+      setLikeCounts(prevCounts => {
+        let hasChanges = false;
+        const newCounts = {...prevCounts};
+        
+        reports.forEach(report => {
+          if (newCounts[report.id] === undefined) {
+            // Only initialize if not already set - use report id for deterministic value
+            const seed = parseInt(report.id) || report.id.length;
+            newCounts[report.id] = ((seed * 7) % 45) + 5;
+            hasChanges = true;
+          }
+        });
+        
+        // Only return new object if there were actually changes
+        return hasChanges ? newCounts : prevCounts;
+      });
+      
+      setDislikeCounts(prevCounts => {
+        let hasChanges = false;
+        const newCounts = {...prevCounts};
+        
+        reports.forEach(report => {
+          if (newCounts[report.id] === undefined) {
+            // Only initialize if not already set - use report id for deterministic value
+            const seed = parseInt(report.id) || report.id.length;
+            newCounts[report.id] = ((seed * 3) % 10) + 1;
+            hasChanges = true;
+          }
+        });
+        
+        // Only return new object if there were actually changes
+        return hasChanges ? newCounts : prevCounts;
+      });
+    }
+  }, [reports]);
+
   const handleLike = (reportId) => {
+    const wasLiked = likedPosts.has(reportId);
+    const wasDisliked = dislikedPosts.has(reportId);
+    
     setLikedPosts(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(reportId)) {
+      if (wasLiked) {
         newSet.delete(reportId);
+        // Decrease like count
+        setLikeCounts(counts => ({...counts, [reportId]: (counts[reportId] || 0) - 1}));
       } else {
         newSet.add(reportId);
+        // Increase like count
+        setLikeCounts(counts => ({...counts, [reportId]: (counts[reportId] || 0) + 1}));
+        
         // Remove from disliked if it was disliked
-        setDislikedPosts(prevDisliked => {
-          const newDisliked = new Set(prevDisliked);
-          newDisliked.delete(reportId);
-          return newDisliked;
-        });
+        if (wasDisliked) {
+          setDislikedPosts(prevDisliked => {
+            const newDisliked = new Set(prevDisliked);
+            newDisliked.delete(reportId);
+            return newDisliked;
+          });
+          // Decrease dislike count
+          setDislikeCounts(counts => ({...counts, [reportId]: (counts[reportId] || 0) - 1}));
+        }
       }
       return newSet;
     });
   };
 
   const handleDislike = (reportId) => {
+    const wasDisliked = dislikedPosts.has(reportId);
+    const wasLiked = likedPosts.has(reportId);
+    
     setDislikedPosts(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(reportId)) {
+      if (wasDisliked) {
         newSet.delete(reportId);
+        // Decrease dislike count
+        setDislikeCounts(counts => ({...counts, [reportId]: (counts[reportId] || 0) - 1}));
       } else {
         newSet.add(reportId);
+        // Increase dislike count
+        setDislikeCounts(counts => ({...counts, [reportId]: (counts[reportId] || 0) + 1}));
+        
         // Remove from liked if it was liked
-        setLikedPosts(prevLiked => {
-          const newLiked = new Set(prevLiked);
-          newLiked.delete(reportId);
-          return newLiked;
-        });
+        if (wasLiked) {
+          setLikedPosts(prevLiked => {
+            const newLiked = new Set(prevLiked);
+            newLiked.delete(reportId);
+            return newLiked;
+          });
+          // Decrease like count
+          setLikeCounts(counts => ({...counts, [reportId]: (counts[reportId] || 0) - 1}));
+        }
       }
       return newSet;
     });
@@ -145,14 +210,14 @@ const Feed = () => {
                         onClick={() => handleLike(report.id)}
                       >
                         <span className="material-symbols-outlined">{likedPosts.has(report.id) ? 'thumb_up' : 'thumb_up'}</span>
-                        <span>Like</span>
+                        <span>{likeCounts[report.id] || 0}</span>
                       </button>
                       <button 
                         className={`action-btn flex items-center gap-1 ${dislikedPosts.has(report.id) ? 'active-dislike' : ''}`}
                         onClick={() => handleDislike(report.id)}
                       >
                         <span className="material-symbols-outlined">{dislikedPosts.has(report.id) ? 'thumb_down' : 'thumb_down'}</span>
-                        <span>Dislike</span>
+                        <span>{dislikeCounts[report.id] || 0}</span>
                       </button>
                       <button className="action-btn flex items-center gap-1">
                         <span className="material-symbols-outlined">comment</span>
