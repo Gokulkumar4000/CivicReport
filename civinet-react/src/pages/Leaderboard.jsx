@@ -16,8 +16,15 @@ const Leaderboard = () => {
       <Sidebar />
       <MenuButton />
       <div className={`flex flex-col has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
-      <header className="flex items-center justify-center p-4 border-b border-gray">
-        <h1 className="text-lg font-bold">Leaderboard</h1>
+      <header className="flex flex-col p-4 border-b border-gray">
+        <h1 className="text-lg font-bold text-center">Leaderboard</h1>
+        <div className="inspirational-banner mt-3">
+          <span className="material-symbols-outlined" style={{fontSize: '2rem', color: 'var(--primary)'}}>emoji_events</span>
+          <div style={{textAlign: 'center'}}>
+            <p className="font-semibold" style={{color: 'var(--primary)', marginBottom: '0.25rem'}}>Every Report Makes a Difference</p>
+            <p className="text-sm text-secondary">Together, we're building safer, stronger communities</p>
+          </div>
+        </div>
       </header>
 
       <div className="border-b border-gray">
