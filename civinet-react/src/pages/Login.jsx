@@ -21,8 +21,28 @@ const Login = () => {
   return (
     <div className="auth-container">
       <div className="auth-content">
-        <header>
-          <h1 className="auth-title">CIVINET</h1>
+        <header className="auth-header-enhanced">
+          <div className="auth-icon-container">
+            <span className="material-symbols-outlined" style={{fontSize: '4rem', color: 'var(--primary)'}}>
+              how_to_reg
+            </span>
+          </div>
+          <h1 className="auth-title">Welcome to CIVINET</h1>
+          <p className="auth-subtitle">Empowering citizens, transforming communities</p>
+          <div className="auth-stats">
+            <div className="auth-stat-item">
+              <span className="stat-number">50K+</span>
+              <span className="stat-label">Citizens</span>
+            </div>
+            <div className="auth-stat-item">
+              <span className="stat-number">10K+</span>
+              <span className="stat-label">Issues Solved</span>
+            </div>
+            <div className="auth-stat-item">
+              <span className="stat-number">200+</span>
+              <span className="stat-label">Cities</span>
+            </div>
+          </div>
         </header>
         <main className="auth-form">
           <div className="form-group">

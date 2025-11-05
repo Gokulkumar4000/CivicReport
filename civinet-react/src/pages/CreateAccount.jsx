@@ -25,9 +25,28 @@ const CreateAccount = () => {
   return (
     <div className="auth-container">
       <div className="auth-content">
-        <header>
-          <h1 className="auth-title">Create Account</h1>
-          <p className="text-secondary">Join CIVINET and make your voice heard</p>
+        <header className="auth-header-enhanced">
+          <div className="auth-icon-container">
+            <span className="material-symbols-outlined" style={{fontSize: '4rem', color: 'var(--primary)'}}>
+              group_add
+            </span>
+          </div>
+          <h1 className="auth-title">Join the Movement</h1>
+          <p className="auth-subtitle">Be the change your community needs</p>
+          <div className="feature-highlights">
+            <div className="feature-item">
+              <span className="material-symbols-outlined">verified</span>
+              <span>Verified Reporting</span>
+            </div>
+            <div className="feature-item">
+              <span className="material-symbols-outlined">trending_up</span>
+              <span>Track Progress</span>
+            </div>
+            <div className="feature-item">
+              <span className="material-symbols-outlined">groups</span>
+              <span>Community Impact</span>
+            </div>
+          </div>
         </header>
         <main className="auth-form">
           <div className="form-group">
