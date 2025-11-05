@@ -467,6 +467,280 @@
   }
 }
 
+/* ============= PROFILE PAGE STYLES ============= */
+.toggle-switch {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  display: inline-block;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-bg {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.toggle-dot {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.toggle-switch input:checked + .toggle-bg {
+  background-color: var(--primary);
+}
+
+.toggle-switch input:checked ~ .toggle-dot {
+  transform: translateX(22px);
+}
+
+/* ============= LEADERBOARD PAGE STYLES ============= */
+.tab-link {
+  flex: 1;
+  padding: 1rem;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary-light);
+  transition: all 0.3s ease;
+}
+
+.tab-link.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.tab-link:hover {
+  color: var(--primary);
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  transition: background 0.2s ease;
+}
+
+.leaderboard-item:hover {
+  background: var(--background-light);
+}
+
+.rank-number {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--text-secondary-light);
+}
+
+.rank-number.top-3 {
+  font-size: 1.5rem;
+}
+
+.leaderboard-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.leader-content {
+  flex: 1;
+}
+
+.leader-content p {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.leader-stats {
+  font-size: 0.875rem;
+  color: var(--text-secondary-light);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ============= REPORTS PAGE STYLES ============= */
+.report-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.report-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.report-thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ef4444;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}
+
+.filter-label {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: white;
+  border: 2px solid var(--border-light);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-label:hover {
+  border-color: var(--primary);
+}
+
+.filter-label input {
+  display: none;
+}
+
+.filter-label input:checked + .filter-text {
+  color: white;
+}
+
+.filter-label:has(input:checked) {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.filter-text {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text-primary-light);
+  transition: color 0.2s ease;
+}
+
+.filter-label:has(input:checked) .filter-text {
+  color: white;
+}
+
+/* ============= REPORT INCIDENT PAGE STYLES ============= */
+.report-header {
+  background: linear-gradient(135deg, var(--primary) 0%, #0f6dc7 100%);
+  color: white;
+  padding: 1.5rem 1rem;
+}
+
+.report-form-section {
+  padding: 1.5rem;
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--text-primary-light);
+}
+
+.image-upload-area {
+  border: 2px dashed var(--border-light);
+  border-radius: 12px;
+  padding: 3rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--background-light);
+}
+
+.image-upload-area:hover {
+  border-color: var(--primary);
+  background: rgba(19, 127, 236, 0.05);
+}
+
+.image-upload-area .material-symbols-outlined {
+  font-size: 3rem;
+  color: var(--text-secondary-light);
+  margin-bottom: 0.5rem;
+}
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, #0f6dc7 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(19, 127, 236, 0.3);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(19, 127, 236, 0.4);
+}
+
+.submit-btn .material-symbols-outlined {
+  font-size: 1.25rem;
+}
+
 /* ============= RESPONSIVE UTILITIES ============= */
 @media (max-width: 768px) {
   .modal-content {
@@ -477,5 +751,18 @@
   .tag-input-content {
     margin: 1rem;
     min-width: unset;
+  }
+  
+  .report-card {
+    padding: 0.75rem;
+  }
+  
+  .report-thumb {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .report-form-section {
+    padding: 1rem;
   }
 }
