@@ -1,21 +1,35 @@
 import { useState } from 'react';
 import { useIncidents } from '../hooks/useIncidents';
+import { useNotification } from '../hooks/useNotification';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
 import MenuButton from '../components/MenuButton';
+import Notification from '../components/Notification';
 import { useSidebar } from '../contexts/SidebarContext';
 
 const AllReports = () => {
   const { isOpen } = useSidebar();
   const { reports, filterReports, getStats, deleteReport } = useIncidents();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [deletingId, setDeletingId] = useState(null);
   const filteredReports = filterReports(activeFilter);
   const stats = getStats();
+  const { notifications, showNotification, removeNotification } = useNotification();
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this report?')) {
-      deleteReport(id);
+  const handleDeleteClick = (id) => {
+    setDeletingId(id);
+  };
+
+  const confirmDelete = () => {
+    if (deletingId) {
+      deleteReport(deletingId);
+      showNotification('Report deleted successfully', 'success');
+      setDeletingId(null);
     }
+  };
+
+  const cancelDelete = () => {
+    setDeletingId(null);
   };
 
   const getStatusColor = (status) => {
@@ -40,6 +54,14 @@ const AllReports = () => {
     <>
       <Sidebar />
       <MenuButton />
+      {notifications.map(notification => (
+        <Notification
+          key={notification.id}
+          message={notification.message}
+          type={notification.type}
+          onClose={() => removeNotification(notification.id)}
+        />
+      ))}
       <div className={`flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`}>
       <header className="header-sticky">
         <div className="p-4">
@@ -96,9 +118,30 @@ const AllReports = () => {
                 </p>
                 <p className="text-xs mt-1" style={{color: '#9ca3af'}}>Reported on {report.reportedDate}</p>
               </div>
-              <button className="delete-btn" onClick={() => handleDelete(report.id)}>
-                <span className="material-symbols-outlined">delete</span>
-              </button>
+              {deletingId === report.id ? (
+                <div className="flex gap-2">
+                  <button 
+                    className="p-2 rounded-lg hover:bg-green-50 transition-colors"
+                    style={{color: '#22c55e'}}
+                    onClick={confirmDelete}
+                    title="Confirm delete"
+                  >
+                    <span className="material-symbols-outlined">check</span>
+                  </button>
+                  <button 
+                    className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                    style={{color: '#ef4444'}}
+                    onClick={cancelDelete}
+                    title="Cancel"
+                  >
+                    <span className="material-symbols-outlined">close</span>
+                  </button>
+                </div>
+              ) : (
+                <button className="delete-btn" onClick={() => handleDeleteClick(report.id)}>
+                  <span className="material-symbols-outlined">delete</span>
+                </button>
+              )}
             </div>
           ))}
         </div>
