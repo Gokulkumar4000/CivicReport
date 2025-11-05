@@ -3,6 +3,9 @@ import './styles/tokens.css';
 import './styles.css';
 import './components.css';
 
+// Components
+import Cursor from './components/Cursor';
+
 // Pages
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -16,6 +19,7 @@ import AllReports from './pages/AllReports';
 function App() {
   return (
     <Router>
+      <Cursor />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
