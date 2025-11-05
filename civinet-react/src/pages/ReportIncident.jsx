@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input, Tag } from '../components/ui';
+import BottomNav from '../components/BottomNav';
 
 const ReportIncident = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     description: '',
-    location: 'San Francisco',
+    location: '',
     image: null
   });
   const [tags, setTags] = useState(['Pothole', 'Urgent']);
+  const [locationDetected, setLocationDetected] = useState(false);
+  const [detecting, setDetecting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +28,15 @@ const ReportIncident = () => {
 
   const removeTag = (index) => {
     setTags(tags.filter((_, i) => i !== index));
+  };
+
+  const detectLocation = () => {
+    setDetecting(true);
+    setTimeout(() => {
+      setFormData(prev => ({...prev, location: 'San Francisco, CA'}));
+      setLocationDetected(true);
+      setDetecting(false);
+    }, 1500);
   };
 
   return (
@@ -78,6 +90,32 @@ const ReportIncident = () => {
               readOnly
               style={{cursor: 'not-allowed', background: '#f9fafb'}}
             />
+            <button 
+              type="button"
+              onClick={detectLocation}
+              disabled={detecting || locationDetected}
+              className="location-btn"
+              style={{
+                marginTop: '1rem',
+                width: '100%',
+                padding: '0.75rem',
+                background: locationDetected ? '#10b981' : 'var(--primary)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                cursor: detecting || locationDetected ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                fontWeight: 600
+              }}
+            >
+              <span className="material-symbols-outlined">
+                {locationDetected ? 'check_circle' : 'my_location'}
+              </span>
+              {detecting ? 'Detecting...' : locationDetected ? 'Location Detected' : 'Detect Location'}
+            </button>
           </div>
 
           <div className="report-form-section">
@@ -114,15 +152,26 @@ const ReportIncident = () => {
           </div>
 
           <div style={{padding: '0 1rem', marginBottom: '2rem'}}>
-            <button type="submit" className="submit-btn">
+            <button 
+              type="submit" 
+              className="submit-btn" 
+              disabled={!locationDetected}
+            >
               <span className="material-symbols-outlined">send</span>
               <span>Submit Report</span>
             </button>
+            {!locationDetected && (
+              <p style={{textAlign: 'center', marginTop: '0.5rem', fontSize: '0.875rem', color: '#9ca3af'}}>
+                Please detect your location to enable submit
+              </p>
+            )}
           </div>
           
           <div style={{height: '5rem'}}></div>
         </form>
       </div>
+      
+      <BottomNav />
     </div>
   );
 };

@@ -10,11 +10,36 @@ const Profile = () => {
     aadhar: 'XXXX XXX 123',
     joinedYear: '2021',
     profileVisible: true,
+    defaultLocation: 'San Francisco, CA',
     avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA7bWPSjarPI3FB4VGma7TBRV0CmPhPYkJViKaGEAy6ik8biv5IWfi_Hj7tQvDNGnhXS6s3JX-NlpG4EUFmwrRPOaK931I-NA3BOU6fIyOkOAOfVT9caBNGCubQkFPePFobJOjJw2_RSGbcyTO9KgpEsNBrfM70Pou6Va281zpG2QSAFUcoH7b6vFEg9m27hNYFH-dMFdRQbfhRPCusCt2l2kpaGCBLam9owDV_vozZiUy5FqDA8-vZDlYmIA-I1o4V62wmCeMo8OFJ'
   });
+  const [isGettingLocation, setIsGettingLocation] = useState(false);
 
   const toggleVisibility = (e) => {
     setProfileData({...profileData, profileVisible: e.target.checked});
+  };
+
+  const editPhone = () => {
+    const newPhone = prompt('Enter new phone number:', profileData.phone);
+    if (newPhone && newPhone.trim()) {
+      setProfileData({...profileData, phone: newPhone.trim()});
+    }
+  };
+
+  const editEmail = () => {
+    const newEmail = prompt('Enter new email address:', profileData.email);
+    if (newEmail && newEmail.trim()) {
+      setProfileData({...profileData, email: newEmail.trim()});
+    }
+  };
+
+  const getLocation = () => {
+    setIsGettingLocation(true);
+    setTimeout(() => {
+      setProfileData(prev => ({...prev, defaultLocation: 'San Francisco, CA'}));
+      setIsGettingLocation(false);
+      alert('Location updated successfully!');
+    }, 1500);
   };
 
   return (
@@ -77,7 +102,7 @@ const Profile = () => {
                   <p className="font-medium">Phone</p>
                   <p className="text-sm text-secondary">{profileData.phone}</p>
                 </div>
-                <button className="edit-btn">
+                <button className="edit-btn" onClick={editPhone}>
                   <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20">
                     <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
                   </svg>
@@ -88,7 +113,7 @@ const Profile = () => {
                   <p className="font-medium">Email</p>
                   <p className="text-sm text-secondary">{profileData.email}</p>
                 </div>
-                <button className="edit-btn">
+                <button className="edit-btn" onClick={editEmail}>
                   <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20">
                     <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
                   </svg>
@@ -106,9 +131,31 @@ const Profile = () => {
           <div className="rounded-lg bg-white p-4">
             <h3 className="mb-4 text-lg font-bold">Location Settings</h3>
             <p className="text-sm text-secondary mb-3">Set your default location for reporting incidents</p>
-            <div style={{padding: '0.75rem 1rem', background: 'var(--background-light)', borderRadius: '0.5rem', border: '1px solid var(--border-light)'}}>
-              <p className="font-medium">San Francisco, CA</p>
+            <div style={{padding: '0.75rem 1rem', background: 'var(--background-light)', borderRadius: '0.5rem', border: '1px solid var(--border-light)', marginBottom: '1rem'}}>
+              <p className="font-medium">{profileData.defaultLocation}</p>
             </div>
+            <button 
+              onClick={getLocation}
+              disabled={isGettingLocation}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                background: 'var(--primary)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                cursor: isGettingLocation ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.5rem',
+                fontWeight: 600,
+                opacity: isGettingLocation ? 0.7 : 1
+              }}
+            >
+              <span className="material-symbols-outlined">my_location</span>
+              {isGettingLocation ? 'Getting Location...' : 'Get Location'}
+            </button>
             <p className="text-xs text-secondary mt-2">Note: You'll still need to detect location each time you report an incident for accuracy.</p>
           </div>
 
