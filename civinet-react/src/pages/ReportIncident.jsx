@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input, Tag } from '../components/ui';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
+import MenuButton from '../components/MenuButton';
+import { useSidebar } from '../contexts/SidebarContext';
 
 const ReportIncident = () => {
   const navigate = useNavigate();
+  const { isOpen } = useSidebar();
   const [formData, setFormData] = useState({
     description: '',
     location: '',
@@ -61,23 +64,11 @@ const ReportIncident = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex flex-col justify-between has-bottom-nav main-content-with-sidebar" style={{minHeight: '100vh'}}>
+      <MenuButton />
+      <div className={`flex flex-col justify-between has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
       <div className="flex-grow overflow-y-auto">
         <header className="report-header">
-          <div className="flex items-center justify-between">
-            <button 
-              onClick={() => navigate('/feed')}
-              style={{background: 'rgba(255,255,255,0.2)', border: 'none', cursor: 'pointer', padding: '0.5rem', borderRadius: '0.5rem', color: 'white'}}
-            >
-              <span className="material-symbols-outlined">close</span>
-            </button>
-            <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined" style={{fontSize: '1rem'}}>location_on</span>
-              <span style={{fontSize: '0.875rem'}}>Detecting...</span>
-            </div>
-            <div style={{width: '2.5rem'}}></div>
-          </div>
-          <div className="text-center" style={{marginTop: '1rem'}}>
+          <div className="text-center" style={{paddingTop: '1rem'}}>
             <h1 className="text-2xl font-bold">Report Incident</h1>
             <p style={{fontSize: '0.875rem', opacity: 0.9, marginTop: '0.25rem'}}>Help make your community safer</p>
           </div>

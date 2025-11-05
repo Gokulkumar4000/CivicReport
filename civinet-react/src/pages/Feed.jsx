@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import { useIncidents } from '../hooks/useIncidents';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
+import MenuButton from '../components/MenuButton';
+import { useSidebar } from '../contexts/SidebarContext';
 
 const Feed = () => {
   const { reports } = useIncidents();
+  const { isOpen } = useSidebar();
   const [userLocation, setUserLocation] = useState('San Francisco');
 
   useEffect(() => {
@@ -23,7 +26,8 @@ const Feed = () => {
   return (
     <>
       <Sidebar />
-      <div className="container has-bottom-nav main-content-with-sidebar">
+      <MenuButton />
+      <div className={`container has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`}>
       <header className="header-sticky">
         <div className="p-4 space-y-4">
           <div className="flex items-center justify-between">

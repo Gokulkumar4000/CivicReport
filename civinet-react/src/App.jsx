@@ -5,6 +5,7 @@ import './components.css';
 
 // Components
 import Cursor from './components/Cursor';
+import { SidebarProvider } from './contexts/SidebarContext';
 
 // Pages
 import Landing from './pages/Landing';
@@ -22,21 +23,23 @@ import OTPError from './pages/OTPError';
 function App() {
   return (
     <Router>
-      <Cursor />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/create-account" element={<CreateAccount />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/report" element={<ReportIncident />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/all-reports" element={<AllReports />} />
-        <Route path="/report-success" element={<ReportSuccess />} />
-        <Route path="/account-created" element={<AccountCreated />} />
-        <Route path="/otp-error" element={<OTPError />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <SidebarProvider>
+        <Cursor />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/create-account" element={<CreateAccount />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/report" element={<ReportIncident />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/all-reports" element={<AllReports />} />
+          <Route path="/report-success" element={<ReportSuccess />} />
+          <Route path="/account-created" element={<AccountCreated />} />
+          <Route path="/otp-error" element={<OTPError />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </SidebarProvider>
     </Router>
   );
 }

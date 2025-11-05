@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useIncidents } from '../hooks/useIncidents';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
+import MenuButton from '../components/MenuButton';
+import { useSidebar } from '../contexts/SidebarContext';
 
 const AllReports = () => {
+  const { isOpen } = useSidebar();
   const { reports, filterReports, getStats, deleteReport } = useIncidents();
   const [activeFilter, setActiveFilter] = useState('all');
   const filteredReports = filterReports(activeFilter);
@@ -37,15 +39,12 @@ const AllReports = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar">
+      <MenuButton />
+      <div className={`flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`}>
       <header className="header-sticky">
         <div className="p-4">
-          <div className="flex items-center justify-between mb-4">
-            <Link to="/feed">
-              <span className="material-symbols-outlined">arrow_back</span>
-            </Link>
+          <div className="flex items-center justify-center mb-4">
             <h1 className="text-lg font-bold">My Reports</h1>
-            <div style={{width: '2rem'}}></div>
           </div>
 
           <div className="bg-white rounded-lg p-4">

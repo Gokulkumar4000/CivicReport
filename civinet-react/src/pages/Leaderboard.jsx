@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useLeaderboard } from '../hooks/useLeaderboard';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
+import MenuButton from '../components/MenuButton';
+import { useSidebar } from '../contexts/SidebarContext';
 
 const Leaderboard = () => {
+  const { isOpen } = useSidebar();
   const [activeTab, setActiveTab] = useState('weekly');
   const { getLeaderboard } = useLeaderboard();
   const leaderboard = getLeaderboard(activeTab);
@@ -12,13 +14,10 @@ const Leaderboard = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex flex-col has-bottom-nav main-content-with-sidebar" style={{minHeight: '100vh'}}>
-      <header className="flex items-center justify-between p-4 border-b border-gray">
-        <Link to="/feed" style={{color: '#6b7280', textDecoration: 'none'}}>
-          <span className="material-symbols-outlined">arrow_back_ios_new</span>
-        </Link>
+      <MenuButton />
+      <div className={`flex flex-col has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
+      <header className="flex items-center justify-center p-4 border-b border-gray">
         <h1 className="text-lg font-bold">Leaderboard</h1>
-        <div style={{width: '2rem'}}></div>
       </header>
 
       <div className="border-b border-gray">

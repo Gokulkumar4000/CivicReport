@@ -1,0 +1,38 @@
+.menu-button {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 101;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.menu-button:hover {
+  background: var(--background-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.menu-button:active {
+  transform: scale(0.95);
+}
+
+.menu-button .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--text-primary-light);
+}
+
+@media (max-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+}

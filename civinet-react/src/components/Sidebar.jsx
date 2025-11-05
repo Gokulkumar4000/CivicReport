@@ -1,9 +1,12 @@
 import { NavLink } from 'react-router-dom';
+import { useSidebar } from '../contexts/SidebarContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const { isOpen } = useSidebar();
+  
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       <div className="sidebar-header">
         <h1 className="sidebar-logo">CIVINET</h1>
         <p className="sidebar-tagline">Civic Reporting Platform</p>
@@ -12,27 +15,27 @@ const Sidebar = () => {
       <nav className="sidebar-nav">
         <NavLink to="/feed" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
           <span className="material-symbols-outlined">home</span>
-          <span>Home</span>
+          <span className="sidebar-link-text">Home</span>
         </NavLink>
         
         <NavLink to="/report" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
           <span className="material-symbols-outlined">photo_camera</span>
-          <span>Report</span>
+          <span className="sidebar-link-text">Report</span>
         </NavLink>
         
         <NavLink to="/all-reports" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
           <span className="material-symbols-outlined">edit_document</span>
-          <span>My Reports</span>
+          <span className="sidebar-link-text">My Reports</span>
         </NavLink>
         
         <NavLink to="/leaderboard" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
           <span className="material-symbols-outlined">leaderboard</span>
-          <span>Leaderboard</span>
+          <span className="sidebar-link-text">Leaderboard</span>
         </NavLink>
         
         <NavLink to="/profile" className={({isActive}) => `sidebar-link ${isActive ? 'active' : ''}`}>
           <span className="material-symbols-outlined">person</span>
-          <span>Profile</span>
+          <span className="sidebar-link-text">Profile</span>
         </NavLink>
       </nav>
       

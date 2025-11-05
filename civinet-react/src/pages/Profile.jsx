@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
+import MenuButton from '../components/MenuButton';
+import { useSidebar } from '../contexts/SidebarContext';
 
 const Profile = () => {
+  const { isOpen } = useSidebar();
   const [profileData, setProfileData] = useState({
     name: 'Dravid',
     phone: '+91 9876543210',
@@ -67,15 +69,10 @@ const Profile = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar">
-      <header className="header-sticky flex items-center justify-between px-4 py-3">
-        <Link to="/feed" style={{display: 'flex', alignItems: 'center', width: '2.5rem', height: '2.5rem'}}>
-          <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24">
-            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
-          </svg>
-        </Link>
+      <MenuButton />
+      <div className={`flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`}>
+      <header className="header-sticky flex items-center justify-center px-4 py-3">
         <h1 className="text-lg font-bold">Profile</h1>
-        <div style={{width: '2.5rem'}}></div>
       </header>
 
       <main className="p-4 flex-grow" style={{paddingBottom: '6rem'}}>
