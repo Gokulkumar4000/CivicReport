@@ -41,26 +41,28 @@ const Leaderboard = () => {
       </div>
 
       <main className="flex-1 overflow-y-auto">
-        {leaderboard.map((entry) => (
-          <div key={entry.rank} className="leaderboard-item">
-            <div className={`rank-number ${entry.rank <= 3 ? 'top-3' : ''}`}>
-              {entry.rank <= 3 ? ['🥇', '🥈', '🥉'][entry.rank - 1] : entry.rank}
-            </div>
-            <img 
-              src={entry.avatar} 
-              alt={entry.name}
-              className="leaderboard-avatar"
-            />
-            <div className="leader-content">
-              <p>{entry.profileVisible ? entry.name : 'Anonymous'}</p>
-              <div className="leader-stats">
-                <span>{entry.points} pts</span>
-                <span>•</span>
-                <span>{entry.reportsSubmitted} reports</span>
+        {leaderboard.map((entry, index) => {
+          const badges = ['🥇', '🥈', '🥉'];
+          return (
+            <div key={entry.rank} className="leaderboard-item">
+              <span className={`rank-number ${entry.rank <= 3 ? 'top-3' : ''}`}>{entry.rank}</span>
+              {entry.rank <= 3 && <span className="leader-badge">{badges[entry.rank - 1]}</span>}
+              <img 
+                src={entry.profileVisible ? entry.avatar : 'https://cdn.usegalileo.ai/sdxl10/d5e91f19-c2dd-4e44-a3a6-49e2d61af265.png'} 
+                alt={`${entry.name}'s profile picture`}
+                className="leaderboard-avatar"
+              />
+              <div className="leader-content">
+                <p>{entry.profileVisible ? entry.name : 'Anonymous User'}</p>
+                <div className="leader-stats">
+                  <span>{entry.points} pts</span>
+                  <span>•</span>
+                  <span>{entry.reportsSubmitted} reports</span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </main>
     </div>
   );

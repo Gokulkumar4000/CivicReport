@@ -69,26 +69,60 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="rounded-lg bg-white p-4 space-y-4">
-            <h3 className="font-bold">Contact Information</h3>
-            <div className="space-y-3">
+          <div className="rounded-lg bg-white p-4">
+            <h3 className="mb-4 text-lg font-bold">Personal details</h3>
+            <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-secondary">Phone</p>
-                  <p className="font-medium">{profileData.phone}</p>
+                  <p className="font-medium">Phone</p>
+                  <p className="text-sm text-secondary">{profileData.phone}</p>
                 </div>
+                <button className="edit-btn">
+                  <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20">
+                    <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
+                  </svg>
+                </button>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-secondary">Email</p>
-                  <p className="font-medium">{profileData.email}</p>
+                  <p className="font-medium">Email</p>
+                  <p className="text-sm text-secondary">{profileData.email}</p>
                 </div>
+                <button className="edit-btn">
+                  <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20">
+                    <path d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z"></path>
+                  </svg>
+                </button>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-secondary">Aadhar</p>
-                  <p className="font-medium">{profileData.aadhar}</p>
+                  <p className="font-medium">Aadhar</p>
+                  <p className="text-sm text-secondary">{profileData.aadhar}</p>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg bg-white p-4">
+            <h3 className="mb-4 text-lg font-bold">Location Settings</h3>
+            <p className="text-sm text-secondary mb-3">Set your default location for reporting incidents</p>
+            <div style={{padding: '0.75rem 1rem', background: 'var(--background-light)', borderRadius: '0.5rem', border: '1px solid var(--border-light)'}}>
+              <p className="font-medium">San Francisco, CA</p>
+            </div>
+            <p className="text-xs text-secondary mt-2">Note: You'll still need to detect location each time you report an incident for accuracy.</p>
+          </div>
+
+          <div className="rounded-lg bg-white p-4">
+            <h3 className="mb-4 text-lg font-bold">Saved posts</h3>
+            <div className="flex items-center gap-4">
+              <div 
+                className="saved-post-img"
+                style={{backgroundImage: 'url(https://cdn.usegalileo.ai/stability/22d18033-44a1-430f-931f-1a83d0ad21e5.png)'}}
+              />
+              <div className="flex-1 space-y-1">
+                <p className="text-sm text-secondary">Saved</p>
+                <p className="font-bold">Incident reported</p>
+                <p className="text-sm text-secondary">Status: In progress</p>
               </div>
             </div>
           </div>

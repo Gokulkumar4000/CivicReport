@@ -34,92 +34,93 @@ const ReportIncident = () => {
           <div className="flex items-center justify-between">
             <button 
               onClick={() => navigate('/feed')}
-              style={{background: 'rgba(255,255,255,0.2)', border: 'none', cursor: 'pointer', padding: '0.5rem', borderRadius: '0.5rem'}}
+              style={{background: 'rgba(255,255,255,0.2)', border: 'none', cursor: 'pointer', padding: '0.5rem', borderRadius: '0.5rem', color: 'white'}}
             >
               <span className="material-symbols-outlined">close</span>
             </button>
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined">add_circle</span>
-              <h1 className="text-lg font-bold">Report Incident</h1>
+              <span className="material-symbols-outlined" style={{fontSize: '1rem'}}>location_on</span>
+              <span style={{fontSize: '0.875rem'}}>Detecting...</span>
             </div>
             <div style={{width: '2.5rem'}}></div>
           </div>
+          <div className="text-center" style={{marginTop: '1rem'}}>
+            <h1 className="text-2xl font-bold">Report Incident</h1>
+            <p style={{fontSize: '0.875rem', opacity: 0.9, marginTop: '0.25rem'}}>Help make your community safer</p>
+          </div>
         </header>
 
-        <form onSubmit={handleSubmit} style={{paddingBottom: '6rem'}}>
+        <form onSubmit={handleSubmit} style={{paddingBottom: '2rem'}}>
           <div className="report-form-section">
-            <h3 className="section-title">
-              <span className="material-symbols-outlined">description</span>
-              Describe the Issue
-            </h3>
+            <div className="section-title">
+              <span className="material-symbols-outlined text-primary">description</span>
+              Incident Description
+            </div>
             <textarea
-              className="form-input"
+              className="form-textarea w-full"
               value={formData.description}
               onChange={(e) => setFormData({...formData, description: e.target.value})}
-              placeholder="Describe what happened..."
-              rows={6}
-              style={{width: '100%', minHeight: '120px'}}
+              placeholder="Describe what happened in detail..."
+              rows={5}
               required
             />
           </div>
 
           <div className="report-form-section">
-            <h3 className="section-title">
-              <span className="material-symbols-outlined">location_on</span>
-              Location
-            </h3>
+            <div className="section-title">
+              <span className="material-symbols-outlined text-primary">add_location</span>
+              Location (Required)
+            </div>
             <input
               className="form-input"
               value={formData.location}
-              onChange={(e) => setFormData({...formData, location: e.target.value})}
-              placeholder="Enter location"
-              required
+              placeholder="Location will be auto-detected"
+              readOnly
+              style={{cursor: 'not-allowed', background: '#f9fafb'}}
             />
           </div>
 
           <div className="report-form-section">
-            <h3 className="section-title">
-              <span className="material-symbols-outlined">photo_camera</span>
+            <div className="section-title">
+              <span className="material-symbols-outlined text-primary">image</span>
               Add Photo
-            </h3>
+            </div>
             <div className="image-upload-area">
               <span className="material-symbols-outlined">add_photo_alternate</span>
-              <p style={{fontSize: '1.125rem', fontWeight: 700, marginBottom: '0.5rem'}}>Upload an Image</p>
-              <p style={{color: '#617589'}}>Click to browse or drag and drop</p>
+              <p style={{color: 'var(--text-secondary-light)', fontSize: '0.875rem'}}>
+                <span className="font-medium">Tap to add photo</span><br/>
+                <span style={{fontSize: '0.75rem'}}>Supports JPG, PNG (max 5MB)</span>
+              </p>
             </div>
           </div>
 
           <div className="report-form-section">
-            <h3 className="section-title">
-              <span className="material-symbols-outlined">label</span>
+            <div className="section-title">
+              <span className="material-symbols-outlined text-primary">label</span>
               Tags
-            </h3>
-            <div style={{display: 'flex', flexWrap: 'wrap', gap: '0.5rem'}}>
+            </div>
+            <div className="flex flex-wrap gap-2">
               {tags.map((tag, index) => (
                 <Tag key={index} onRemove={() => removeTag(index)}>{tag}</Tag>
               ))}
               <button 
                 type="button"
                 onClick={addTag}
-                style={{padding: '0.5rem 1rem', border: '2px dashed #137fec', background: 'transparent', color: '#137fec', borderRadius: '9999px', cursor: 'pointer'}}
+                className="tag-add-btn"
               >
                 + Add Tag
               </button>
             </div>
           </div>
 
-          <div className="p-4">
-            <Button 
-              type="submit"
-              variant="primary"
-              fullWidth
-              size="lg"
-              className="submit-btn"
-            >
+          <div style={{padding: '0 1rem', marginBottom: '2rem'}}>
+            <button type="submit" className="submit-btn">
               <span className="material-symbols-outlined">send</span>
-              Submit Report
-            </Button>
+              <span>Submit Report</span>
+            </button>
           </div>
+          
+          <div style={{height: '5rem'}}></div>
         </form>
       </div>
     </div>
