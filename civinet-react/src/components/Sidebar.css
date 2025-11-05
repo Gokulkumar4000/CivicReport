@@ -19,18 +19,9 @@
 
 .sidebar-closed .sidebar-header {
   padding: 1.5rem 0.5rem;
-}
-
-.sidebar-closed .sidebar-logo {
-  font-size: 1rem;
-  text-align: center;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  margin: 0 auto;
-}
-
-.sidebar-closed .sidebar-tagline {
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .sidebar-closed .sidebar-link {

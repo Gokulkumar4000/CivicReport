@@ -53,27 +53,60 @@ const ReportIncident = () => {
   const reverseGeocode = async (lat, lon) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=16`
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
       );
-      const data = await response.json();
-      const road = data.address.road || '';
-      const suburb = data.address.suburb || data.address.neighbourhood || '';
-      const city = data.address.city || data.address.town || data.address.village;
       
-      let locationText = '';
-      if (road && suburb) {
-        locationText = `${road}, ${suburb}, ${city}`;
-      } else if (road) {
-        locationText = `${road}, ${city}`;
-      } else if (suburb) {
-        locationText = `${suburb}, ${city}`;
-      } else {
-        locationText = city;
+      if (!response.ok) {
+        throw new Error(`Geocoding service error: ${response.status}`);
       }
+      
+      const data = await response.json();
+      
+      if (!data || !data.address) {
+        return `${lat.toFixed(6)}°, ${lon.toFixed(6)}°`;
+      }
+      
+      const addr = data.address;
+      const parts = [];
+      
+      // Build detailed address from most specific to general
+      if (addr.house_number && addr.road) {
+        parts.push(`${addr.house_number} ${addr.road}`);
+      } else if (addr.road) {
+        parts.push(addr.road);
+      }
+      
+      // Add neighborhood/suburb/district
+      if (addr.suburb || addr.neighbourhood || addr.quarter) {
+        parts.push(addr.suburb || addr.neighbourhood || addr.quarter);
+      }
+      
+      // Add district if available
+      if (addr.city_district || addr.district) {
+        parts.push(addr.city_district || addr.district);
+      }
+      
+      // Add city
+      if (addr.city || addr.town || addr.village || addr.municipality) {
+        parts.push(addr.city || addr.town || addr.village || addr.municipality);
+      }
+      
+      // Add state/region if not already included
+      if (addr.state && !parts.some(p => p.includes(addr.state))) {
+        parts.push(addr.state);
+      }
+      
+      // Add country if needed
+      if (addr.country && parts.length < 3) {
+        parts.push(addr.country);
+      }
+      
+      const locationText = parts.length > 0 ? parts.join(', ') : `${lat.toFixed(6)}°, ${lon.toFixed(6)}°`;
       
       return locationText;
     } catch (error) {
-      return `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
+      console.error('Geocoding error:', error);
+      return `${lat.toFixed(6)}°, ${lon.toFixed(6)}°`;
     }
   };
 
@@ -82,7 +115,8 @@ const ReportIncident = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
-          const { latitude, longitude } = position.coords;
+          const { latitude, longitude, accuracy } = position.coords;
+          console.log(`Location accuracy: ${accuracy} meters`);
           const locationText = await reverseGeocode(latitude, longitude);
           setFormData(prev => ({...prev, location: locationText}));
           setLocationDetected(true);
@@ -90,8 +124,21 @@ const ReportIncident = () => {
           showNotification('Location detected successfully', 'success');
         },
         (error) => {
-          showNotification('Failed to detect location. Please enable location services.', 'error');
+          let errorMsg = 'Failed to detect location. ';
+          if (error.code === 1) {
+            errorMsg += 'Please enable location permissions.';
+          } else if (error.code === 2) {
+            errorMsg += 'Location information unavailable.';
+          } else if (error.code === 3) {
+            errorMsg += 'Request timed out.';
+          }
+          showNotification(errorMsg, 'error');
           setDetecting(false);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         }
       );
     } else {

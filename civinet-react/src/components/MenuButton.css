@@ -1,7 +1,7 @@
 .menu-button {
   position: fixed;
   top: 1rem;
-  left: 1rem;
+  left: 272px;
   width: 48px;
   height: 48px;
   border-radius: 12px;
@@ -13,7 +13,11 @@
   cursor: pointer;
   z-index: 101;
   box-shadow: 0 2px 12px rgba(19, 127, 236, 0.3);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.menu-button.sidebar-collapsed {
+  left: 84px;
 }
 
 .menu-button:hover {
