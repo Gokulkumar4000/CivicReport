@@ -880,6 +880,17 @@
 }
 
 /* ============= RESPONSIVE UTILITIES ============= */
+@media (min-width: 769px) {
+  .nav-footer {
+    display: none !important;
+  }
+  
+  .main-content-with-sidebar {
+    margin-left: 260px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .modal-content {
     margin: 1rem;
@@ -902,5 +913,9 @@
   
   .report-form-section {
     padding: 1rem;
+  }
+  
+  .sidebar {
+    display: none !important;
   }
 }

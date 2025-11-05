@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useIncidents } from '../hooks/useIncidents';
 import BottomNav from '../components/BottomNav';
+import Sidebar from '../components/Sidebar';
 
 const AllReports = () => {
   const { reports, filterReports, getStats, deleteReport } = useIncidents();
@@ -34,7 +35,9 @@ const AllReports = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen has-bottom-nav">
+    <>
+      <Sidebar />
+      <div className="flex flex-col min-h-screen has-bottom-nav main-content-with-sidebar">
       <header className="header-sticky">
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
@@ -103,7 +106,8 @@ const AllReports = () => {
       </main>
 
       <BottomNav />
-    </div>
+      </div>
+    </>
   );
 };
 

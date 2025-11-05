@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useIncidents } from '../hooks/useIncidents';
 import BottomNav from '../components/BottomNav';
+import Sidebar from '../components/Sidebar';
 
 const Feed = () => {
   const { reports } = useIncidents();
@@ -20,7 +21,9 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="container has-bottom-nav">
+    <>
+      <Sidebar />
+      <div className="container has-bottom-nav main-content-with-sidebar">
       <header className="header-sticky">
         <div className="p-4 space-y-4">
           <div className="flex items-center justify-between">
@@ -85,7 +88,8 @@ const Feed = () => {
       </main>
 
       <BottomNav />
-    </div>
+      </div>
+    </>
   );
 };
 

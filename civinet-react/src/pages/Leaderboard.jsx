@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLeaderboard } from '../hooks/useLeaderboard';
+import BottomNav from '../components/BottomNav';
+import Sidebar from '../components/Sidebar';
 
 const Leaderboard = () => {
   const [activeTab, setActiveTab] = useState('weekly');
@@ -8,7 +10,9 @@ const Leaderboard = () => {
   const leaderboard = getLeaderboard(activeTab);
 
   return (
-    <div className="flex flex-col" style={{height: '100vh'}}>
+    <>
+      <Sidebar />
+      <div className="flex flex-col has-bottom-nav main-content-with-sidebar" style={{minHeight: '100vh'}}>
       <header className="flex items-center justify-between p-4 border-b border-gray">
         <Link to="/feed" style={{color: '#6b7280', textDecoration: 'none'}}>
           <span className="material-symbols-outlined">arrow_back_ios_new</span>
@@ -64,7 +68,10 @@ const Leaderboard = () => {
           );
         })}
       </main>
-    </div>
+      
+      <BottomNav />
+      </div>
+    </>
   );
 };
 

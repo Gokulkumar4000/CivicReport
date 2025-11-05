@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input, Tag } from '../components/ui';
 import BottomNav from '../components/BottomNav';
+import Sidebar from '../components/Sidebar';
 
 const ReportIncident = () => {
   const navigate = useNavigate();
@@ -32,15 +33,35 @@ const ReportIncident = () => {
 
   const detectLocation = () => {
     setDetecting(true);
-    setTimeout(() => {
-      setFormData(prev => ({...prev, location: 'San Francisco, CA'}));
-      setLocationDetected(true);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          // Format coordinates correctly based on sign
+          const latDir = latitude >= 0 ? 'N' : 'S';
+          const lonDir = longitude >= 0 ? 'E' : 'W';
+          const location = `${Math.abs(latitude).toFixed(4)}°${latDir}, ${Math.abs(longitude).toFixed(4)}°${lonDir}`;
+          setFormData(prev => ({...prev, location}));
+          setLocationDetected(true);
+          setDetecting(false);
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+          // Don't set locationDetected on error so user can retry
+          setDetecting(false);
+        }
+      );
+    } else {
+      // Browser doesn't support geolocation
+      console.error('Geolocation not supported');
       setDetecting(false);
-    }, 1500);
+    }
   };
 
   return (
-    <div className="flex flex-col justify-between has-bottom-nav" style={{minHeight: '100vh'}}>
+    <>
+      <Sidebar />
+      <div className="flex flex-col justify-between has-bottom-nav main-content-with-sidebar" style={{minHeight: '100vh'}}>
       <div className="flex-grow overflow-y-auto">
         <header className="report-header">
           <div className="flex items-center justify-between">
@@ -172,7 +193,8 @@ const ReportIncident = () => {
       </div>
       
       <BottomNav />
-    </div>
+      </div>
+    </>
   );
 };
 
