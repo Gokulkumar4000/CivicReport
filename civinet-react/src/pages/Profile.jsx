@@ -113,35 +113,75 @@ const Profile = () => {
 
         {/* Statistics Section */}
         <section className="mb-6">
-          <h3 className="text-lg font-bold mb-3">My Impact</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-lg bg-white p-4 text-center">
-              <div className="flex items-center justify-center mb-2">
-                <span className="material-symbols-outlined text-primary" style={{fontSize: '2rem'}}>edit_document</span>
+          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text-primary-light)'}}>My Impact</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-5 text-center border border-blue-200 shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-center mb-3">
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: 'var(--primary)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>edit_document</span>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-primary">12</p>
-              <p className="text-xs text-secondary">Reports Filed</p>
+              <p className="text-3xl font-bold text-primary mb-1">12</p>
+              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Reports Filed</p>
             </div>
-            <div className="rounded-lg bg-white p-4 text-center">
-              <div className="flex items-center justify-center mb-2">
-                <span className="material-symbols-outlined text-green-600" style={{fontSize: '2rem'}}>check_circle</span>
+            <div className="rounded-xl bg-gradient-to-br from-green-50 to-green-100 p-5 text-center border border-green-200 shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-center mb-3">
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: '#22c55e',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-green-600">8</p>
-              <p className="text-xs text-secondary">Issues Resolved</p>
+              <p className="text-3xl font-bold text-green-600 mb-1">8</p>
+              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Issues Resolved</p>
             </div>
-            <div className="rounded-lg bg-white p-4 text-center">
-              <div className="flex items-center justify-center mb-2">
-                <span className="material-symbols-outlined text-orange-500" style={{fontSize: '2rem'}}>stars</span>
+            <div className="rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 p-5 text-center border border-orange-200 shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-center mb-3">
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: '#f97316',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>stars</span>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-orange-500">245</p>
-              <p className="text-xs text-secondary">Points Earned</p>
+              <p className="text-3xl font-bold text-orange-500 mb-1">245</p>
+              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Points Earned</p>
             </div>
-            <div className="rounded-lg bg-white p-4 text-center">
-              <div className="flex items-center justify-center mb-2">
-                <span className="material-symbols-outlined text-purple-600" style={{fontSize: '2rem'}}>workspace_premium</span>
+            <div className="rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 p-5 text-center border border-purple-200 shadow-sm hover:shadow-md transition-all">
+              <div className="flex items-center justify-center mb-3">
+                <div style={{
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: '#9333ea',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>workspace_premium</span>
+                </div>
               </div>
-              <p className="text-2xl font-bold text-purple-600">#15</p>
-              <p className="text-xs text-secondary">Ranking</p>
+              <p className="text-3xl font-bold text-purple-600 mb-1">#15</p>
+              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Ranking</p>
             </div>
           </div>
         </section>

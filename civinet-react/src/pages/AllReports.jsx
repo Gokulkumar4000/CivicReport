@@ -139,7 +139,13 @@ const AllReports = () => {
                 </p>
                 <p className="text-xs mt-1" style={{color: '#9ca3af'}}>Reported on {report.reportedDate}</p>
               </div>
-              <button className="delete-btn" onClick={() => handleDeleteClick(report)}>
+              <button 
+                className="delete-btn" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteClick(report);
+                }}
+              >
                 <span className="material-symbols-outlined">delete</span>
               </button>
             </div>

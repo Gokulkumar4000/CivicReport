@@ -36,7 +36,56 @@ This is a React-based web application:
 The app runs on Vite dev server on port 5000 with hot module replacement enabled.
 
 ## Recent Changes
-- **2025-11-05**: Major UX improvements and feature enhancements (Latest Update)
+- **2025-11-06**: Enhanced UI/UX and Feature Additions (Latest Update)
+  - **Sidebar Menu Button Redesign**: Improved positioning and behavior
+    - When collapsed: Menu button positioned on the right corner
+    - When expanded: CIVINET logo appears in place of button, menu button moves next to logo
+    - Smooth transitions between states
+    - Better visual hierarchy and branding
+  - **Feed Page Layout Improvements**: Optimized desktop experience
+    - Compact report previews showing only 3 recent reports (instead of 5 full posts)
+    - Report cards display as horizontal previews with 100px thumbnails
+    - Added "View All" link next to "Recent Reports" heading
+    - "View Leaderboard" button added to leaderboard widget
+    - "View Complete Report Status" button added to Community Stats widget
+    - Widgets show limited entries (top 5 leaderboard, 4 recent activities)
+    - Better use of right sidebar space on desktop
+  - **Enhanced Report Form**: Comprehensive incident reporting
+    - **New Required Fields**:
+      - Report Title field with descriptive placeholder
+      - Category dropdown (Road & Infrastructure, Street Lighting, Waste Management, Water & Drainage, Public Safety, Parks & Recreation, Other)
+      - Incident Description (existing field)
+    - **Optional Field**: Reason for Reporting textarea
+    - Wider form layout (max 900px) for better usability
+    - **Animated Instructions Sidebar** (desktop 1200px+):
+      - Step-by-step "How to Report" guide with 6 numbered steps
+      - Beautiful slide-in animations with staggered delays
+      - Blue gradient background (#f0f9ff to #e0f2fe)
+      - Pro tip section with yellow accent highlighting photo importance
+      - Sticky positioning for always-visible guidance
+  - **Profile Page Enhancements**: Comprehensive user dashboard
+    - **My Impact Section**: 4-stat grid showing:
+      - Reports Filed (12) with document icon
+      - Issues Resolved (8) with check icon
+      - Points Earned (245) with star icon
+      - Current Ranking (#15) with medal icon
+    - **Achievements Section**: Gamification badges
+      - First Reporter badge (yellow)
+      - Problem Solver badge (blue) - resolved 5 issues
+      - Weekly Streak badge (green) - 7 days active
+      - Each with filled icons and colored backgrounds
+    - **Recent Activity Section**: Timeline of user actions
+      - Report resolution notifications
+      - New report filed history
+      - Points earned events
+      - Timestamped entries with color-coded icons
+  - **Critical Bug Fix**: DeleteConfirmationModal freeze issue
+    - Added event.stopPropagation() to prevent modal content clicks from closing
+    - Fixed overlay click handler to only close on direct overlay clicks
+    - Prevents app freeze after modal interactions
+    - Improved overall modal UX and stability
+
+- **2025-11-05**: Major UX improvements and feature enhancements
   - **Like/Dislike Feature**: Interactive engagement on all feed posts
     - Like and dislike buttons with state management
     - Mutual exclusivity (can't like and dislike same post)
