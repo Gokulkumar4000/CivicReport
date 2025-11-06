@@ -1,33 +1,48 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, useAnimation, useInView } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import './Landing.css';
 
 const Landing = () => {
   const statsRef = useRef(null);
-  const storiesRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [currentStory, setCurrentStory] = useState(0);
+  const isInView = useInView(statsRef, { once: true });
+
+  const stories = [
+    {
+      name: "Priya Sharma",
+      location: "Mumbai, Maharashtra",
+      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=250&fit=crop",
+      title: "Pothole Filled in 48 Hours",
+      description: "Reported a dangerous pothole on Main Street. Fixed within 2 days!",
+    },
+    {
+      name: "Rajesh Kumar",
+      location: "Delhi",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=250&fit=crop",
+      title: "Street Lights Restored",
+      description: "Dark street made safe again with new lighting installation",
+    },
+    {
+      name: "Anita Desai",
+      location: "Bangalore, Karnataka",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+      image: "https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400&h=250&fit=crop",
+      title: "Park Cleanup Success",
+      description: "Community park transformed after waste management report",
+    },
+  ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true);
-            animateCounters();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    if (statsRef.current) {
-      observer.observe(statsRef.current);
+    if (isInView && !hasAnimated) {
+      setHasAnimated(true);
+      animateCounters();
     }
-
-    return () => observer.disconnect();
-  }, [hasAnimated]);
+  }, [isInView, hasAnimated]);
 
   const animateCounters = () => {
     const counters = document.querySelectorAll('.stat-number[data-count]');
@@ -52,257 +67,325 @@ const Landing = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentStory((prev) => (prev + 1) % 3);
-    }, 4000);
+      setCurrentStory((prev) => (prev + 1) % stories.length);
+    }, 5000);
 
     return () => clearInterval(timer);
   }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
 
   return (
     <div className="landing-page">
       <Navbar />
 
+      {/* Hero Section */}
       <section className="hero" id="home">
-        <div className="hero-content">
-          <div className="hero-text">
-            <h1>
+        <div className="hero-bg-overlay"></div>
+        <motion.div 
+          className="hero-content"
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+        >
+          <motion.div className="hero-text" variants={itemVariants}>
+            <motion.h1
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               Bridge the Gap Between <span className="highlight">Citizens & Government</span>
-            </h1>
-            <p className="hero-description">
+            </motion.h1>
+            <motion.p 
+              className="hero-description"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               Report civic issues instantly and get rapid responses from local authorities. 
               Your voice matters, and we make sure it's heard.
-            </p>
-            <div className="hero-buttons">
-              <Link to="/login" className="btn btn-primary-large">Sign In to Report</Link>
+            </motion.p>
+            <motion.div 
+              className="hero-buttons"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <Link to="/login" className="btn btn-primary-large">
+                <span>Sign In to Report</span>
+                <span className="btn-glow"></span>
+              </Link>
               <button className="btn btn-outline-large">Learn More</button>
-            </div>
-          </div>
-          <div className="hero-image">
+            </motion.div>
+          </motion.div>
+          <motion.div 
+            className="hero-image"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <div className="image-glow"></div>
             <img 
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop" 
               alt="Citizens collaborating"
             />
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
+      {/* Stats Section */}
       <section className="stats" ref={statsRef}>
-        <div className="stats-container">
-          <div className="stat-item">
-            <div className="stat-number" data-count="15000">0+</div>
-            <div className="stat-label">Issues Reported</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number" data-count="12500">0+</div>
-            <div className="stat-label">Issues Resolved</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number" data-count="8500">0+</div>
-            <div className="stat-label">Active Citizens</div>
-          </div>
-          <div className="stat-item">
-            <div className="stat-number">72hrs</div>
-            <div className="stat-label">Avg Response Time</div>
-          </div>
-        </div>
+        <div className="stats-glow"></div>
+        <motion.div 
+          className="stats-container"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          {[
+            { count: 15000, label: "Issues Reported" },
+            { count: 12500, label: "Issues Resolved" },
+            { count: 8500, label: "Active Citizens" },
+            { count: null, label: "Avg Response Time", value: "72hrs" }
+          ].map((stat, index) => (
+            <motion.div 
+              key={index}
+              className="stat-item"
+              variants={itemVariants}
+            >
+              <div className="stat-number" data-count={stat.count}>
+                {stat.value || '0+'}
+              </div>
+              <div className="stat-label">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
+      {/* Features Section */}
       <section className="features" id="features">
-        <div className="section-header">
+        <motion.div 
+          className="section-header"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2>Why Choose CIVINET?</h2>
           <p>Empowering citizens with powerful tools for community engagement</p>
-        </div>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">
-              <span className="material-symbols-outlined">notifications_active</span>
-            </div>
-            <h3>Real-Time Alerts</h3>
-            <p>Get instant notifications on incident status updates and community issues.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">
-              <span className="material-symbols-outlined">leaderboard</span>
-            </div>
-            <h3>Community Leaderboard</h3>
-            <p>Earn points for reporting and track your impact on the community.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">
-              <span className="material-symbols-outlined">photo_camera</span>
-            </div>
-            <h3>Photo Evidence</h3>
-            <p>Upload images to document issues and strengthen your reports.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">
-              <span className="material-symbols-outlined">location_on</span>
-            </div>
-            <h3>Auto Location</h3>
-            <p>Automatic location detection makes reporting quick and accurate.</p>
-          </div>
-        </div>
+        </motion.div>
+        <motion.div 
+          className="features-grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
+          {[
+            { icon: "notifications_active", title: "Real-Time Alerts", desc: "Get instant notifications on incident status updates and community issues." },
+            { icon: "leaderboard", title: "Community Leaderboard", desc: "Earn points for reporting and track your impact on the community." },
+            { icon: "photo_camera", title: "Photo Evidence", desc: "Upload images to document issues and strengthen your reports." },
+            { icon: "location_on", title: "Auto Location", desc: "Automatic location detection makes reporting quick and accurate." }
+          ].map((feature, index) => (
+            <motion.div 
+              key={index}
+              className="feature-card glass-card"
+              variants={itemVariants}
+              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="feature-icon">
+                <span className="material-symbols-outlined">{feature.icon}</span>
+                <div className="icon-glow"></div>
+              </div>
+              <h3>{feature.title}</h3>
+              <p>{feature.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
+      {/* How It Works */}
       <section className="how-it-works" id="how-it-works">
-        <div className="section-header">
+        <motion.div 
+          className="section-header"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2>How It Works</h2>
           <p>Three simple steps to make a difference in your community</p>
-        </div>
-        <div className="steps-container">
-          <div className="step">
-            <div className="step-number">1</div>
-            <h3>Report an Issue</h3>
-            <p>Take a photo and describe the problem you've encountered</p>
-          </div>
-          <div className="step">
-            <div className="step-number">2</div>
-            <h3>Track Progress</h3>
-            <p>Monitor the status of your report in real-time</p>
-          </div>
-          <div className="step">
-            <div className="step-number">3</div>
-            <h3>See Results</h3>
-            <p>Watch as your community improves through collective action</p>
-          </div>
-        </div>
+        </motion.div>
+        <motion.div 
+          className="steps-container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
+          {[
+            { num: 1, title: "Report an Issue", desc: "Take a photo and describe the problem you've encountered" },
+            { num: 2, title: "Track Progress", desc: "Monitor the status of your report in real-time" },
+            { num: 3, title: "See Results", desc: "Watch as your community improves through collective action" }
+          ].map((step, index) => (
+            <motion.div 
+              key={index}
+              className="step"
+              variants={itemVariants}
+            >
+              <motion.div 
+                className="step-number"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                {step.num}
+              </motion.div>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
+      {/* Success Stories - Improved Carousel */}
       <section className="success-stories" id="success-stories">
-        <div className="section-header">
+        <motion.div 
+          className="section-header"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2>Success Stories</h2>
           <p>Real impact from real citizens in communities across the nation</p>
-        </div>
-        <div className="slider-container">
-          <div className="slider" style={{ transform: `translateX(-${currentStory * 100}%)` }}>
-            <div className="story-card">
-              <div className="story-header">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="User" className="story-avatar" />
-                <div className="story-info">
-                  <h4>Priya Sharma</h4>
-                  <p>Mumbai, Maharashtra</p>
+        </motion.div>
+        <div className="carousel-container">
+          <div className="carousel-track">
+            {stories.map((story, index) => (
+              <motion.div
+                key={index}
+                className={`story-card glass-card ${index === currentStory ? 'active' : ''}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={index === currentStory ? { 
+                  opacity: 1, 
+                  scale: 1,
+                  x: 0
+                } : { 
+                  opacity: 0.3, 
+                  scale: 0.9,
+                  x: (index - currentStory) * 100 + '%'
+                }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                <div className="story-header">
+                  <img src={story.avatar} alt={story.name} className="story-avatar" />
+                  <div className="story-info">
+                    <h4>{story.name}</h4>
+                    <p>{story.location}</p>
+                  </div>
                 </div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=400&h=250&fit=crop" alt="Pothole" className="story-image" />
-              <h3 className="story-title">Pothole Filled in 48 Hours</h3>
-              <p>Reported a dangerous pothole on Main Street. Fixed within 2 days!</p>
-              <span className="story-status">Resolved</span>
-            </div>
-
-            <div className="story-card">
-              <div className="story-header">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="User" className="story-avatar" />
-                <div className="story-info">
-                  <h4>Rajesh Kumar</h4>
-                  <p>Delhi</p>
-                </div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=400&h=250&fit=crop" alt="Street Light" className="story-image" />
-              <h3 className="story-title">Street Lights Restored</h3>
-              <p>Dark street made safe again with new lighting installation</p>
-              <span className="story-status">Resolved</span>
-            </div>
-
-            <div className="story-card">
-              <div className="story-header">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="User" className="story-avatar" />
-                <div className="story-info">
-                  <h4>Anita Desai</h4>
-                  <p>Bangalore, Karnataka</p>
-                </div>
-              </div>
-              <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?w=400&h=250&fit=crop" alt="Park" className="story-image" />
-              <h3 className="story-title">Park Cleanup Success</h3>
-              <p>Community park transformed after waste management report</p>
-              <span className="story-status">Resolved</span>
-            </div>
+                <img src={story.image} alt={story.title} className="story-image" />
+                <h3 className="story-title">{story.title}</h3>
+                <p>{story.description}</p>
+                <span className="story-status">Resolved</span>
+              </motion.div>
+            ))}
           </div>
           <div className="slider-dots">
-            <button 
-              className={`slider-dot ${currentStory === 0 ? 'active' : ''}`}
-              onClick={() => setCurrentStory(0)}
-              aria-label="Story 1"
-            />
-            <button 
-              className={`slider-dot ${currentStory === 1 ? 'active' : ''}`}
-              onClick={() => setCurrentStory(1)}
-              aria-label="Story 2"
-            />
-            <button 
-              className={`slider-dot ${currentStory === 2 ? 'active' : ''}`}
-              onClick={() => setCurrentStory(2)}
-              aria-label="Story 3"
-            />
+            {stories.map((_, index) => (
+              <button
+                key={index}
+                className={`slider-dot ${index === currentStory ? 'active' : ''}`}
+                onClick={() => setCurrentStory(index)}
+                aria-label={`Story ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
+      {/* Leaderboard Section */}
       <section className="leaderboard-section" id="leaderboard">
-        <div className="section-header">
+        <motion.div 
+          className="section-header"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2>Community Leaderboard</h2>
           <p>Top contributors making a difference in their communities</p>
-        </div>
-        <div className="leaderboard-container">
-          <div className="leader-item">
-            <div className="leader-rank">1</div>
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop" alt="Leader" className="leader-avatar" />
-            <div className="leader-info">
-              <div className="leader-name">Arjun Mehta</div>
-              <div className="leader-points">245 reports • 220 resolved</div>
-            </div>
-            <div className="leader-badge">🥇</div>
-          </div>
-
-          <div className="leader-item">
-            <div className="leader-rank">2</div>
-            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop" alt="Leader" className="leader-avatar" />
-            <div className="leader-info">
-              <div className="leader-name">Sneha Patel</div>
-              <div className="leader-points">198 reports • 180 resolved</div>
-            </div>
-            <div className="leader-badge">🥈</div>
-          </div>
-
-          <div className="leader-item">
-            <div className="leader-rank">3</div>
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="Leader" className="leader-avatar" />
-            <div className="leader-info">
-              <div className="leader-name">Vikram Singh</div>
-              <div className="leader-points">175 reports • 160 resolved</div>
-            </div>
-            <div className="leader-badge">🥉</div>
-          </div>
-
-          <div className="leader-item">
-            <div className="leader-rank">4</div>
-            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="Leader" className="leader-avatar" />
-            <div className="leader-info">
-              <div className="leader-name">Meera Reddy</div>
-              <div className="leader-points">142 reports • 130 resolved</div>
-            </div>
-            <div className="leader-badge">⭐</div>
-          </div>
-
-          <div className="leader-item">
-            <div className="leader-rank">5</div>
-            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop" alt="Leader" className="leader-avatar" />
-            <div className="leader-info">
-              <div className="leader-name">Amit Joshi</div>
-              <div className="leader-points">128 reports • 115 resolved</div>
-            </div>
-            <div className="leader-badge">⭐</div>
-          </div>
-        </div>
+        </motion.div>
+        <motion.div 
+          className="leaderboard-container glass-card"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+        >
+          {[
+            { rank: 1, name: "Arjun Mehta", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop", reports: 245, resolved: 220, badge: "🥇" },
+            { rank: 2, name: "Sneha Patel", avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop", reports: 198, resolved: 180, badge: "🥈" },
+            { rank: 3, name: "Vikram Singh", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop", reports: 175, resolved: 160, badge: "🥉" },
+            { rank: 4, name: "Meera Reddy", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop", reports: 142, resolved: 130, badge: "⭐" },
+            { rank: 5, name: "Amit Joshi", avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop", reports: 128, resolved: 115, badge: "⭐" }
+          ].map((leader, index) => (
+            <motion.div 
+              key={index}
+              className="leader-item"
+              variants={itemVariants}
+              whileHover={{ x: 10, scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="leader-rank">{leader.rank}</div>
+              <img src={leader.avatar} alt={leader.name} className="leader-avatar" />
+              <div className="leader-info">
+                <div className="leader-name">{leader.name}</div>
+                <div className="leader-points">{leader.reports} reports • {leader.resolved} resolved</div>
+              </div>
+              <div className="leader-badge">{leader.badge}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </section>
 
+      {/* CTA Section */}
       <section className="cta-section">
-        <div className="cta-content">
+        <div className="cta-bg-glow"></div>
+        <motion.div 
+          className="cta-content"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2>Ready to Make a Difference?</h2>
           <p>Join thousands of citizens already making their communities better</p>
-          <Link to="/create-account" className="cta-btn-white">Get Started Today</Link>
-        </div>
+          <Link to="/create-account" className="cta-btn-white">
+            Get Started Today
+          </Link>
+        </motion.div>
       </section>
 
+      {/* Footer */}
       <footer className="landing-footer">
         <div className="footer-content">
           <div className="footer-section">

@@ -18,11 +18,13 @@ const Cursor = () => {
     document.body.appendChild(cursor);
     document.body.appendChild(follower);
 
+    let followerTimeout;
     const moveCursor = (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
       
-      setTimeout(() => {
+      if (followerTimeout) clearTimeout(followerTimeout);
+      followerTimeout = setTimeout(() => {
         follower.style.left = e.clientX + 'px';
         follower.style.top = e.clientY + 'px';
       }, 100);
@@ -36,11 +38,16 @@ const Cursor = () => {
       cursor.classList.remove('hover');
     };
 
+    const attachedElements = new WeakSet();
+
     const attachHoverListeners = () => {
       const interactiveElements = document.querySelectorAll('a, button, input, select, textarea');
       interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', handleMouseEnter);
-        el.addEventListener('mouseleave', handleMouseLeave);
+        if (!attachedElements.has(el)) {
+          el.addEventListener('mouseenter', handleMouseEnter);
+          el.addEventListener('mouseleave', handleMouseLeave);
+          attachedElements.add(el);
+        }
       });
     };
 
@@ -48,8 +55,12 @@ const Cursor = () => {
     
     attachHoverListeners();
 
+    let observerTimeout;
     const observer = new MutationObserver(() => {
-      attachHoverListeners();
+      if (observerTimeout) clearTimeout(observerTimeout);
+      observerTimeout = setTimeout(() => {
+        attachHoverListeners();
+      }, 100);
     });
 
     observer.observe(document.body, {
@@ -60,6 +71,8 @@ const Cursor = () => {
     return () => {
       document.removeEventListener('mousemove', moveCursor);
       observer.disconnect();
+      if (followerTimeout) clearTimeout(followerTimeout);
+      if (observerTimeout) clearTimeout(observerTimeout);
       cursor.remove();
       follower.remove();
     };
