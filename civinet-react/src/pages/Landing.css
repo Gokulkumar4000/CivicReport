@@ -277,14 +277,14 @@
 
 .hero-image {
   position: relative;
-  width: 150%;
-  margin-left: -10%;
+  width: 220%;
+  margin-left: -20%;
 }
 
 .hero-image img {
   width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 28px;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.25);
   position: relative;
   z-index: 2;
 }

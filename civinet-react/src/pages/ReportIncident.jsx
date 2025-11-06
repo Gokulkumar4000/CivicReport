@@ -72,34 +72,28 @@ const ReportIncident = () => {
       const addr = data.address;
       const parts = [];
       
-      // Build detailed address from most specific to general
       if (addr.house_number && addr.road) {
         parts.push(`${addr.house_number} ${addr.road}`);
       } else if (addr.road) {
         parts.push(addr.road);
       }
       
-      // Add neighborhood/suburb/district
       if (addr.suburb || addr.neighbourhood || addr.quarter) {
         parts.push(addr.suburb || addr.neighbourhood || addr.quarter);
       }
       
-      // Add district if available
       if (addr.city_district || addr.district) {
         parts.push(addr.city_district || addr.district);
       }
       
-      // Add city
       if (addr.city || addr.town || addr.village || addr.municipality) {
         parts.push(addr.city || addr.town || addr.village || addr.municipality);
       }
       
-      // Add state/region if not already included
       if (addr.state && !parts.some(p => p.includes(addr.state))) {
         parts.push(addr.state);
       }
       
-      // Add country if needed
       if (addr.country && parts.length < 3) {
         parts.push(addr.country);
       }
@@ -154,7 +148,7 @@ const ReportIncident = () => {
     <>
       <Sidebar />
       <div className={`flex has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
-        <div className="flex-grow overflow-y-auto report-form-container">
+        <div className="flex-grow overflow-y-auto">
           <header className="report-header">
             <div className="text-center" style={{paddingTop: '1rem'}}>
               <h1 className="text-2xl font-bold">Report Incident</h1>
@@ -162,263 +156,202 @@ const ReportIncident = () => {
             </div>
           </header>
 
-          <div style={{padding: '0 1rem'}}>
-            <ReportProcessVisual />
-          </div>
-
-          <form onSubmit={handleSubmit} style={{paddingBottom: '2rem', maxWidth: '900px', margin: '0 auto'}}>
-            <div className="report-form-section">
-              <div className="section-title">
-                <span className="material-symbols-outlined text-primary">title</span>
-                Report Title *
-              </div>
-              <input
-                type="text"
-                className="form-input"
-                value={formData.title}
-                onChange={(e) => setFormData({...formData, title: e.target.value})}
-                placeholder="Brief title for your report (e.g., 'Broken Street Light on Main St')"
-                required
-              />
-            </div>
-
-            <div className="report-form-section">
-              <div className="section-title">
-                <span className="material-symbols-outlined text-primary">category</span>
-                Category *
-              </div>
-              <select
-                className="form-input"
-                value={formData.category}
-                onChange={(e) => setFormData({...formData, category: e.target.value})}
-                required
-                style={{cursor: 'pointer'}}
-              >
-                <option value="">Select a category</option>
-                <option value="road">Road & Infrastructure</option>
-                <option value="lighting">Street Lighting</option>
-                <option value="waste">Waste Management</option>
-                <option value="water">Water & Drainage</option>
-                <option value="safety">Public Safety</option>
-                <option value="park">Parks & Recreation</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div className="report-form-section">
-              <div className="section-title">
-                <span className="material-symbols-outlined text-primary">description</span>
-                Incident Description *
-              </div>
-              <textarea
-                className="form-textarea w-full"
-                value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
-                placeholder="Describe what happened in detail..."
-                rows={5}
-                required
-              />
-            </div>
-
-            <div className="report-form-section">
-              <div className="section-title">
-                <span className="material-symbols-outlined text-primary">notes</span>
-                Reason for Reporting (Optional)
-              </div>
-              <textarea
-                className="form-textarea w-full"
-                value={formData.reason}
-                onChange={(e) => setFormData({...formData, reason: e.target.value})}
-                placeholder="Why is this important to you? How does it affect your community?"
-                rows={3}
-              />
-            </div>
-
-          <div className="report-form-section">
-            <div className="section-title">
-              <span className="material-symbols-outlined text-primary">add_location</span>
-              Location (Required)
-            </div>
-            <input
-              className="form-input"
-              value={formData.location}
-              placeholder="Location will be auto-detected"
-              readOnly
-              style={{cursor: 'not-allowed', background: '#f9fafb'}}
-            />
-            <button 
-              type="button"
-              onClick={detectLocation}
-              disabled={detecting || locationDetected}
-              className="location-btn"
-              style={{
-                marginTop: '1rem',
-                width: '100%',
-                padding: '0.75rem',
-                background: locationDetected ? '#10b981' : 'var(--primary)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '0.5rem',
-                cursor: detecting || locationDetected ? 'not-allowed' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '0.5rem',
-                fontWeight: 600
-              }}
-            >
-              <span className="material-symbols-outlined">
-                {locationDetected ? 'check_circle' : 'my_location'}
-              </span>
-              {detecting ? 'Detecting...' : locationDetected ? 'Location Detected' : 'Detect Location'}
-            </button>
-          </div>
-
-          <div className="report-form-section">
-            <div className="section-title">
-              <span className="material-symbols-outlined text-primary">image</span>
-              Add Photo
-            </div>
-            <div className="image-upload-area">
-              <span className="material-symbols-outlined">add_photo_alternate</span>
-              <p style={{color: 'var(--text-secondary-light)', fontSize: '0.875rem'}}>
-                <span className="font-medium">Tap to add photo</span><br/>
-                <span style={{fontSize: '0.75rem'}}>Supports JPG, PNG (max 5MB)</span>
-              </p>
-            </div>
-          </div>
-
-          <div className="report-form-section">
-            <div className="section-title">
-              <span className="material-symbols-outlined text-primary">label</span>
-              Tags
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag, index) => (
-                <Tag key={index} onRemove={() => removeTag(index)}>{tag}</Tag>
-              ))}
-              {addingTag ? (
-                <div className="flex items-center gap-2" style={{width: '100%', marginTop: '0.5rem'}}>
+          <div className="report-layout-container">
+            {/* Left side - Form */}
+            <div className="report-form-column">
+              <form onSubmit={handleSubmit} style={{paddingBottom: '2rem'}}>
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">title</span>
+                    Report Title *
+                  </div>
                   <input
                     type="text"
-                    value={newTagValue}
-                    onChange={(e) => setNewTagValue(e.target.value)}
-                    placeholder="Enter tag name"
-                    className="form-input flex-1"
-                    style={{padding: '0.5rem', fontSize: '0.875rem'}}
-                    autoFocus
-                    onKeyPress={(e) => e.key === 'Enter' && saveNewTag()}
+                    className="form-input"
+                    value={formData.title}
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
+                    placeholder="Brief title for your report (e.g., 'Broken Street Light on Main St')"
+                    required
+                  />
+                </div>
+
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">category</span>
+                    Category *
+                  </div>
+                  <select
+                    className="form-input"
+                    value={formData.category}
+                    onChange={(e) => setFormData({...formData, category: e.target.value})}
+                    required
+                    style={{cursor: 'pointer'}}
+                  >
+                    <option value="">Select a category</option>
+                    <option value="road">Road & Infrastructure</option>
+                    <option value="lighting">Street Lighting</option>
+                    <option value="waste">Waste Management</option>
+                    <option value="water">Water & Drainage</option>
+                    <option value="safety">Public Safety</option>
+                    <option value="park">Parks & Recreation</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">description</span>
+                    Incident Description *
+                  </div>
+                  <textarea
+                    className="form-textarea w-full"
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
+                    placeholder="Describe what happened in detail..."
+                    rows={5}
+                    required
+                  />
+                </div>
+
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">notes</span>
+                    Reason for Reporting (Optional)
+                  </div>
+                  <textarea
+                    className="form-textarea w-full"
+                    value={formData.reason}
+                    onChange={(e) => setFormData({...formData, reason: e.target.value})}
+                    placeholder="Why is this important to you? How does it affect your community?"
+                    rows={3}
+                  />
+                </div>
+
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">add_location</span>
+                    Location (Required)
+                  </div>
+                  <input
+                    className="form-input"
+                    value={formData.location}
+                    placeholder="Location will be auto-detected"
+                    readOnly
+                    style={{cursor: 'not-allowed', background: '#f9fafb'}}
                   />
                   <button 
                     type="button"
-                    onClick={saveNewTag}
-                    className="p-2 rounded-lg hover:bg-green-50 transition-colors"
-                    style={{color: '#22c55e'}}
+                    onClick={detectLocation}
+                    disabled={detecting || locationDetected}
+                    className="location-btn"
+                    style={{
+                      marginTop: '1rem',
+                      width: '100%',
+                      padding: '0.75rem',
+                      background: locationDetected ? '#10b981' : 'var(--primary)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '0.5rem',
+                      cursor: detecting || locationDetected ? 'not-allowed' : 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      fontWeight: 600
+                    }}
                   >
-                    <span className="material-symbols-outlined">check</span>
-                  </button>
-                  <button 
-                    type="button"
-                    onClick={cancelNewTag}
-                    className="p-2 rounded-lg hover:bg-red-50 transition-colors"
-                    style={{color: '#ef4444'}}
-                  >
-                    <span className="material-symbols-outlined">close</span>
+                    <span className="material-symbols-outlined">
+                      {locationDetected ? 'check_circle' : 'my_location'}
+                    </span>
+                    {detecting ? 'Detecting...' : locationDetected ? 'Location Detected' : 'Detect Location'}
                   </button>
                 </div>
-              ) : (
-                <button 
-                  type="button"
-                  onClick={addTag}
-                  className="tag-add-btn"
-                >
-                  + Add Tag
-                </button>
-              )}
-            </div>
-          </div>
 
-          <div style={{padding: '0 1rem', marginBottom: '2rem'}}>
-            <button 
-              type="submit" 
-              className="submit-btn" 
-              disabled={!locationDetected}
-            >
-              <span className="material-symbols-outlined">send</span>
-              <span>Submit Report</span>
-            </button>
-            {!locationDetected && (
-              <p style={{textAlign: 'center', marginTop: '0.5rem', fontSize: '0.875rem', color: '#9ca3af'}}>
-                Please detect your location to enable submit
-              </p>
-            )}
-          </div>
-          
-            <div style={{height: '5rem'}}></div>
-          </form>
-        </div>
-        
-        {/* Right side instructions animation - desktop only */}
-        <div className="report-instructions-sidebar">
-          <div className="instructions-content">
-            <h3 style={{fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--primary)'}}>
-              How to Report
-            </h3>
-            
-            <div className="instruction-step" style={{'--delay': '0s'}}>
-              <div className="step-number">1</div>
-              <div>
-                <h4>Provide Clear Title</h4>
-                <p>Give your report a descriptive title so officials can quickly understand the issue</p>
-              </div>
-            </div>
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">image</span>
+                    Add Photo
+                  </div>
+                  <div className="image-upload-area">
+                    <span className="material-symbols-outlined">add_photo_alternate</span>
+                    <p style={{color: 'var(--text-secondary-light)', fontSize: '0.875rem'}}>
+                      <span className="font-medium">Tap to add photo</span><br/>
+                      <span style={{fontSize: '0.75rem'}}>Supports JPG, PNG (max 5MB)</span>
+                    </p>
+                  </div>
+                </div>
 
-            <div className="instruction-step" style={{'--delay': '0.2s'}}>
-              <div className="step-number">2</div>
-              <div>
-                <h4>Select Category</h4>
-                <p>Choose the category that best describes the type of incident you're reporting</p>
-              </div>
-            </div>
+                <div className="report-form-section">
+                  <div className="section-title">
+                    <span className="material-symbols-outlined text-primary">label</span>
+                    Tags
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {tags.map((tag, index) => (
+                      <Tag key={index} onRemove={() => removeTag(index)}>{tag}</Tag>
+                    ))}
+                    {addingTag ? (
+                      <div className="flex items-center gap-2" style={{width: '100%', marginTop: '0.5rem'}}>
+                        <input
+                          type="text"
+                          value={newTagValue}
+                          onChange={(e) => setNewTagValue(e.target.value)}
+                          placeholder="Enter tag name"
+                          className="form-input flex-1"
+                          style={{padding: '0.5rem', fontSize: '0.875rem'}}
+                          autoFocus
+                          onKeyPress={(e) => e.key === 'Enter' && saveNewTag()}
+                        />
+                        <button 
+                          type="button"
+                          onClick={saveNewTag}
+                          className="p-2 rounded-lg hover:bg-green-50 transition-colors"
+                          style={{color: '#22c55e'}}
+                        >
+                          <span className="material-symbols-outlined">check</span>
+                        </button>
+                        <button 
+                          type="button"
+                          onClick={cancelNewTag}
+                          className="p-2 rounded-lg hover:bg-red-50 transition-colors"
+                          style={{color: '#ef4444'}}
+                        >
+                          <span className="material-symbols-outlined">close</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <button 
+                        type="button"
+                        onClick={addTag}
+                        className="tag-add-btn"
+                      >
+                        + Add Tag
+                      </button>
+                    )}
+                  </div>
+                </div>
 
-            <div className="instruction-step" style={{'--delay': '0.4s'}}>
-              <div className="step-number">3</div>
-              <div>
-                <h4>Describe the Issue</h4>
-                <p>Provide detailed information about what happened, when, and any safety concerns</p>
-              </div>
-            </div>
-
-            <div className="instruction-step" style={{'--delay': '0.6s'}}>
-              <div className="step-number">4</div>
-              <div>
-                <h4>Share Your Location</h4>
-                <p>Accurate location helps authorities respond quickly to your report</p>
-              </div>
-            </div>
-
-            <div className="instruction-step" style={{'--delay': '0.8s'}}>
-              <div className="step-number">5</div>
-              <div>
-                <h4>Add Photo Evidence</h4>
-                <p>Visual proof helps officials understand and prioritize your concern</p>
-              </div>
-            </div>
-
-            <div className="instruction-step" style={{'--delay': '1s'}}>
-              <div className="step-number">6</div>
-              <div>
-                <h4>Submit & Track</h4>
-                <p>After submitting, track your report's progress in "My Reports" section</p>
-              </div>
+                <div style={{paddingBottom: '2rem', paddingTop: '1rem'}}>
+                  <button 
+                    type="submit" 
+                    className="submit-btn" 
+                    disabled={!locationDetected}
+                  >
+                    <span className="material-symbols-outlined">send</span>
+                    <span>Submit Report</span>
+                  </button>
+                  {!locationDetected && (
+                    <p style={{textAlign: 'center', marginTop: '0.5rem', fontSize: '0.875rem', color: '#9ca3af'}}>
+                      Please detect your location to enable submit
+                    </p>
+                  )}
+                </div>
+              </form>
             </div>
 
-            <div className="tips-box">
-              <span className="material-symbols-outlined" style={{fontSize: '1.5rem', color: '#f59e0b'}}>tips_and_updates</span>
-              <div>
-                <h4>Pro Tip</h4>
-                <p>Reports with photos get resolved 3x faster! Add clear images showing the issue.</p>
-              </div>
+            {/* Right side - Process Visualization */}
+            <div className="report-process-column">
+              <ReportProcessVisual />
             </div>
           </div>
         </div>

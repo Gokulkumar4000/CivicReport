@@ -109,6 +109,102 @@ const Landing = () => {
       <section className="hero" id="home">
         <ParticleEffect />
         <div className="hero-bg-overlay"></div>
+        
+        {/* Floating Decorative Elements */}
+        <motion.div
+          style={{
+            position: 'absolute',
+            top: '15%',
+            left: '10%',
+            width: '60px',
+            height: '60px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(19, 127, 236, 0.2), rgba(76, 160, 247, 0.1))',
+            zIndex: 0
+          }}
+          animate={{
+            y: [0, -30, 0],
+            x: [0, 20, 0],
+            scale: [1, 1.1, 1]
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        <motion.div
+          style={{
+            position: 'absolute',
+            top: '60%',
+            left: '5%',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(15, 109, 199, 0.15), rgba(19, 127, 236, 0.05))',
+            zIndex: 0
+          }}
+          animate={{
+            y: [0, 40, 0],
+            x: [0, -15, 0],
+            scale: [1, 1.2, 1]
+          }}
+          transition={{
+            duration: 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1
+          }}
+        />
+        <motion.div
+          style={{
+            position: 'absolute',
+            top: '30%',
+            right: '15%',
+            fontSize: '48px',
+            opacity: 0.15,
+            zIndex: 0
+          }}
+          animate={{
+            y: [0, -20, 0],
+            rotate: [0, 10, -10, 0]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5
+          }}
+        >
+          <span className="material-symbols-outlined" style={{fontSize: 'inherit', color: 'var(--primary)'}}>
+            verified_user
+          </span>
+        </motion.div>
+        <motion.div
+          style={{
+            position: 'absolute',
+            bottom: '20%',
+            right: '8%',
+            fontSize: '42px',
+            opacity: 0.12,
+            zIndex: 0
+          }}
+          animate={{
+            y: [0, 25, 0],
+            rotate: [0, -15, 15, 0]
+          }}
+          transition={{
+            duration: 9,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+        >
+          <span className="material-symbols-outlined" style={{fontSize: 'inherit', color: 'var(--primary)'}}>
+            groups
+          </span>
+        </motion.div>
+        
         <motion.div 
           className="hero-content"
           initial="hidden"
@@ -367,23 +463,81 @@ const Landing = () => {
             { rank: 3, name: "Vikram Singh", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop", reports: 175, resolved: 160, badge: "🥉" },
             { rank: 4, name: "Meera Reddy", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop", reports: 142, resolved: 130, badge: "⭐" },
             { rank: 5, name: "Amit Joshi", avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop", reports: 128, resolved: 115, badge: "⭐" }
-          ].map((leader, index) => (
+          ].map((leader, index) => {
+            const isTopThree = leader.rank <= 3;
+            return (
             <motion.div 
               key={index}
               className="leader-item"
               variants={itemVariants}
-              whileHover={{ x: 10, scale: 1.02 }}
+              whileHover={{ x: 10, scale: isTopThree ? 1.05 : 1.02 }}
               transition={{ duration: 0.2 }}
+              style={isTopThree ? {
+                background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 255, 255, 0.9) 100%)',
+                borderLeft: '3px solid #FFD700',
+                position: 'relative'
+              } : {}}
             >
-              <div className="leader-rank">{leader.rank}</div>
-              <img src={leader.avatar} alt={leader.name} className="leader-avatar" />
+              <motion.div 
+                className="leader-rank"
+                animate={isTopThree ? { 
+                  scale: [1, 1.1, 1],
+                  color: ['#FFD700', '#FFA500', '#FFD700']
+                } : {}}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                style={isTopThree ? { 
+                  fontWeight: 900,
+                  fontSize: '1.5rem',
+                  filter: 'drop-shadow(0 0 8px rgba(255, 215, 0, 0.6))'
+                } : {}}
+              >
+                {leader.rank}
+              </motion.div>
+              <motion.img 
+                src={leader.avatar} 
+                alt={leader.name} 
+                className="leader-avatar"
+                style={isTopThree ? {
+                  border: '3px solid #FFD700',
+                  boxShadow: '0 0 20px rgba(255, 215, 0, 0.5)'
+                } : {}}
+                animate={isTopThree ? {
+                  boxShadow: [
+                    '0 0 20px rgba(255, 215, 0, 0.5)',
+                    '0 0 30px rgba(255, 215, 0, 0.8)',
+                    '0 0 20px rgba(255, 215, 0, 0.5)'
+                  ]
+                } : {}}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
               <div className="leader-info">
-                <div className="leader-name">{leader.name}</div>
+                <div className="leader-name" style={isTopThree ? {
+                  fontWeight: 700,
+                  background: 'linear-gradient(135deg, #111418 0%, #137fec 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                } : {}}>
+                  {leader.name}
+                </div>
                 <div className="leader-points">{leader.reports} reports • {leader.resolved} resolved</div>
               </div>
-              <div className="leader-badge">{leader.badge}</div>
+              <motion.div 
+                className="leader-badge"
+                animate={isTopThree ? {
+                  y: [0, -5, 0],
+                  rotate: [0, 10, -10, 0]
+                } : {}}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                style={isTopThree ? {
+                  filter: 'drop-shadow(0 4px 12px rgba(255, 215, 0, 0.5))'
+                } : {}}
+              >
+                {leader.badge}
+              </motion.div>
             </motion.div>
-          ))}
+          );
+          })}
         </motion.div>
       </section>
 
