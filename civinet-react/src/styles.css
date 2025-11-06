@@ -1142,7 +1142,7 @@ html {
 
   .feed-right-sidebar {
     display: block;
-    width: 340px;
+    width: 420px;
     position: sticky;
     top: 1rem;
     height: fit-content;
@@ -1507,5 +1507,220 @@ html {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Instagram-style Post */
+.instagram-post {
+  background-color: var(--surface-light);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-light);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--background-light);
+}
+
+.post-username {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--text-primary-light);
+}
+
+.post-location {
+  font-size: 0.75rem;
+  color: var(--text-secondary-light);
+}
+
+.post-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.post-content {
+  padding: 0.75rem 1rem 1rem;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.post-action-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text-primary-light);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.post-action-btn:hover {
+  transform: scale(1.1);
+}
+
+.post-action-btn .material-symbols-outlined {
+  font-size: 1.75rem;
+}
+
+.post-action-btn.active-like {
+  color: #ef4444;
+}
+
+.post-action-btn.active-like .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1;
+}
+
+.post-likes {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.post-caption {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.post-caption .font-bold {
+  margin-right: 0.25rem;
+}
+
+.post-description {
+  margin-top: 0.25rem;
+  color: var(--text-primary-light);
+}
+
+/* Mobile-only icon */
+.mobile-only-icon {
+  display: inline-flex;
+}
+
+@media (min-width: 1024px) {
+  .mobile-only-icon {
+    display: none !important;
+  }
+}
+
+/* Profile Impact Grid */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.impact-card {
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  border: 1px solid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.impact-card-blue {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-color: #bfdbfe;
+}
+
+.impact-card-green {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-color: #bbf7d0;
+}
+
+.impact-card-orange {
+  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+  border-color: #fed7aa;
+}
+
+.impact-card-purple {
+  background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+  border-color: #e9d5ff;
+}
+
+.impact-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.impact-icon-blue {
+  background: linear-gradient(135deg, var(--primary), #0c63e4);
+}
+
+.impact-icon-green {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.impact-icon-orange {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.impact-icon-purple {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+}
+
+.impact-value {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.375rem;
+  line-height: 1;
+}
+
+.impact-card-blue .impact-value {
+  color: #1e40af;
+}
+
+.impact-card-green .impact-value {
+  color: #15803d;
+}
+
+.impact-card-orange .impact-value {
+  color: #c2410c;
+}
+
+.impact-card-purple .impact-value {
+  color: #7e22ce;
+}
+
+.impact-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary-light);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 

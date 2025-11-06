@@ -114,74 +114,34 @@ const Profile = () => {
         {/* Statistics Section */}
         <section className="mb-6">
           <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text-primary-light)'}}>My Impact</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 p-5 text-center border border-blue-200 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-center mb-3">
-                <div style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '50%',
-                  background: 'var(--primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>edit_document</span>
-                </div>
+          <div className="impact-grid">
+            <div className="impact-card impact-card-blue">
+              <div className="impact-icon-wrapper impact-icon-blue">
+                <span className="material-symbols-outlined text-white" style={{fontSize: '1.75rem', fontVariationSettings: "'FILL' 1"}}>edit_document</span>
               </div>
-              <p className="text-3xl font-bold text-primary mb-1">12</p>
-              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Reports Filed</p>
+              <p className="impact-value">12</p>
+              <p className="impact-label">Reports Filed</p>
             </div>
-            <div className="rounded-xl bg-gradient-to-br from-green-50 to-green-100 p-5 text-center border border-green-200 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-center mb-3">
-                <div style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '50%',
-                  background: '#22c55e',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>check_circle</span>
-                </div>
+            <div className="impact-card impact-card-green">
+              <div className="impact-icon-wrapper impact-icon-green">
+                <span className="material-symbols-outlined text-white" style={{fontSize: '1.75rem', fontVariationSettings: "'FILL' 1"}}>check_circle</span>
               </div>
-              <p className="text-3xl font-bold text-green-600 mb-1">8</p>
-              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Issues Resolved</p>
+              <p className="impact-value">8</p>
+              <p className="impact-label">Issues Resolved</p>
             </div>
-            <div className="rounded-xl bg-gradient-to-br from-orange-50 to-orange-100 p-5 text-center border border-orange-200 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-center mb-3">
-                <div style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '50%',
-                  background: '#f97316',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>stars</span>
-                </div>
+            <div className="impact-card impact-card-orange">
+              <div className="impact-icon-wrapper impact-icon-orange">
+                <span className="material-symbols-outlined text-white" style={{fontSize: '1.75rem', fontVariationSettings: "'FILL' 1"}}>stars</span>
               </div>
-              <p className="text-3xl font-bold text-orange-500 mb-1">245</p>
-              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Points Earned</p>
+              <p className="impact-value">245</p>
+              <p className="impact-label">Points Earned</p>
             </div>
-            <div className="rounded-xl bg-gradient-to-br from-purple-50 to-purple-100 p-5 text-center border border-purple-200 shadow-sm hover:shadow-md transition-all">
-              <div className="flex items-center justify-center mb-3">
-                <div style={{
-                  width: '60px',
-                  height: '60px',
-                  borderRadius: '50%',
-                  background: '#9333ea',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span className="material-symbols-outlined text-white" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>workspace_premium</span>
-                </div>
+            <div className="impact-card impact-card-purple">
+              <div className="impact-icon-wrapper impact-icon-purple">
+                <span className="material-symbols-outlined text-white" style={{fontSize: '1.75rem', fontVariationSettings: "'FILL' 1"}}>workspace_premium</span>
               </div>
-              <p className="text-3xl font-bold text-purple-600 mb-1">#15</p>
-              <p className="text-sm font-medium" style={{color: 'var(--text-secondary-light)'}}>Ranking</p>
+              <p className="impact-value">#15</p>
+              <p className="impact-label">Ranking</p>
             </div>
           </div>
         </section>

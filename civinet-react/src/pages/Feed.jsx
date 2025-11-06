@@ -144,6 +144,12 @@ const Feed = () => {
                   <h1 className="text-lg font-bold">{userLocation}</h1>
                 </div>
                 <div className="flex items-center gap-2">
+                  <button 
+                    className="p-2 mobile-only-icon" 
+                    onClick={() => navigate('/leaderboard')}
+                  >
+                    <span className="material-symbols-outlined text-secondary text-2xl">leaderboard</span>
+                  </button>
                   <button className="p-2" onClick={() => showNotification('No new notifications', 'info')}>
                     <span className="material-symbols-outlined text-secondary text-2xl">notifications</span>
                   </button>
@@ -189,36 +195,51 @@ const Feed = () => {
               </button>
             </div>
             {reports.slice(0, 3).map((report) => (
-              <div key={report.id} className="card mb-4">
-                <div className="flex gap-3">
-                  <img 
-                    src={report.image} 
-                    alt={report.title}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                      objectFit: 'cover',
-                      borderRadius: '8px',
-                      flexShrink: 0
-                    }}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm mb-1">{report.title}</p>
-                    <p className="text-xs text-secondary mb-2">{report.location}</p>
-                    <p className="text-xs text-secondary line-clamp-2">{report.description}</p>
-                    <div className="flex items-center gap-3 mt-2">
-                      <button 
-                        className={`action-btn flex items-center gap-1 ${likedPosts.has(report.id) ? 'active-like' : ''}`}
-                        onClick={() => handleLike(report.id)}
-                        style={{fontSize: '0.75rem', padding: '0.25rem 0.5rem'}}
-                      >
-                        <span className="material-symbols-outlined" style={{fontSize: '1rem'}}>{likedPosts.has(report.id) ? 'thumb_up' : 'thumb_up'}</span>
-                        <span>{likeCounts[report.id] || 0}</span>
-                      </button>
-                      <span className={`status-badge status-${report.status}`} style={{fontSize: '0.7rem', padding: '0.15rem 0.5rem'}}>
-                        {report.status}
-                      </span>
+              <div key={report.id} className="instagram-post">
+                <div className="post-header">
+                  <div className="flex items-center gap-2">
+                    <div className="post-avatar">
+                      <span className="material-symbols-outlined" style={{fontSize: '1.5rem', color: 'var(--primary)'}}>account_circle</span>
                     </div>
+                    <div>
+                      <p className="post-username">Community Reporter</p>
+                      <p className="post-location">{report.location}</p>
+                    </div>
+                  </div>
+                  <span className={`status-badge status-${report.status}`}>
+                    {report.status}
+                  </span>
+                </div>
+                
+                <img 
+                  src={report.image} 
+                  alt={report.title}
+                  className="post-image"
+                />
+                
+                <div className="post-content">
+                  <div className="post-actions">
+                    <button 
+                      className={`post-action-btn ${likedPosts.has(report.id) ? 'active-like' : ''}`}
+                      onClick={() => handleLike(report.id)}
+                    >
+                      <span className="material-symbols-outlined">{likedPosts.has(report.id) ? 'favorite' : 'favorite_border'}</span>
+                    </button>
+                    <button className="post-action-btn">
+                      <span className="material-symbols-outlined">mode_comment</span>
+                    </button>
+                    <button className="post-action-btn">
+                      <span className="material-symbols-outlined">share</span>
+                    </button>
+                  </div>
+                  
+                  <div className="post-likes">
+                    <span className="font-bold">{likeCounts[report.id] || 0} likes</span>
+                  </div>
+                  
+                  <div className="post-caption">
+                    <span className="font-bold">{report.title}</span>
+                    <p className="post-description">{report.description}</p>
                   </div>
                 </div>
               </div>
