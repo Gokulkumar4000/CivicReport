@@ -4,6 +4,7 @@ import { Button, Input, Tag } from '../components/ui';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
 import Notification from '../components/Notification';
+import ReportProcessVisual from '../components/ReportProcessVisual';
 import { useSidebar } from '../contexts/SidebarContext';
 import { useNotification } from '../hooks/useNotification';
 
@@ -160,6 +161,10 @@ const ReportIncident = () => {
               <p style={{fontSize: '0.875rem', opacity: 0.9, marginTop: '0.25rem'}}>Help make your community safer</p>
             </div>
           </header>
+
+          <div style={{padding: '0 1rem'}}>
+            <ReportProcessVisual />
+          </div>
 
           <form onSubmit={handleSubmit} style={{paddingBottom: '2rem', maxWidth: '900px', margin: '0 auto'}}>
             <div className="report-form-section">
