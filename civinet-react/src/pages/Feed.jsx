@@ -159,32 +159,6 @@ const Feed = () => {
           </header>
 
           <main className="p-4 space-y-4" style={{paddingBottom: '6rem'}}>
-            <div className="grid grid-cols-2 gap-4 mb-6 mobile-only">
-              <div 
-                onClick={() => navigate('/leaderboard')}
-                className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-xl cursor-pointer hover:shadow-md transition-all"
-                style={{animation: 'fadeIn 0.5s ease-out'}}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-primary">leaderboard</span>
-                  <h3 className="font-bold text-sm">Leaderboard</h3>
-                </div>
-                <p className="text-xs text-secondary">View top contributors</p>
-              </div>
-              
-              <div 
-                onClick={() => navigate('/all-reports')}
-                className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-xl cursor-pointer hover:shadow-md transition-all"
-                style={{animation: 'fadeIn 0.5s ease-out 0.1s backwards'}}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="material-symbols-outlined text-green-600">edit_document</span>
-                  <h3 className="font-bold text-sm">My Reports</h3>
-                </div>
-                <p className="text-xs text-secondary">Track your reports</p>
-              </div>
-            </div>
-
             <div className="flex items-center justify-between mb-3">
               <h2 className="font-bold text-lg">Recent Reports</h2>
               <button 

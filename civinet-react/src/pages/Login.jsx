@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SuccessModal from '../components/SuccessModal';
 import './Auth.css';
 
 const Login = () => {
   const [emailPhone, setEmailPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [showOtp, setShowOtp] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const navigate = useNavigate();
 
   const handleSendOtp = () => {
@@ -15,6 +17,11 @@ const Login = () => {
   };
 
   const handleVerifyOtp = () => {
+    setShowSuccessModal(true);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
     navigate('/feed');
   };
 
@@ -106,6 +113,14 @@ const Login = () => {
           </div>
         </div>
       </div>
+
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleCloseSuccessModal}
+        title="Welcome Back!"
+        message="You've successfully signed in. Let's continue making an impact in your community."
+        buttonText="Go to Feed"
+      />
     </div>
   );
 };

@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SuccessModal from '../components/SuccessModal';
 import './Auth.css';
 
 const CreateAccount = () => {
   const [step, setStep] = useState(1);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,8 +25,13 @@ const CreateAccount = () => {
     if (step === 1) {
       setStep(2);
     } else {
-      navigate('/account-created');
+      setShowSuccessModal(true);
     }
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    navigate('/feed');
   };
 
   const handleBack = () => {
@@ -159,6 +166,14 @@ const CreateAccount = () => {
           </div>
         </div>
       </div>
+
+      <SuccessModal
+        isOpen={showSuccessModal}
+        onClose={handleCloseSuccessModal}
+        title="Account Created Successfully!"
+        message="Welcome to CIVINET! Your account has been created and verified. Start reporting issues and making a difference in your community."
+        buttonText="Get Started"
+      />
     </div>
   );
 };

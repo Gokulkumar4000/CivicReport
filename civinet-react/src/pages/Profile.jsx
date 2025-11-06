@@ -148,61 +148,97 @@ const Profile = () => {
 
         {/* Achievements Section */}
         <section className="mb-6">
-          <h3 className="text-lg font-bold mb-3">Achievements</h3>
-          <div className="rounded-lg bg-white p-4 space-y-3">
-            <div className="flex items-center gap-3 p-2 rounded-lg bg-yellow-50">
-              <span className="material-symbols-outlined text-yellow-600" style={{fontSize: '2.5rem', fontVariationSettings: "'FILL' 1"}}>
-                emoji_events
-              </span>
-              <div className="flex-1">
-                <p className="font-bold text-sm">First Reporter</p>
-                <p className="text-xs text-secondary">Filed your first civic report</p>
+          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text-primary-light)'}}>Achievements</h3>
+          <div className="rounded-xl bg-white p-4 space-y-3 shadow-sm border border-gray-100">
+            <div className="achievement-item">
+              <div className="achievement-icon achievement-icon-gold">
+                <span className="material-symbols-outlined" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>
+                  emoji_events
+                </span>
               </div>
+              <div className="flex-1">
+                <p className="font-bold">First Reporter</p>
+                <p className="text-xs text-secondary mt-1">Filed your first civic report</p>
+                <div className="achievement-progress mt-2">
+                  <div className="achievement-progress-bar achievement-progress-complete"></div>
+                </div>
+              </div>
+              <span className="achievement-badge">🏆</span>
             </div>
-            <div className="flex items-center gap-3 p-2 rounded-lg bg-blue-50">
-              <span className="material-symbols-outlined text-blue-600" style={{fontSize: '2.5rem', fontVariationSettings: "'FILL' 1"}}>
-                verified
-              </span>
-              <div className="flex-1">
-                <p className="font-bold text-sm">Problem Solver</p>
-                <p className="text-xs text-secondary">Helped resolve 5 community issues</p>
+            <div className="achievement-item">
+              <div className="achievement-icon achievement-icon-blue">
+                <span className="material-symbols-outlined" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>
+                  verified
+                </span>
               </div>
+              <div className="flex-1">
+                <p className="font-bold">Problem Solver</p>
+                <p className="text-xs text-secondary mt-1">Helped resolve 5 community issues</p>
+                <div className="achievement-progress mt-2">
+                  <div className="achievement-progress-bar achievement-progress-complete"></div>
+                </div>
+              </div>
+              <span className="achievement-badge">✓</span>
             </div>
-            <div className="flex items-center gap-3 p-2 rounded-lg bg-green-50">
-              <span className="material-symbols-outlined text-green-600" style={{fontSize: '2.5rem', fontVariationSettings: "'FILL' 1"}}>
-                local_fire_department
-              </span>
-              <div className="flex-1">
-                <p className="font-bold text-sm">Weekly Streak</p>
-                <p className="text-xs text-secondary">Active 7 days in a row</p>
+            <div className="achievement-item">
+              <div className="achievement-icon achievement-icon-red">
+                <span className="material-symbols-outlined" style={{fontSize: '2rem', fontVariationSettings: "'FILL' 1"}}>
+                  local_fire_department
+                </span>
               </div>
+              <div className="flex-1">
+                <p className="font-bold">Weekly Streak</p>
+                <p className="text-xs text-secondary mt-1">Active 7 days in a row</p>
+                <div className="achievement-progress mt-2">
+                  <div className="achievement-progress-bar achievement-progress-complete"></div>
+                </div>
+              </div>
+              <span className="achievement-badge">🔥</span>
             </div>
           </div>
         </section>
 
         {/* Recent Activity */}
         <section className="mb-6">
-          <h3 className="text-lg font-bold mb-3">Recent Activity</h3>
-          <div className="rounded-lg bg-white p-4 space-y-3">
-            <div className="flex items-start gap-3 pb-3 border-b border-gray">
-              <span className="material-symbols-outlined text-green-600">check_circle</span>
+          <h3 className="text-lg font-bold mb-4" style={{color: 'var(--text-primary-light)'}}>Recent Activity</h3>
+          <div className="rounded-xl bg-white p-4 space-y-3 shadow-sm border border-gray-100">
+            <div className="activity-timeline-item">
+              <div className="activity-icon-wrapper activity-icon-success">
+                <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+              </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">Your report was resolved</p>
-                <p className="text-xs text-secondary">Pothole on Main Street - 2 days ago</p>
+                <p className="font-semibold text-sm">Your report was resolved</p>
+                <p className="text-xs text-secondary mt-1">Pothole on Main Street</p>
+                <div className="activity-time">
+                  <span className="material-symbols-outlined">schedule</span>
+                  <span>2 days ago</span>
+                </div>
               </div>
             </div>
-            <div className="flex items-start gap-3 pb-3 border-b border-gray">
-              <span className="material-symbols-outlined text-blue-600">edit_document</span>
+            <div className="activity-timeline-item">
+              <div className="activity-icon-wrapper activity-icon-info">
+                <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>edit_document</span>
+              </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">New report filed</p>
-                <p className="text-xs text-secondary">Street light outage - 5 days ago</p>
+                <p className="font-semibold text-sm">New report filed</p>
+                <p className="text-xs text-secondary mt-1">Street light outage</p>
+                <div className="activity-time">
+                  <span className="material-symbols-outlined">schedule</span>
+                  <span>5 days ago</span>
+                </div>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="material-symbols-outlined text-orange-500">stars</span>
+            <div className="activity-timeline-item activity-timeline-item-last">
+              <div className="activity-icon-wrapper activity-icon-warning">
+                <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>stars</span>
+              </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">Earned 50 points</p>
-                <p className="text-xs text-secondary">Report helped 23 people - 1 week ago</p>
+                <p className="font-semibold text-sm">Earned 50 points</p>
+                <p className="text-xs text-secondary mt-1">Report helped 23 people</p>
+                <div className="activity-time">
+                  <span className="material-symbols-outlined">schedule</span>
+                  <span>1 week ago</span>
+                </div>
               </div>
             </div>
           </div>
