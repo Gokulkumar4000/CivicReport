@@ -3,6 +3,7 @@ import { useLeaderboard } from '../hooks/useLeaderboard';
 import BottomNav from '../components/BottomNav';
 import Sidebar from '../components/Sidebar';
 import { useSidebar } from '../contexts/SidebarContext';
+import './Leaderboard.css';
 
 const Leaderboard = () => {
   const { isOpen } = useSidebar();
@@ -48,22 +49,34 @@ const Leaderboard = () => {
         </nav>
       </div>
 
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto" style={{paddingBottom: '6rem'}}>
         {leaderboard.map((entry, index) => {
           const badges = ['🥇', '🥈', '🥉'];
+          const isTopThree = entry.rank <= 3;
           return (
-            <div key={entry.rank} className="leaderboard-item">
-              <span className={`rank-number ${entry.rank <= 3 ? 'top-3' : ''}`}>{entry.rank}</span>
-              {entry.rank <= 3 && <span className="leader-badge">{badges[entry.rank - 1]}</span>}
-              <img 
-                src={entry.profileVisible ? entry.avatar : 'https://cdn.usegalileo.ai/sdxl10/d5e91f19-c2dd-4e44-a3a6-49e2d61af265.png'} 
-                alt={`${entry.name}'s profile picture`}
-                className="leaderboard-avatar"
-              />
+            <div key={entry.rank} className={`leaderboard-item ${isTopThree ? 'leaderboard-item-top' : ''}`}>
+              <div className={`rank-number ${isTopThree ? 'top-3' : ''}`}>
+                {entry.rank}
+                {isTopThree && <div className="rank-glow"></div>}
+              </div>
+              {isTopThree && (
+                <div className="leader-badge-container">
+                  <span className="leader-badge">{badges[entry.rank - 1]}</span>
+                  <div className="badge-shine"></div>
+                </div>
+              )}
+              <div className={`avatar-container ${isTopThree ? 'avatar-top' : ''}`}>
+                <img 
+                  src={entry.profileVisible ? entry.avatar : 'https://cdn.usegalileo.ai/sdxl10/d5e91f19-c2dd-4e44-a3a6-49e2d61af265.png'} 
+                  alt={`${entry.name}'s profile picture`}
+                  className="leaderboard-avatar"
+                />
+                {isTopThree && <div className="avatar-glow"></div>}
+              </div>
               <div className="leader-content">
-                <p>{entry.profileVisible ? entry.name : 'Anonymous User'}</p>
+                <p className={isTopThree ? 'leader-name-top' : ''}>{entry.profileVisible ? entry.name : 'Anonymous User'}</p>
                 <div className="leader-stats">
-                  <span>{entry.points} pts</span>
+                  <span className={isTopThree ? 'stat-highlight' : ''}>{entry.points} pts</span>
                   <span>•</span>
                   <span>{entry.reportsSubmitted} reports</span>
                 </div>
