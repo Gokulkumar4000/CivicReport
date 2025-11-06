@@ -61,9 +61,9 @@
   /* Z-index layers */
   --z-dropdown: 100;
   --z-sticky: 500;
-  --z-modal: 1000;
-  --z-toast: 2000;
-  --z-cursor: 9999;
+  --z-cursor: 9998;
+  --z-modal: 10000;
+  --z-toast: 10001;
 }
 
 /* Base Styles */

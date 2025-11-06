@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import './Landing.css';
 
