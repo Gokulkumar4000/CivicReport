@@ -106,8 +106,105 @@ const Profile = () => {
           />
           <div className="text-center">
             <h2 className="text-2xl font-bold">{profileData.name}</h2>
-            <p className="text-secondary">View profile</p>
+            <p className="text-secondary">Community Contributor</p>
             <p className="text-sm text-secondary">Joined {profileData.joinedYear}</p>
+          </div>
+        </section>
+
+        {/* Statistics Section */}
+        <section className="mb-6">
+          <h3 className="text-lg font-bold mb-3">My Impact</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-lg bg-white p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <span className="material-symbols-outlined text-primary" style={{fontSize: '2rem'}}>edit_document</span>
+              </div>
+              <p className="text-2xl font-bold text-primary">12</p>
+              <p className="text-xs text-secondary">Reports Filed</p>
+            </div>
+            <div className="rounded-lg bg-white p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <span className="material-symbols-outlined text-green-600" style={{fontSize: '2rem'}}>check_circle</span>
+              </div>
+              <p className="text-2xl font-bold text-green-600">8</p>
+              <p className="text-xs text-secondary">Issues Resolved</p>
+            </div>
+            <div className="rounded-lg bg-white p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <span className="material-symbols-outlined text-orange-500" style={{fontSize: '2rem'}}>stars</span>
+              </div>
+              <p className="text-2xl font-bold text-orange-500">245</p>
+              <p className="text-xs text-secondary">Points Earned</p>
+            </div>
+            <div className="rounded-lg bg-white p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <span className="material-symbols-outlined text-purple-600" style={{fontSize: '2rem'}}>workspace_premium</span>
+              </div>
+              <p className="text-2xl font-bold text-purple-600">#15</p>
+              <p className="text-xs text-secondary">Ranking</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Achievements Section */}
+        <section className="mb-6">
+          <h3 className="text-lg font-bold mb-3">Achievements</h3>
+          <div className="rounded-lg bg-white p-4 space-y-3">
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-yellow-50">
+              <span className="material-symbols-outlined text-yellow-600" style={{fontSize: '2.5rem', fontVariationSettings: "'FILL' 1"}}>
+                emoji_events
+              </span>
+              <div className="flex-1">
+                <p className="font-bold text-sm">First Reporter</p>
+                <p className="text-xs text-secondary">Filed your first civic report</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-blue-50">
+              <span className="material-symbols-outlined text-blue-600" style={{fontSize: '2.5rem', fontVariationSettings: "'FILL' 1"}}>
+                verified
+              </span>
+              <div className="flex-1">
+                <p className="font-bold text-sm">Problem Solver</p>
+                <p className="text-xs text-secondary">Helped resolve 5 community issues</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-green-50">
+              <span className="material-symbols-outlined text-green-600" style={{fontSize: '2.5rem', fontVariationSettings: "'FILL' 1"}}>
+                local_fire_department
+              </span>
+              <div className="flex-1">
+                <p className="font-bold text-sm">Weekly Streak</p>
+                <p className="text-xs text-secondary">Active 7 days in a row</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Recent Activity */}
+        <section className="mb-6">
+          <h3 className="text-lg font-bold mb-3">Recent Activity</h3>
+          <div className="rounded-lg bg-white p-4 space-y-3">
+            <div className="flex items-start gap-3 pb-3 border-b border-gray">
+              <span className="material-symbols-outlined text-green-600">check_circle</span>
+              <div className="flex-1">
+                <p className="text-sm font-medium">Your report was resolved</p>
+                <p className="text-xs text-secondary">Pothole on Main Street - 2 days ago</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 pb-3 border-b border-gray">
+              <span className="material-symbols-outlined text-blue-600">edit_document</span>
+              <div className="flex-1">
+                <p className="text-sm font-medium">New report filed</p>
+                <p className="text-xs text-secondary">Street light outage - 5 days ago</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <span className="material-symbols-outlined text-orange-500">stars</span>
+              <div className="flex-1">
+                <p className="text-sm font-medium">Earned 50 points</p>
+                <p className="text-xs text-secondary">Report helped 23 people - 1 week ago</p>
+              </div>
+            </div>
           </div>
         </section>
 

@@ -34,8 +34,8 @@ const DeleteConfirmationModal = ({ reportTitle, onConfirm, onCancel, onFileCompl
 
   if (showComplaintForm) {
     return (
-      <div className="modal-overlay">
-        <div className="delete-modal">
+      <div className="modal-overlay" onClick={(e) => e.target.className === 'modal-overlay' && onCancel()}>
+        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
           <div className="modal-header">
             <span className="material-symbols-outlined" style={{color: '#ef4444', fontSize: '2.5rem'}}>
               report
@@ -97,8 +97,8 @@ const DeleteConfirmationModal = ({ reportTitle, onConfirm, onCancel, onFileCompl
   }
 
   return (
-    <div className="modal-overlay">
-      <div className="delete-modal">
+    <div className="modal-overlay" onClick={(e) => e.target.className === 'modal-overlay' && onCancel()}>
+      <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <span className="material-symbols-outlined" style={{color: '#ef4444', fontSize: '2.5rem'}}>
             delete_forever

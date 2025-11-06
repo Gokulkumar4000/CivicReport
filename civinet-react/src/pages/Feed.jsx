@@ -179,54 +179,46 @@ const Feed = () => {
               </div>
             </div>
 
-            <h2 className="font-bold text-lg mb-3">Recent Reports</h2>
-            {reports.slice(0, 5).map((report) => (
-              <div key={report.id} className="card">
-                <div className="card-header flex items-center gap-3">
-                  <div 
+            <div className="flex items-center justify-between mb-3">
+              <h2 className="font-bold text-lg">Recent Reports</h2>
+              <button 
+                onClick={() => navigate('/all-reports')}
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                View All
+              </button>
+            </div>
+            {reports.slice(0, 3).map((report) => (
+              <div key={report.id} className="card mb-4">
+                <div className="flex gap-3">
+                  <img 
+                    src={report.image} 
+                    alt={report.title}
                     style={{
-                      width: '3rem',
-                      height: '3rem',
-                      borderRadius: '50%',
-                      background: '#e3e8ee'
+                      width: '100px',
+                      height: '100px',
+                      objectFit: 'cover',
+                      borderRadius: '8px',
+                      flexShrink: 0
                     }}
                   />
-                  <div className="flex-1">
-                    <p className="font-bold">{report.title}</p>
-                    <p className="text-sm text-secondary">{report.location}</p>
-                  </div>
-                </div>
-                <img 
-                  src={report.image} 
-                  alt={report.title}
-                  style={{width: '100%', height: '300px', objectFit: 'cover'}}
-                />
-                <div className="card-body">
-                  <p className="text-sm">{report.description}</p>
-                  <div className="flex items-center justify-between mt-3">
-                    <div className="flex items-center gap-4">
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-sm mb-1">{report.title}</p>
+                    <p className="text-xs text-secondary mb-2">{report.location}</p>
+                    <p className="text-xs text-secondary line-clamp-2">{report.description}</p>
+                    <div className="flex items-center gap-3 mt-2">
                       <button 
                         className={`action-btn flex items-center gap-1 ${likedPosts.has(report.id) ? 'active-like' : ''}`}
                         onClick={() => handleLike(report.id)}
+                        style={{fontSize: '0.75rem', padding: '0.25rem 0.5rem'}}
                       >
-                        <span className="material-symbols-outlined">{likedPosts.has(report.id) ? 'thumb_up' : 'thumb_up'}</span>
+                        <span className="material-symbols-outlined" style={{fontSize: '1rem'}}>{likedPosts.has(report.id) ? 'thumb_up' : 'thumb_up'}</span>
                         <span>{likeCounts[report.id] || 0}</span>
                       </button>
-                      <button 
-                        className={`action-btn flex items-center gap-1 ${dislikedPosts.has(report.id) ? 'active-dislike' : ''}`}
-                        onClick={() => handleDislike(report.id)}
-                      >
-                        <span className="material-symbols-outlined">{dislikedPosts.has(report.id) ? 'thumb_down' : 'thumb_down'}</span>
-                        <span>{dislikeCounts[report.id] || 0}</span>
-                      </button>
-                      <button className="action-btn flex items-center gap-1">
-                        <span className="material-symbols-outlined">comment</span>
-                        <span>Comment</span>
-                      </button>
+                      <span className={`status-badge status-${report.status}`} style={{fontSize: '0.7rem', padding: '0.15rem 0.5rem'}}>
+                        {report.status}
+                      </span>
                     </div>
-                    <button className="action-btn">
-                      <span className="material-symbols-outlined">bookmark</span>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -247,7 +239,7 @@ const Feed = () => {
               </h3>
             </div>
             <div className="widget-content">
-              {leaderboardData.map((user) => (
+              {leaderboardData.slice(0, 5).map((user) => (
                 <div key={user.rank} className="leaderboard-mini-item">
                   <div className="rank-badge">{user.rank}</div>
                   <img src={user.avatar} alt={user.name} className="mini-avatar" />
@@ -257,6 +249,26 @@ const Feed = () => {
                   </div>
                 </div>
               ))}
+              <button 
+                onClick={() => navigate('/leaderboard')}
+                className="view-more-btn"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  marginTop: '1rem',
+                  background: 'var(--primary)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
+              >
+                View Leaderboard
+              </button>
             </div>
           </div>
 
@@ -287,6 +299,26 @@ const Feed = () => {
                   <div className="stat-label">Success Rate</div>
                 </div>
               </div>
+              <button 
+                onClick={() => navigate('/all-reports')}
+                className="view-more-btn"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  marginTop: '1rem',
+                  background: '#22c55e',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => e.target.style.transform = 'translateY(-2px)'}
+                onMouseLeave={(e) => e.target.style.transform = 'translateY(0)'}
+              >
+                View Complete Report Status
+              </button>
             </div>
           </div>
 
@@ -295,11 +327,11 @@ const Feed = () => {
             <div className="widget-header">
               <h3 className="widget-title">
                 <span className="material-symbols-outlined">history</span>
-                Recent Reports
+                Recent Activity
               </h3>
             </div>
             <div className="widget-content">
-              {reports.map((report) => (
+              {reports.slice(0, 4).map((report) => (
                 <div 
                   key={report.id} 
                   className="activity-item" 

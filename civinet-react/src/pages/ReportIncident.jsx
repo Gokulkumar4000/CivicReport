@@ -12,8 +12,11 @@ const ReportIncident = () => {
   const { isOpen } = useSidebar();
   const { notifications, showNotification, removeNotification } = useNotification();
   const [formData, setFormData] = useState({
+    title: '',
     description: '',
+    reason: '',
     location: '',
+    category: '',
     image: null
   });
   const [tags, setTags] = useState(['Pothole', 'Urgent']);
@@ -149,30 +152,82 @@ const ReportIncident = () => {
   return (
     <>
       <Sidebar />
-      <div className={`flex flex-col justify-between has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
-      <div className="flex-grow overflow-y-auto">
-        <header className="report-header">
-          <div className="text-center" style={{paddingTop: '1rem'}}>
-            <h1 className="text-2xl font-bold">Report Incident</h1>
-            <p style={{fontSize: '0.875rem', opacity: 0.9, marginTop: '0.25rem'}}>Help make your community safer</p>
-          </div>
-        </header>
-
-        <form onSubmit={handleSubmit} style={{paddingBottom: '2rem'}}>
-          <div className="report-form-section">
-            <div className="section-title">
-              <span className="material-symbols-outlined text-primary">description</span>
-              Incident Description
+      <div className={`flex has-bottom-nav main-content-with-sidebar ${!isOpen ? 'sidebar-collapsed' : ''}`} style={{minHeight: '100vh'}}>
+        <div className="flex-grow overflow-y-auto report-form-container">
+          <header className="report-header">
+            <div className="text-center" style={{paddingTop: '1rem'}}>
+              <h1 className="text-2xl font-bold">Report Incident</h1>
+              <p style={{fontSize: '0.875rem', opacity: 0.9, marginTop: '0.25rem'}}>Help make your community safer</p>
             </div>
-            <textarea
-              className="form-textarea w-full"
-              value={formData.description}
-              onChange={(e) => setFormData({...formData, description: e.target.value})}
-              placeholder="Describe what happened in detail..."
-              rows={5}
-              required
-            />
-          </div>
+          </header>
+
+          <form onSubmit={handleSubmit} style={{paddingBottom: '2rem', maxWidth: '900px', margin: '0 auto'}}>
+            <div className="report-form-section">
+              <div className="section-title">
+                <span className="material-symbols-outlined text-primary">title</span>
+                Report Title *
+              </div>
+              <input
+                type="text"
+                className="form-input"
+                value={formData.title}
+                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                placeholder="Brief title for your report (e.g., 'Broken Street Light on Main St')"
+                required
+              />
+            </div>
+
+            <div className="report-form-section">
+              <div className="section-title">
+                <span className="material-symbols-outlined text-primary">category</span>
+                Category *
+              </div>
+              <select
+                className="form-input"
+                value={formData.category}
+                onChange={(e) => setFormData({...formData, category: e.target.value})}
+                required
+                style={{cursor: 'pointer'}}
+              >
+                <option value="">Select a category</option>
+                <option value="road">Road & Infrastructure</option>
+                <option value="lighting">Street Lighting</option>
+                <option value="waste">Waste Management</option>
+                <option value="water">Water & Drainage</option>
+                <option value="safety">Public Safety</option>
+                <option value="park">Parks & Recreation</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div className="report-form-section">
+              <div className="section-title">
+                <span className="material-symbols-outlined text-primary">description</span>
+                Incident Description *
+              </div>
+              <textarea
+                className="form-textarea w-full"
+                value={formData.description}
+                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                placeholder="Describe what happened in detail..."
+                rows={5}
+                required
+              />
+            </div>
+
+            <div className="report-form-section">
+              <div className="section-title">
+                <span className="material-symbols-outlined text-primary">notes</span>
+                Reason for Reporting (Optional)
+              </div>
+              <textarea
+                className="form-textarea w-full"
+                value={formData.reason}
+                onChange={(e) => setFormData({...formData, reason: e.target.value})}
+                placeholder="Why is this important to you? How does it affect your community?"
+                rows={3}
+              />
+            </div>
 
           <div className="report-form-section">
             <div className="section-title">
@@ -294,11 +349,76 @@ const ReportIncident = () => {
             )}
           </div>
           
-          <div style={{height: '5rem'}}></div>
-        </form>
-      </div>
-      
-      <BottomNav />
+            <div style={{height: '5rem'}}></div>
+          </form>
+        </div>
+        
+        {/* Right side instructions animation - desktop only */}
+        <div className="report-instructions-sidebar">
+          <div className="instructions-content">
+            <h3 style={{fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--primary)'}}>
+              How to Report
+            </h3>
+            
+            <div className="instruction-step" style={{'--delay': '0s'}}>
+              <div className="step-number">1</div>
+              <div>
+                <h4>Provide Clear Title</h4>
+                <p>Give your report a descriptive title so officials can quickly understand the issue</p>
+              </div>
+            </div>
+
+            <div className="instruction-step" style={{'--delay': '0.2s'}}>
+              <div className="step-number">2</div>
+              <div>
+                <h4>Select Category</h4>
+                <p>Choose the category that best describes the type of incident you're reporting</p>
+              </div>
+            </div>
+
+            <div className="instruction-step" style={{'--delay': '0.4s'}}>
+              <div className="step-number">3</div>
+              <div>
+                <h4>Describe the Issue</h4>
+                <p>Provide detailed information about what happened, when, and any safety concerns</p>
+              </div>
+            </div>
+
+            <div className="instruction-step" style={{'--delay': '0.6s'}}>
+              <div className="step-number">4</div>
+              <div>
+                <h4>Share Your Location</h4>
+                <p>Accurate location helps authorities respond quickly to your report</p>
+              </div>
+            </div>
+
+            <div className="instruction-step" style={{'--delay': '0.8s'}}>
+              <div className="step-number">5</div>
+              <div>
+                <h4>Add Photo Evidence</h4>
+                <p>Visual proof helps officials understand and prioritize your concern</p>
+              </div>
+            </div>
+
+            <div className="instruction-step" style={{'--delay': '1s'}}>
+              <div className="step-number">6</div>
+              <div>
+                <h4>Submit & Track</h4>
+                <p>After submitting, track your report's progress in "My Reports" section</p>
+              </div>
+            </div>
+
+            <div className="tips-box">
+              <span className="material-symbols-outlined" style={{fontSize: '1.5rem', color: '#f59e0b'}}>tips_and_updates</span>
+              <div>
+                <h4>Pro Tip</h4>
+                <p>Reports with photos get resolved 3x faster! Add clear images showing the issue.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <BottomNav />
       </div>
       
       {notifications.map(notification => (

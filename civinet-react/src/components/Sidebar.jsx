@@ -8,18 +8,28 @@ const Sidebar = () => {
   return (
     <aside className={`sidebar ${isOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       <div className="sidebar-header">
-        <button 
-          className="menu-button-inside" 
-          onClick={toggle} 
-          aria-label="Toggle menu"
-        >
-          <span className="material-symbols-outlined">menu</span>
-        </button>
-        {isOpen && (
+        {isOpen ? (
           <>
-            <h1 className="sidebar-logo">CIVINET</h1>
+            <div className="sidebar-header-content">
+              <h1 className="sidebar-logo">CIVINET</h1>
+              <button 
+                className="menu-button-inside" 
+                onClick={toggle} 
+                aria-label="Toggle menu"
+              >
+                <span className="material-symbols-outlined">menu</span>
+              </button>
+            </div>
             <p className="sidebar-tagline">Civic Reporting Platform</p>
           </>
+        ) : (
+          <button 
+            className="menu-button-inside menu-button-right" 
+            onClick={toggle} 
+            aria-label="Toggle menu"
+          >
+            <span className="material-symbols-outlined">menu</span>
+          </button>
         )}
       </div>
       
