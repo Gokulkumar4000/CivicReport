@@ -27,6 +27,7 @@ This is a React-based web application:
 - React 18.3
 - React Router DOM 6.28
 - Vite 7.1
+- Framer Motion (animations)
 - Custom CSS with CSS Variables
 - Google Material Symbols icons
 - Google Fonts (Public Sans)
@@ -36,7 +37,44 @@ This is a React-based web application:
 The app runs on Vite dev server on port 5000 with hot module replacement enabled.
 
 ## Recent Changes
-- **2025-11-06**: Enhanced UI/UX and Feature Additions (Latest Update)
+- **2025-11-06**: Landing Page Redesign & Critical Bug Fixes (Latest Update)
+  - **Landing Page Complete Redesign**: Professional corporate aesthetic with modern animations
+    - **Framer Motion Integration**: Smooth scroll-triggered animations and transitions
+    - **Hero Section Enhancements**:
+      - Gradient radial background with animated pulse effects
+      - Glowing hero image with blur effects and floating animation
+      - Enhanced primary button with gradient background and hover glow
+      - Staggered entrance animations for text and buttons
+    - **Glassmorphism Cards**: All feature cards use backdrop blur and semi-transparent backgrounds
+    - **Enhanced Stats Section**: 
+      - Gradient background with rotating glow overlay
+      - Animated counter with smooth number transitions
+      - Professional text shadows for depth
+    - **Professional Carousel**: Replaced basic slider with smooth Framer Motion carousel
+      - Active card scaling and opacity transitions
+      - Smooth slide animations with cubic-bezier easing
+      - Enhanced navigation dots with active state animations
+    - **Visual Effects Throughout**:
+      - Icon glow animations on feature cards
+      - Gradient text effects on section headers
+      - Pulse animations on interactive elements
+      - Step number badges with radial glow backgrounds
+      - Hover lift effects on cards and buttons
+    - **Enhanced Leaderboard**: Glassmorphism cards with smooth hover animations
+    - **CTA Section**: Animated background glow with pulsing effects
+  - **Critical Z-Index Fix**: Resolved delete button modal visibility issue
+    - Fixed custom cursor z-index (9998) to appear below modals
+    - Increased modal overlay z-index to 10000 (above cursor)
+    - Updated notification z-index to 10001 (above modals)
+    - Established proper z-index hierarchy in tokens.css
+    - Delete confirmation modal now fully visible and interactive
+  - **Performance Optimizations**:
+    - Debounced MutationObserver for cursor to prevent rapid firing
+    - WeakSet tracking to prevent duplicate event listener attachment
+    - Proper cleanup of timeouts and intervals
+    - Lightweight animations with hardware acceleration
+
+- **2025-11-06**: Enhanced UI/UX and Feature Additions
   - **Sidebar Menu Button Redesign**: Improved positioning and behavior
     - When collapsed: Menu button positioned on the right corner
     - When expanded: CIVINET logo appears in place of button, menu button moves next to logo
